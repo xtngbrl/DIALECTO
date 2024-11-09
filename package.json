@@ -1,7 +1,5 @@
 {
   "name": "dialecto",
-  "homepage": "https://neil-brian-araiz.github.io/dialecto/",
-  "private": true,
   "version": "0.0.0",
   "type": "module",
   "engines": {

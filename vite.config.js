@@ -43,8 +43,8 @@ const manifestForPlugin = {
     theme_color: "#ffffff",
     background_color: "#ffffff",
     display: "standalone",
-    scope: '/dialecto',
-    start_url: '/dialecto',
+    scope: '/',
+    start_url: '/',
     orientation: "portrait",
   }
 }

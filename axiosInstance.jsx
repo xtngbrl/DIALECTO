@@ -33,39 +33,6 @@ axiosInstance.interceptors.request.use((config) => {
 
 
 // Response interceptor to handle token expiration
-axiosInstance.interceptors.response.use((response) => {
-    return response;
-}, async (error) => {
-    const originalRequest = error.config;
-    const { logout, showSessionExpiredPopup } = useContext(AuthContext);
-    if (error.response.status === 403 && !originalRequest._retry) {
-        originalRequest._retry = true;
-        const refreshToken = getCookie('refreshToken');
-       if (!isRefreshing) {
-            isRefreshing = true;
-            
-        try {
-            const response = await axiosInstance.post('/refresh-token', {refreshToken} );
-            const { accessToken } = response.data;
 
-            document.cookie = `accessToken=${accessToken}; Path=/; `;
-            onRefresh(accessToken);
-            isRefreshing = false;
-            return axiosInstance(originalRequest);
-        } catch (refreshError) {
-            isRefreshing = false;
-            showSessionExpiredPopup();// Log out on refresh token failure
-            return Promise.reject(refreshError);
-        }
-    }
-    return new Promise((resolve) => {
-      addUser((newToken) => {
-          originalRequest.headers['Authorization'] = `Bearer ${newToken}`;
-          resolve(axiosInstance(originalRequest));
-      });
-  });
-}
-return Promise.reject(error);
-});
 
 export default axiosInstance;
