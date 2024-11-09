@@ -1,0 +1,111 @@
+.category-wrapper {
+    height: 100vh;
+    width: 100%;
+}
+
+/*** Animal Category ***/
+
+.category-slider {
+    overflow-x: auto;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 90vh;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 100%;
+    position: relative;
+    background-color: #f4e8dd;
+    
+}
+
+/* .animal {
+    background-image: url('../assets/animal.svg');
+}
+
+.food {
+    background-image: url('../assets/food.svg');
+}
+
+.household {
+    background-image: url('../assets/household.svg');
+}
+
+.basicphrases {
+    background-image: url('../assets/basicphrases.svg');
+} */
+
+.category-card-container {
+    display: inline-flex;
+    width: 450px;
+    height: 400px;
+    gap: 100px;
+    margin-right: 250px;
+    z-index: 5;
+}
+
+.category-card {
+    flex: 0 0 auto;
+    height: 100%;
+    min-height: 250px;
+    width: 100%;
+    min-width: 300px;
+    background-color: #EF8D32;
+    box-shadow: 0 15px 20px 0 rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-direction: column;
+    padding: 15px 10px;
+    overflow: hidden;
+    border-radius: 20px;
+}
+
+.ctg-img {
+    height: 80%;
+    width: 100%;
+}
+
+.ctg-img > img {
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+    filter: drop-shadow(5px 5px 7px black);
+}
+
+/* .animal-br {
+    border-radius: 70% 0% 39% 0% / 39% 0% 39% 49%;
+}
+
+.food-br {
+    border-radius: 0% 74% 0% 94% / 44% 31% 42% 30%;
+}
+
+.basicphrases-br {
+    border-radius: 82% 18% 79% 21% / 42% 55% 45% 58% ;
+} */
+
+@media (max-width: 767px) {
+    .category-slider {
+        overflow-x: hidden; 
+        overflow-y: auto;
+    }
+
+    .category-card-container {
+        flex-direction: column;
+        height: auto;
+        margin-right: 0;
+        width: 300px;
+        height: 250px;
+        gap: 50px; 
+    }
+
+    .animal, .food, .basicphrases, .household {
+        background-image: none;
+        background-color: #f4e8dd;
+    }
+}

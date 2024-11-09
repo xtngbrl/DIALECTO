@@ -1,0 +1,473 @@
+/***** Admin Header ******/
+
+.admin-header {
+    position: fixed;
+    top: 0;
+    height: 10vh;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 30px;
+    background-color: #f0a438;
+    z-index: 100;
+}
+
+.admin-logo {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 25%;
+}
+
+.admin-logo h5 {
+    font-size: 1.6em;
+    color: #ffffff;
+}
+
+.admin-logo > img {
+    height: 50px;
+    width: 50px;
+}
+
+.admin-hamburger {
+    color: #ffffff;
+    cursor: pointer;
+    font-size: 1.5em;
+}
+
+.admin-sidebar {
+    position: fixed;
+    top: 50;
+    right: -250px; 
+    width: 250px;
+    height: 300px;
+    background-color: #333;
+    color: white;
+    transition: right 0.3s ease;
+    z-index: 1000;
+}
+
+.admin-sidebar.open {
+    right: 0; 
+}
+
+.admin-sidebar ul {
+    list-style: none;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.admin-sidebar ul li {
+    margin: 13px 0;
+}
+
+.admin-sidebar ul li {
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.admin-sidebar ul li:hover {
+    text-decoration: underline;
+}
+
+.admin-home-page.sidebar-open .admin-content {
+    margin-right: 250px; 
+}
+
+/***** Admin Footer ******/
+
+.admin-footer {
+    height: 12vh;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    background-color: #f0a438;
+}
+
+.admin-footer h3 {
+    color: #ffffff;
+    font-weight: 600;
+}
+
+.footer-icon {
+    color: #ffffff;
+    font-size: 1.2em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+.footer-icon :nth-child(1) {
+    cursor: pointer;
+}
+
+.footer-icon :nth-child(2) {
+    font-size: 1.3em;
+    cursor: pointer;
+}
+
+/***** Admin Home Page ******/
+
+
+.admin-content {
+    margin-top: 10vh;
+    margin-bottom: 12vh;
+    width: 100%;
+    padding: 10px;
+}
+
+.admin-content h5 {
+    font-size: 1em;
+    font-weight: 600;
+}
+
+.admin-content h4 {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
+
+.admin-card-container {
+    height: 25vh;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.admin-cards {
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    background-color: #f4f4f4;
+    text-align: center;
+    padding: 3% 6%;
+}
+
+/* Progress Section */
+.admin-progress-form {
+    margin-bottom: 20px;
+  }
+  
+  .admin-progress-form input {
+    padding: 8px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .admin-progress-form button {
+    padding: 8px 16px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .admin-progress-form button:hover {
+    background-color: #45a049;
+  }
+  
+  #progress-container {
+    margin-top: 20px;
+  }
+  
+  .progress-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    padding: 10px;
+    background-color: #f4f4f4;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  }
+  
+  .progress-bar label {
+    font-weight: bold;
+    margin-right: 10px;
+    flex-basis: 100px; /* Fixed width for labels */
+  }
+  
+  .progress {
+    background-color: #ddd;
+    border-radius: 5px;
+    overflow: hidden;
+    height: 25px;
+    width: 100%;
+    margin-right: 10px;
+    position: relative; /* For centering text inside */
+  }
+  
+  .progress-fill {
+    background-color: #4caf50;
+    color: white;
+    text-align: center;
+    height: 100%;
+    line-height: 25px;
+    border-radius: 5px 0 0 5px;
+    position: absolute; /* Center text inside the progress bar */
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: width 0.3s ease; /* Smooth transition for progress */
+  }
+  
+  .progress-bar input[type="number"] {
+    width: 60px; /* Fixed width for percentage input */
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+
+
+/***** User Admin Page ******/
+
+.admin-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.admin-search-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 30%;
+}
+
+.admin-dropdown-btn {
+    position: relative;
+    display: inline-block;
+}
+
+.dp-btn {
+    background-color: whitesmoke; 
+    color: grey; 
+    border: solid gray 1px; 
+    padding: 5px 15px; 
+    font-size: 14px; 
+    cursor: pointer; 
+    border-radius: 4px;
+}
+
+.dp-btn span {
+    margin-right: 10px;
+}
+
+.dp-btn-content {
+    display: none; 
+    position: absolute; 
+    background-color: #f9f9f9; 
+    min-width: 120px; 
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); 
+    z-index: 1; 
+}
+
+.dp-btn-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.admin-content a:hover {
+    background-color: #f1f1f1;
+}
+
+.admin-dropdown-btn:hover .dp-btn-content {
+    display: block;
+}
+
+.admin-search-container, .admin-search-container form {
+    display: flex;
+}
+
+.admin-search-container input {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px 0 0 4px; 
+    font-size: 15px;
+    width: 180px; 
+}
+
+.admin-search-container button {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 0 4px 4px 0; 
+    background-color: #ea651e; 
+    color: white;
+    font-size: 14px;
+    cursor: pointer; 
+    border-left: none;
+}
+
+.admin-search-container button:hover {
+    background-color: #eb824a;
+}
+
+.export-btn {
+    font-size: .9em;
+    font-weight: 500;
+    padding: 8px 10px;
+    background-color: #ea651e; 
+    border: 1px solid #ccc;
+    color: white;
+    display: flex;
+    cursor: pointer;
+}
+
+.export-btn :first-child {
+    margin-right: 5px;
+    font-size: 1.1em;
+}
+
+
+/**** Admin Table ******/
+
+.table-container {
+    border: solid rgb(178, 178, 178) 1px;
+    border-radius: 10px;
+    padding: 5px;
+    margin-top: 10px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 18px;
+    text-align: left;
+}
+
+th, td {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #ffffff;
+    cursor: pointer;
+}
+
+tr:hover {
+    background-color: #f1f1f1;
+}
+
+.action-btn {
+    padding: 8px 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.action-btn:hover {
+    background-color: #45a049;
+}
+
+
+/**** Modal ******/
+
+.modal {
+    display: flex; 
+    position: fixed;
+    z-index: 200;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+  
+  .modal-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+  }
+
+  .modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    align-self: center;
+    background-color: #fefefe;
+    padding: 20px;
+    border-top: 1px solid #888;
+    border-radius: 10px 10px 0 0;
+    height: 10%;
+    width: 40%;
+    border-bottom: 1px solid #cccccc;
+}
+
+.modal-content {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-around;
+    border-bottom: 1px solid #888;
+    width: 40%;
+    height: 70%;
+    background-color: #fefefe;
+    border-radius: 0 0 10px 10px;
+}
+
+.modal-content h6 {
+    font-size: .8em;
+}
+
+.cont {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.cont h5 {
+    font-weight: 800;
+}
+
+.content1 :nth-child(1) {
+    font-size: 3em;
+}
+
+.content1 i {
+    font-size: 80px;
+    margin-bottom: 5px;
+}
+
+.content1 h5 {
+    font-size: 1.4em;
+    font-weight: 800;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}

@@ -1,0 +1,348 @@
+/*** On Boarding ***/
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    
+}
+
+.onboard-page {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.onboard-header {
+    width: 100%;
+    height: 10vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 60px 0 30px;
+}
+
+.onboard-header > img {
+    display: block;
+    height: 80px;
+    width: 180px;
+    object-fit: contain;
+    aspect-ratio: 16/9;
+}
+
+.onboard-link {
+    text-decoration: none;
+    font-size: 1.1em;
+    font-weight: 600;
+    cursor: pointer;
+    color: rgb(147, 147, 147);
+}
+
+.onboard-content {
+    width: 100%;
+    height: 70%;
+}
+
+.page-container h3 {
+    color: var(--secondary-color);
+    font-size: 1.6em;
+    font-weight: 800;
+}
+
+.page-container p {
+    color: rgb(93, 92, 92);
+    font-size: 1em;
+    font-weight: 600;
+}
+
+.onboard-btn {
+    width: 100%;
+    height: 20vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+}
+
+.onboard-btn button {
+    text-transform: uppercase;
+    border-radius: .7rem;
+    font-size: 1em;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.onboard-btn1 {
+    padding: 11px 15%;
+    border: 2px solid lightgray;
+    background-color: transparent;
+    color: var(--primary-color);
+}
+
+.onboard-btn2 {
+    padding: 13px 15%;
+    border: none;
+    color: #ffffff;
+    background-color: var(--primary-color);
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+}
+
+.page-container {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    text-align: center;
+    padding: 0 70px;
+}
+
+.page-img {
+    height: 70%;
+    width: 100%;
+}
+
+.page-img > img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+}
+
+/*** Get Started ***/
+
+.wrapper{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+    width: 100%;
+    overflow: hidden;
+}
+
+.wrapper h1 {
+    color: var(--secondary-color);
+}
+
+.wrapper p {
+    color: gray;
+}
+
+.btn-container {
+    width: 50%;
+    display: flex;
+    justify-items: center;
+    align-items: center;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    padding-top: 3%;
+}
+
+/*** Sign Up ***/
+
+.wrapper-signIn {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.logo-bg {
+    background-color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 100vh;
+    width: 50%;
+}
+
+.logo-bg h1 {
+    font-size: 2.7em;
+    font-weight: 900;
+    color: var(--secondary-color);
+}
+
+.wrapper-signIn form {
+    height: 100vh;
+    width: 50%;
+    gap: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.wrapper-signIn form h2 {
+    margin-right: 48px;
+    padding-bottom: 15px;
+    color: var(--primary-color);
+}
+
+.input-box {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.input-box input {
+    padding: 5px 9px;
+    outline: none;
+    border: 1px solid gray;
+    border-radius: .8em;
+    background-color: rgb(232, 230, 230);
+    width: 300px;
+    height: 45px;
+    font-size: .9em;
+}
+
+.signUp-btn {
+    padding-top: 20px;
+}
+
+/*** Sign IN ***/
+
+.forgot-pass-link {
+    color: gray;
+    text-decoration: none;
+}
+
+.signUp-link {
+    color: blue;
+    text-decoration: none;
+}
+
+.acct-btn-container {
+    width: 50%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.acct-btn-container button {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 120px;
+    height: 35px;
+    font-size: .9em;
+    font-weight: 700;
+    background-color: transparent;
+    border: 1px solid gray;
+    border-radius: .5em;
+    cursor: pointer;
+}
+
+.acct-btn-container button:nth-child(1) {
+    color: blue;
+}
+
+.acct-btn-container button:nth-child(2) {
+    color: grey;
+}
+
+.fb-icon {
+    font-size: 1.1em;
+    color: blue;
+}
+
+
+/*** Age Selection ***/
+
+.age-selection-container {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.age-selection-container h1 {
+    color: var(--primary-color);
+}
+
+.age-selection-container p {
+    padding-bottom: 50px;
+    color: grey;
+}
+
+.age-btn-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
+
+.age-btn-container button {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 65px;
+    height: 50px;
+    font-size: 1.3em;
+    font-weight: 800;
+    background-color: rgb(228, 228, 228);
+    border: none;
+    border-radius: .5em;
+    color: rgb(94, 94, 94);
+    cursor: pointer;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+}
+
+.age-selection-container h3 {
+    padding-top: 50px;
+}
+
+.skip-link {
+    color: grey;
+    text-decoration: none;
+}
+
+
+/*** Media Queries ***/
+
+@media (max-width: 767px) {
+    .wrapper {
+        padding: 0 20px;
+    }
+
+    .btn-container {
+        width: 100%;
+        height: 20%;
+    }
+
+    .logo-bg {
+        display: none;
+    }
+
+    .wrapper-signIn form {
+        width: 100%;
+        padding: 20px;
+    }
+
+    .acct-btn-container {
+        width: 100%;
+    }
+
+    .age-selection-container {
+        width: 100%;
+        padding: 20px;
+    }
+    .onboard-header {
+        padding: 0 10px;
+    }
+    .onboard-content {
+        padding: 0 10px;
+    }
+    .page-container p{
+        font-size: .9em;
+    }
+    .page-container {
+        padding: 0 10px;
+    }
+}

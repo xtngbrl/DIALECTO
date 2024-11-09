@@ -1,0 +1,62 @@
+{
+  "name": "dialecto",
+  "homepage": "https://neil-brian-araiz.github.io/dialecto/",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "engines": {
+    "node": ">=20.17.0"
+  },
+  "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist",
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.5",
+    "@mui/material": "^5.15.17",
+    "@mui/styled-engine-sc": "^6.0.0-alpha.18",
+    "@mui/x-charts": "^7.4.0",
+    "@react-pdf-viewer/core": "^3.12.0",
+    "@react-pdf/renderer": "^4.0.0",
+    "axios": "^1.7.2",
+    "bcryptjs": "^2.4.3",
+    "bootstrap": "^5.3.3",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "file-saver": "^2.0.5",
+    "font-awesome": "^4.7.0",
+    "jsonwebtoken": "^9.0.2",
+    "jspdf": "^2.5.2",
+    "lodash": "^4.17.21",
+    "pg": "^8.11.5",
+    "react": "^18.2.0",
+    "react-bootstrap": "^2.10.5",
+    "react-data-table-component": "^7.6.2",
+    "react-dom": "^18.2.0",
+    "react-icons": "^5.1.0",
+    "react-pdf": "^9.1.1",
+    "react-player": "^2.16.0",
+    "react-router-dom": "^6.23.1",
+    "react-select": "^5.8.1",
+    "react-sweetalert2": "^0.6.0",
+    "react-to-print": "^3.0.1",
+    "styled-components": "^6.1.11",
+    "swiper": "^11.1.3"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.66",
+    "@types/react-dom": "^18.2.22",
+    "@vitejs/plugin-react": "^4.2.1",
+    "eslint": "^8.57.0",
+    "eslint-plugin-react": "^7.34.1",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.6",
+    "vite": "^5.2.0",
+    "vite-plugin-pwa": "^0.20.0"
+  }
+}
