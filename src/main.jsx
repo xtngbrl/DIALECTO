@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import 'swiper/css';
 import 'swiper/css/effect-coverflow';
@@ -33,109 +33,42 @@ import AdminUserPage from './dialecto_admin/AdminUser';
 import AdminLogin from './dialecto_admin/AdminLogin';
 import AdminSignup from './dialecto_admin/AdminSignup';
 
-const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <OnBoardingPage />,
-    errorElement: <div>404 Not Found</div>
-  },
-  {
-    path: '/dialecto/onboarding',
-    element: <OnBoarding />,
-  },
-  {
-    path: '/dialecto/signup-role-select',
-    element: <SignupRoleSelection />,
-  },
-  {
-    path: '/dialecto/login-role-select',
-    element: <LoginRoleSelection />,
-  },
-  {
-    path: '/dialecto/sign-in',
-    element: <SignIn />
-  },
-  {
-    path: '/dialecto/sign-up',
-    element: <SignUp />
-  },
-  {
-    path: '/dialecto/forgot-pass',
-    element: <ForgotPass />
-  },
-  {
-    path: '/dialecto/age-selection',
-    element: <AgeSelection />
-  },
-  {
-    path: '/dialecto/home',
-    element: <Home />
-  },
-  {
-    path: '/dialecto/home-standby',
-    element: <HomeStandby />
-  },
-  {
-    path: '/dialecto/game-one',
-    element: <GameOne />
-  },
-  {
-    path: '/dialecto/content-four',
-    element: <ContentFour />
-  },
-  {
-    path: '/dialecto/animal-category',
-    element: <AnimalCategory />
-  },
-  {
-    path: '/dialecto/food-category',
-    element: <FoodCategory />
-  },
-  {
-    path: '/dialecto/household-item-category',
-    element: <HouseholdItems />
-  },
-  {
-    path: '/dialecto/basic-phrases-category',
-    element: <BasicPhrases />
-  },
-  {
-    path: '/dialecto/profile-page',
-    element: <ProfilePage />
-  },
-  {
-    path: '/dialecto/progress-page',
-    element: <ProgressPage />
-  },
-  {
-    path: '/dialecto/video',
-    element: <Video />
-  },
-  {
-    path: '/dialecto/admin-login',
-    element: <AdminLogin />
-  },
-  {
-    path: '/dialecto/admin-signup',
-    element: <AdminSignup />
-  },
-  {
-    path: '/dialecto/admin-dashboard',
-    element: <AdminHomePage />
-  },
-  {
-    path: '/dialecto/admin-user',
-    element: <AdminUserPage />
-  },
-  {
-    path: '*',
-    element: <div>404 Not Found</div>
-  }
-]);
+
+function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<OnBoardingPage />} />
+        <Route path="/dialecto/onboarding" element={<OnBoarding />} />
+        <Route path="/dialecto/signup-role-select" element={<SignupRoleSelection />} />
+        <Route path="/dialecto/login-role-select" element={<LoginRoleSelection />} />
+        <Route path="/dialecto/sign-in" element={<SignIn />} />
+        <Route path="/dialecto/sign-up" element={<SignUp />} />
+        <Route path="/dialecto/forgot-pass" element={<ForgotPass />} />
+        <Route path="/dialecto/age-selection" element={<AgeSelection />} />
+        <Route path="/dialecto/home" element={<Home />} />
+        <Route path="/dialecto/home-standby" element={<HomeStandby />} />
+        <Route path="/dialecto/game-one" element={<GameOne />} />
+        <Route path="/dialecto/content-four" element={<ContentFour />} />
+        <Route path="/dialecto/animal-category" element={<AnimalCategory />} />
+        <Route path="/dialecto/food-category" element={<FoodCategory />} />
+        <Route path="/dialecto/household-item-category" element={<HouseholdItems />} />
+        <Route path="/dialecto/basic-phrases-category" element={<BasicPhrases />} />
+        <Route path="/dialecto/profile-page" element={<ProfilePage />} />
+        <Route path="/dialecto/progress-page" element={<ProgressPage />} />
+        <Route path="/dialecto/video" element={<Video />} />
+          <Route path="/dialecto/admin-login" element={<AdminLogin />} />
+          <Route path="/dialecto/admin-signup" element={<AdminSignup />} />
+          <Route path="/dialecto/admin-dashboard" element={<AdminHomePage />} />
+          <Route path="/dialecto/admin-user" element={<AdminUserPage />} />  
+        <Route path="*" element={<div>404 Not Found</div>} />
+      </Routes>
+    </BrowserRouter>
+  );}
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <App />
   </React.StrictMode>
 );
