@@ -35,7 +35,7 @@ import AdminSignup from './dialecto_admin/AdminSignup';
 
 const router = createBrowserRouter([
   {
-    path: '/dialecto/',
+    path: '/',
     element: <OnBoardingPage />,
     errorElement: <div>404 Not Found</div>
   },

@@ -51,6 +51,6 @@ const manifestForPlugin = {
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: "/dialecto/",
+  base: "/",
   plugins: [react(), VitePWA({manifestForPlugin, registerType: 'autoUpdate'})]
 })
