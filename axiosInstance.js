@@ -5,7 +5,7 @@ import axios from 'axios';
 import {
   getCookie,
   setCookie,
-} from './src/components/Authentication/getCookie';
+} from './src/dialecto_backend/getCookie';
 
 // const axiosInstance = axios.create({
 //     baseURL: 'http://localhost:3000/api',
