@@ -14,14 +14,12 @@ import ProfileIcon from '../assets/profile.png';
 import ProgressIcon from '../assets/progress.png';
 import Swal from "sweetalert2";
 import check from '../assets/check.png'
-import {AuthContext} from '../dialecto_backend/authContext';
 import axiosInstance from '../../axiosInstance';
 
 import './components.css';
 
 function Header ({ showCategoriesButton, showSwitchButton, bgColor }) {
     const navigate = useNavigate();
-    const { logout } = useContext(AuthContext);
 
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const sidebarRef = useRef();
@@ -133,7 +131,7 @@ function Header ({ showCategoriesButton, showSwitchButton, bgColor }) {
         </div>
       </div>
     );
-  };
+  }
   
   export default Header;
   

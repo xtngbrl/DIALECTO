@@ -25,7 +25,7 @@ function AdminLogin  () {
                 password,
             });
             const { user, accessToken, refreshToken, roleName } = response.data;
-            if (roleName !== 'Teacher') {
+            if (roleName === "Student") {
                 Swal.fire({
                     title: 'Role Mismatch',
                     text: 'Please select your assigned role.',
@@ -46,7 +46,7 @@ function AdminLogin  () {
             document.cookie = `refreshToken=${refreshToken}; Path=/; `;
 
             localStorage.setItem('loginSuccess', 'true');
-            if (roleName === 'Teacher') {
+            if (roleName === 'Teacher' || roleName === "Admin") {
                 // console.log(user, accessToken, refreshToken, roleName);
                 navigate('/dialecto/admin-dashboard');
             } else {

@@ -1,126 +1,161 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import Admin_Header from './AdminHeader';
-import Admin_Footer from './AdminFooter';
-import './admin.css';
+import { Container, Row, Col, Card, Table, Form, Button } from 'react-bootstrap';
+import {
+  LayoutDashboard,
+  Users,
+  GraduationCap,
+  Languages,
+  Settings,
+  LogOut,
+  Trophy,
+  UserCheck,
+  TrendingUp,
+  Menu,
+  X
+} from 'lucide-react';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import AdminHeader from './AdminHeader.jsx';
 
 const AdminHomePage = () => {
-  const navigate = useNavigate();
+  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [activeItem, setActiveItem] = useState('Dashboard');
+  const [selectedStudent, setSelectedStudent] = useState('all');
 
-  const [progressBars, setProgressBars] = useState([]);
-  const [dialectName, setDialectName] = useState('');
-  const [progress, setProgress] = useState();
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false); 
-
-  const addProgress = (e) => {
-    e.preventDefault();
-
-    if (!dialectName) {
-      alert('Please enter a dialect name.');
-      return;
-    }
-
-    const newProgressBar = {
-      name: dialectName,
-      progress: progress
-    };
-
-    setProgressBars([...progressBars, newProgressBar]);
-    setDialectName('');
-    setProgress(); 
+  const statsData = {
+    totalUsers: 1245,
+    activeUsers: 892,
+    topContributors: [
+      { name: 'John Doe', progress: 95, lessons: 48 },
+      { name: 'Jane Smith', progress: 92, lessons: 45 },
+      { name: 'Mike Johnson', progress: 88, lessons: 43 }
+    ]
   };
 
-  const handleProgressChange = (index, newValue) => {
-    const updatedProgressBars = progressBars.map((bar, i) => 
-      i === index ? { ...bar, progress: newValue } : bar
-    );
-    setProgressBars(updatedProgressBars);
-  };
+  const students = [
+    { id: 1, name: 'John Doe', progress: 95, status: 'Active', lastActive: '2 hours ago' },
+    { id: 2, name: 'Jane Smith', progress: 92, status: 'Active', lastActive: '1 hour ago' },
+    { id: 3, name: 'Mike Johnson', progress: 88, status: 'Inactive', lastActive: '1 day ago' },
+    { id: 4, name: 'Sarah Wilson', progress: 85, status: 'Active', lastActive: '30 mins ago' },
+    { id: 5, name: 'Tom Brown', progress: 82, status: 'Active', lastActive: '45 mins ago' }
+  ];
 
+  const progressData = [
+    { name: 'Week 1', John: 20, Jane: 15, Mike: 18, Sarah: 12, Tom: 10 },
+    { name: 'Week 2', John: 40, Jane: 35, Mike: 30, Sarah: 25, Tom: 28 },
+    { name: 'Week 3', John: 55, Jane: 50, Mike: 45, Sarah: 40, Tom: 42 },
+    { name: 'Week 4', John: 75, Jane: 70, Mike: 65, Sarah: 60, Tom: 58 },
+    { name: 'Week 5', John: 95, Jane: 92, Mike: 88, Sarah: 85, Tom: 82 }
+  ];
 
-  const handleHamburgerClick = () => {
-    setIsSidebarOpen(!isSidebarOpen);
-  };
+  const renderDashboard = () => (
+    <Container fluid>
+      <Row className="mb-5">
+        <AdminHeader/>
+      </Row>
+      <Row className="mb-4 pt-5">
+        <Col md={4}>
+          <Card className="shadow-sm">
+            <Card.Body>
+              <Card.Title>Total Users</Card.Title>
+              <h3 className="text-primary">{statsData.totalUsers}</h3>
+              <Users size={32} className="text-primary" />
+            </Card.Body>
+          </Card>
+        </Col>
+        <Col md={4}>
+          <Card className="shadow-sm">
+            <Card.Body>
+              <Card.Title>Active Users</Card.Title>
+              <h3 className="text-success">{statsData.activeUsers}</h3>
+              <UserCheck size={32} className="text-success" />
+            </Card.Body>
+          </Card>
+        </Col>
+        <Col md={4}>
+          <Card className="shadow-sm">
+            <Card.Body>
+              <Card.Title>Top Contributors</Card.Title>
+              <h3 className="text-warning">{statsData.topContributors.length}</h3>
+              <Trophy size={32} className="text-warning" />
+            </Card.Body>
+          </Card>
+        </Col>
+      </Row>
+
+      <Row>
+        <Col>
+          <Card className="shadow-sm">
+            <Card.Body>
+              <Card.Title>Students Overview</Card.Title>
+              {/* <Form.Select 
+                value={selectedStudent} 
+                onChange={(e) => setSelectedStudent(e.target.value)}
+              >
+                <option value="all">All Students</option>
+                {students.map(student => (
+                  <option key={student.id} value={student.name}>{student.name}</option>
+                ))}
+              </Form.Select> */}
+              <Table striped bordered hover className="mt-3">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Progress</th>
+                    <th>Status</th>
+                    <th>Last Active</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {students.map(student => (
+                    <tr key={student.id}>
+                      <td>{student.name}</td>
+                      <td>{student.progress}%</td>
+                      <td>
+                        <span className={`badge ${student.status === 'Active' ? 'bg-success' : 'bg-secondary'}`}>{student.status}</span>
+                      </td>
+                      <td>{student.lastActive}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </Table>
+            </Card.Body>
+          </Card>
+        </Col>
+      </Row>
+
+      <Row>
+        <Col>
+          <Card className="shadow-sm mt-4 mb-4 pb-5">
+            <Card.Body>
+              <Card.Title>Progress Over Time</Card.Title>
+              <ResponsiveContainer width="100%" height={300}>
+                <LineChart data={progressData}>
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="name" />
+                  <YAxis />
+                  <Tooltip />
+                  <Legend />
+                  {selectedStudent === 'all' ? (
+                    students.map((student, index) => (
+                      <Line key={student.id} type="monotone" dataKey={student.name.split(' ')[0]} stroke={`hsl(${index * 60}, 70%, 50%)`} strokeWidth={2} />
+                    ))
+                  ) : (
+                    <Line type="monotone" dataKey={selectedStudent.split(' ')[0]} stroke="#f97316" strokeWidth={2} />
+                  )}
+                </LineChart>
+              </ResponsiveContainer>
+            </Card.Body>
+          </Card>
+        </Col>
+      </Row>
+    </Container>
+  );
 
   return (
-    <div className={`admin-home-page ${isSidebarOpen ? 'sidebar-open' : ''}`}>
-      <Admin_Header onClick={handleHamburgerClick} />
-      
-      <div className={`admin-sidebar ${isSidebarOpen ? 'open' : ''}`}>
-      <ul>
-          <li onClick={() => navigate('/dialecto/admin-dashboard')}>Home</li>
-          <li onClick={() => navigate('/dialecto/admin-user')}>Users</li>
-          <li onClick={() => navigate('')}>Settings</li>
-          <li onClick={() => navigate('')}>Reports</li>
-          <li onClick={() => navigate('/dialecto/sign-in')}>Logout</li>
-        </ul>
-      </div>
-
-      <div className='admin-content'>
-        <h1>Welcome, Admin</h1>
-        <h5>Here's a summary of your dashboard</h5>
-
-        <div className='admin-card-container'>
-          <div className='admin-cards'>
-            <h3>Total Users</h3>
-            <p>120</p>
-          </div>
-          <div className='admin-cards'>
-            <h3>New Users</h3>
-            <p>45</p>
-          </div>
-          <div className='admin-cards'>
-            <h3>Average Users</h3>
-            <p>98</p>
-          </div>
-        </div>
-
-        <h4>Progress by Dialect</h4>
-        <div className='admin-progress-form'>
-          <form onSubmit={addProgress}>
-            <input 
-              type="text" 
-              placeholder='Dialect Name' 
-              value={dialectName} 
-              onChange={(e) => setDialectName(e.target.value)} 
-              required
-            />
-            <input 
-              type="number" 
-              placeholder='%' 
-              value={progress} 
-              onChange={(e) => setProgress(Number(e.target.value))} 
-              min='0' 
-              max='100' 
-              required
-            />
-            <button type="submit">Add Progress</button>
-          </form>
-        </div>
-
-        <div id="progress-container">
-          {progressBars.map((bar, index) => (
-            <div key={index} className='progress-bar'>
-              <label>{bar.name}</label>
-              <div className='progress'>
-                <div className='progress-fill' style={{ width: `${bar.progress}%` }}>
-                  {bar.progress}%
-                </div>
-              </div>
-              <input 
-                type="number" 
-                min="0" 
-                max="100" 
-                value={bar.progress} 
-                onChange={(e) => handleProgressChange(index, Number(e.target.value))} 
-              />
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <Admin_Footer />
-    </div>
+    <Container fluid className="p-0">
+      {activeItem === 'Dashboard' ? renderDashboard() : <h2>{activeItem}</h2>}
+    </Container>
   );
 };
 

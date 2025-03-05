@@ -1,0 +1,148 @@
+/* AdminStyles.css */
+.admin-container {
+    display: flex;
+    height: 100vh;
+    background-color: #fff8f3;
+  }
+  
+  /* Sidebar Styles */
+  .sidebar {
+    width: 250px;
+    background-color: white;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    transition: width 0.3s ease;
+    position: relative;
+  }
+  
+  .sidebar.collapsed {
+    width: 80px;
+  }
+  
+  .sidebar-toggle {
+    position: absolute;
+    right: -12px;
+    top: 16px;
+    border-radius: 50% !important;
+    padding: 4px !important;
+    z-index: 1000;
+  }
+  
+  .sidebar-header {
+    padding: 1rem;
+    border-bottom: 1px solid #ffd7b5;
+  }
+  
+  .logo-text {
+    color: #fd7e14;
+    font-size: 1.25rem;
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .sidebar-nav {
+    padding: 1rem;
+  }
+  
+  .sidebar-link {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem 1rem;
+    color: #666;
+    border-radius: 8px;
+    margin-bottom: 0.5rem;
+  }
+  
+  .sidebar-link:hover {
+    background-color: #fff8f3;
+    color: #fd7e14;
+  }
+  
+  .sidebar-link.active {
+    background-color: #fd7e14;
+    color: white;
+  }
+  
+  .logout-link {
+    margin-top: 2rem;
+    color: #dc3545;
+  }
+  
+  .logout-link:hover {
+    background-color: #fff8f3;
+    color: #dc3545;
+  }
+  
+  /* Main Content Styles */
+  .main-content {
+    flex: 1;
+    overflow-y: auto;
+  }
+  
+  /* Card Styles */
+  .stat-card {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .stats-number {
+    font-size: 2rem;
+    color: #fd7e14;
+    margin: 0.5rem 0;
+  }
+  
+  .stats-icon {
+    color: #ffa94d;
+  }
+  
+  .section-title {
+    color: #c05621;
+    margin-bottom: 1.5rem;
+  }
+  
+  /* Contributor Styles */
+  .contributor-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+    border-bottom: 1px solid #ffd7b5;
+  }
+  
+  .contributor-item:last-child {
+    border-bottom: none;
+  }
+  
+  .trophy-icon {
+    background-color: #fff8f3;
+    padding: 0.5rem;
+    border-radius: 50%;
+    margin-right: 1rem;
+    color: #fd7e14;
+  }
+  
+  /* Student Select Styles */
+  .student-select {
+    width: auto;
+    min-width: 200px;
+  }
+  
+  /* Progress Bar Customization */
+  .progress {
+    height: 8px;
+  }
+  
+  .progress-bar {
+    background-color: #fd7e14;
+  }
+  
+  /* Table Customization */
+  .table > :not(caption) > * > * {
+    padding: 1rem 0.5rem;
+  }
+  
+  /* Badge Customization */
+  .badge {
+    padding: 0.5em 0.8em;
+  }

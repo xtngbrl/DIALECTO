@@ -60,7 +60,7 @@ function App() {
           <Route path="/dialecto/admin-login" element={<AdminLogin />} />
           <Route path="/dialecto/admin-signup" element={<AdminSignup />} />
           <Route path="/dialecto/admin-dashboard" element={<AdminHomePage />} />
-          <Route path="/dialecto/admin-user" element={<AdminUserPage />} />  
+          <Route path="/dialecto/admin/students" element={<AdminUserPage />} />  
         <Route path="*" element={<div>404 Not Found</div>} />
       </Routes>
     </BrowserRouter>
