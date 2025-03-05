@@ -7,13 +7,13 @@ import {
   setCookie,
 } from './src/dialecto_backend/getCookie';
 
-// const axiosInstance = axios.create({
-//     baseURL: 'http://localhost:3000/api',
-// });
-
-const axiosInstance = axios.create ({
-    baseURL: 'https://dialecto-api-dialecto-backend.igzlsu.easypanel.host/api'
+const axiosInstance = axios.create({
+    baseURL: 'https://api-test.revivepharmacyportal.com.au/api',
 });
+
+// const axiosInstance = axios.create ({
+//     baseURL: 'https://dialecto-api-dialecto-backend.igzlsu.easypanel.host/api'
+// });
 
 
 let isRefreshing = false;

@@ -32,6 +32,7 @@
     "jspdf": "^2.5.2",
     "lodash": "^4.17.21",
     "lucide-react": "^0.460.0",
+    "papaparse": "^5.5.2",
     "pg": "^8.11.5",
     "react": "^18.2.0",
     "react-bootstrap": "^2.10.5",

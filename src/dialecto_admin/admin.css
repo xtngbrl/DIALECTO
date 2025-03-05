@@ -233,7 +233,9 @@
 
 /**** Admin Table ******/
 
-
+.progress-bar{
+    background-color: #ea651e;
+}
 
 
 /**** Modal ******/

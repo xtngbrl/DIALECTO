@@ -24,3 +24,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.btn-primary {
+  background-color: #f0a438 !important;
+  border-color: #f0a438 !important;
+}

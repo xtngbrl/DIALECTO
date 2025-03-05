@@ -44,57 +44,96 @@ function Header ({ showCategoriesButton, showSwitchButton, bgColor }) {
     const closeSidebar = () => {
       setSidebarOpen(false);
     };
-  
-    const handleLogout = async () => {
-      // e.preventDefault();
+
+    
+    const handleLogout = () => {
       Swal.fire({
-        title: "Log Out!",
-        text: "Do you really want to log out?",
-        showCancelButton: true,
-        icon: "warning",
-        background: "#F4E8DD",
-        confirmButtonColor: "#f0a438",
-        cancelButtonColor: "#b85d1d",
-        cancelTextColor: "#f4e8dd",
-        confirmButtonText: "Yes",
-        customClass: {
-          container: "custom-container",
-          confirmButton: "custom-confirm-button",
-          cancelButton: "custom-cancel-button",
-          title: "custom-swal-title",
-        },
-      }).then(async (result) => {
-        if (result.isConfirmed) {
-          try {
-            await axiosInstance.post("/logout");
-              logout();
-            Swal.fire({
-              title: "Logged Out!",
-              text: "You have been logged out successfully.",
-              imageUrl: check,
-              imageWidth: 100,
-              imageHeight: 100,
-              confirmButtonText: "OK",
-              background: "#F4E8DD",
-              confirmButtonColor: "#f0a438",
-              customClass: {
-                confirmButton: "custom-success-confirm-button",
-                title: "custom-swal-title",
-              },
-            }).then(() => {
-              navigate("/dialecto/onboarding");
-            });
-          } catch (error) { console.error("Logout failed:", error);
-           Swal.fire({
-            title: "Logout Failed",
-            text: "There was an error logging out.",
-            icon: "error",
-            confirmButtonText: "OK",
-            confirmButtonColor: "#EC221F",
-          });
-        }}
+          title: "Log Out!",
+          text: "Do you really want to log out?",
+          showCancelButton: true,
+          icon: "warning",
+          background: "#F4E8DD",
+          confirmButtonColor: "#f0a438",
+          cancelButtonColor: "#b85d1d",
+          confirmButtonText: "Yes",
+          customClass: {
+              container: "custom-container",
+              confirmButton: "custom-confirm-button",
+              cancelButton: "custom-cancel-button",
+              title: "custom-swal-title",
+          },
+      }).then((result) => {
+          if (result.isConfirmed) {
+              Swal.fire({
+                  title: "Logged Out!",
+                  text: "You have been logged out successfully.",
+                  icon: "success",
+                  imageWidth: 100,
+                  imageHeight: 100,
+                  confirmButtonText: "OK",
+                  background: "#F4E8DD",
+                  confirmButtonColor: "#f0a438",
+                  customClass: {
+                      confirmButton: "custom-success-confirm-button",
+                      title: "custom-swal-title",
+                  },
+              }).then(() => {
+                  navigate("/dialecto/onboarding");
+              });
+          }
       });
-    };
+  };
+  
+    // const handleLogout = async () => {
+    //   // e.preventDefault();
+    //   Swal.fire({
+    //     title: "Log Out!",
+    //     text: "Do you really want to log out?",
+    //     showCancelButton: true,
+    //     icon: "warning",
+    //     background: "#F4E8DD",
+    //     confirmButtonColor: "#f0a438",
+    //     cancelButtonColor: "#b85d1d",
+    //     cancelTextColor: "#f4e8dd",
+    //     confirmButtonText: "Yes",
+    //     customClass: {
+    //       container: "custom-container",
+    //       confirmButton: "custom-confirm-button",
+    //       cancelButton: "custom-cancel-button",
+    //       title: "custom-swal-title",
+    //     },
+    //   }).then(async (result) => {
+    //     if (result.isConfirmed) {
+    //       try {
+    //         await axiosInstance.post("/logout");
+    //           logout();
+    //         Swal.fire({
+    //           title: "Logged Out!",
+    //           text: "You have been logged out successfully.",
+    //           imageUrl: check,
+    //           imageWidth: 100,
+    //           imageHeight: 100,
+    //           confirmButtonText: "OK",
+    //           background: "#F4E8DD",
+    //           confirmButtonColor: "#f0a438",
+    //           customClass: {
+    //             confirmButton: "custom-success-confirm-button",
+    //             title: "custom-swal-title",
+    //           },
+    //         }).then(() => {
+    //           navigate("/dialecto/onboarding");
+    //         });
+    //       } catch (error) { console.error("Logout failed:", error);
+    //        Swal.fire({
+    //         title: "Logout Failed",
+    //         text: "There was an error logging out.",
+    //         icon: "error",
+    //         confirmButtonText: "OK",
+    //         confirmButtonColor: "#EC221F",
+    //       });
+    //     }}
+    //   });
+    // };
 
     return (
       <div className='header-container' style={{backgroundColor: bgColor}}>

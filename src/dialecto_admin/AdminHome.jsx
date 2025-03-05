@@ -23,31 +23,27 @@ const AdminHomePage = () => {
   const [selectedStudent, setSelectedStudent] = useState('all');
 
   const statsData = {
-    totalUsers: 1245,
-    activeUsers: 892,
+    totalUsers: 3,
+    activeUsers: 3,
     topContributors: [
-      { name: 'John Doe', progress: 95, lessons: 48 },
-      { name: 'Jane Smith', progress: 92, lessons: 45 },
-      { name: 'Mike Johnson', progress: 88, lessons: 43 }
+      { name: 'Student A', progress: 95, lessons: 48 },
+      { name: 'Student B', progress: 92, lessons: 45 },
+      { name: 'Student C', progress: 88, lessons: 43 }
     ]
   };
 
   const students = [
-    { id: 1, name: 'John Doe', progress: 95, status: 'Active', lastActive: '2 hours ago' },
-    { id: 2, name: 'Jane Smith', progress: 92, status: 'Active', lastActive: '1 hour ago' },
-    { id: 3, name: 'Mike Johnson', progress: 88, status: 'Inactive', lastActive: '1 day ago' },
-    { id: 4, name: 'Sarah Wilson', progress: 85, status: 'Active', lastActive: '30 mins ago' },
-    { id: 5, name: 'Tom Brown', progress: 82, status: 'Active', lastActive: '45 mins ago' }
+    { id: 1, name: 'Student A', progress: 95, status: 'Active', lastActive: '2 hours ago' },
+    { id: 2, name: 'Student B', progress: 92, status: 'Active', lastActive: '1 hour ago' },
+    { id: 3, name: 'Student C', progress: 88, status: 'Inactive', lastActive: '3 mins ago' },
   ];
 
   const progressData = [
-    { name: 'Week 1', John: 20, Jane: 15, Mike: 18, Sarah: 12, Tom: 10 },
-    { name: 'Week 2', John: 40, Jane: 35, Mike: 30, Sarah: 25, Tom: 28 },
-    { name: 'Week 3', John: 55, Jane: 50, Mike: 45, Sarah: 40, Tom: 42 },
-    { name: 'Week 4', John: 75, Jane: 70, Mike: 65, Sarah: 60, Tom: 58 },
-    { name: 'Week 5', John: 95, Jane: 92, Mike: 88, Sarah: 85, Tom: 82 }
+    { name: 'Week 1', StudentA: 20, StudentB: 15, StudentC: 18 },
+    { name: 'Week 2', StudentA: 40, StudentB: 35, StudentC: 30 },
+    { name: 'Week 3', StudentA: 55, StudentB: 50, StudentC: 45 },
   ];
-
+  
   const renderDashboard = () => (
     <Container fluid>
       <Row className="mb-5">
@@ -138,10 +134,21 @@ const AdminHomePage = () => {
                   <Legend />
                   {selectedStudent === 'all' ? (
                     students.map((student, index) => (
-                      <Line key={student.id} type="monotone" dataKey={student.name.split(' ')[0]} stroke={`hsl(${index * 60}, 70%, 50%)`} strokeWidth={2} />
+                      <Line
+                        key={student.id}
+                        type="monotone"
+                        dataKey={`Student${student.name.split(' ')[1]}`} // Correct dataKey mapping
+                        stroke={`hsl(${index * 60}, 70%, 50%)`}
+                        strokeWidth={2}
+                      />
                     ))
                   ) : (
-                    <Line type="monotone" dataKey={selectedStudent.split(' ')[0]} stroke="#f97316" strokeWidth={2} />
+                    <Line
+                      type="monotone"
+                      dataKey={`Student${selectedStudent.split(' ')[1]}`} // Ensure the name format matches progressData
+                      stroke="#f97316"
+                      strokeWidth={2}
+                    />
                   )}
                 </LineChart>
               </ResponsiveContainer>

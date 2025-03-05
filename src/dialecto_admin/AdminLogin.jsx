@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import {Link, useNavigate} from 'react-router-dom';
-import { FaFacebook,  } from 'react-icons/fa';
-import { FcGoogle } from "react-icons/fc";
 import Logo from '../assets/logo'
 import Button from '../components/shared/Btn';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -16,44 +14,11 @@ function AdminLogin  () {
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const navigate = useNavigate();
-
-    const login = async (event) => {
+    
+    const login = (event) => {
         event.preventDefault();
-        try {
-            const response = await axiosInstance.post('/login', {
-                username,
-                password,
-            });
-            const { user, accessToken, refreshToken, roleName } = response.data;
-            if (roleName === "Student") {
-                Swal.fire({
-                    title: 'Role Mismatch',
-                    text: 'Please select your assigned role.',
-                    imageUrl: close,
-                    imageWidth: 100,
-                    imageHeight: 100,
-                    confirmButtonText: "OK",
-                    confirmButtonColor: "#EC221F",
-                    customClass: {
-                        confirmButton: "custom-error-confirm-button",
-                        title: "custom-swal-title",
-                    },
-                })
-                return;
-            }
-            document.cookie = `role_name=${roleName}; Path=/;`;
-            document.cookie = `accessToken=${accessToken}; Path=/;`;
-            document.cookie = `refreshToken=${refreshToken}; Path=/; `;
-
-            localStorage.setItem('loginSuccess', 'true');
-            if (roleName === 'Teacher' || roleName === "Admin") {
-                // console.log(user, accessToken, refreshToken, roleName);
-                navigate('/dialecto/admin-dashboard');
-            } else {
-                navigate('/dialecto/admin-login');
-            }
-        } catch (error) {
-            console.error('Login error:', error);
+        
+        if (username.toLowerCase() !== 'admin' && username.toLowerCase() !== 'teacher') {
             Swal.fire({
                 title: 'Invalid username or password!',
                 text: 'Please check your credentials',
@@ -66,10 +31,69 @@ function AdminLogin  () {
                     confirmButton: "custom-error-confirm-button",
                     title: "custom-swal-title",
                 },
-            })
+            });
             return;
         }
+
+        // Simulate successful login
+        document.cookie = `role_name=${username}; Path=/;`;
+        localStorage.setItem('loginSuccess', 'true');
+        navigate('/dialecto/admin-dashboard');
     };
+
+    // const login = async (event) => {
+    //     event.preventDefault();
+    //     try {
+    //         const response = await axiosInstance.post('/login', {
+    //             username,
+    //             password,
+    //         });
+    //         const { user, accessToken, refreshToken, roleName } = response.data;
+    //         if (roleName === "Student") {
+    //             Swal.fire({
+    //                 title: 'Role Mismatch',
+    //                 text: 'Please select your assigned role.',
+    //                 imageUrl: close,
+    //                 imageWidth: 100,
+    //                 imageHeight: 100,
+    //                 confirmButtonText: "OK",
+    //                 confirmButtonColor: "#EC221F",
+    //                 customClass: {
+    //                     confirmButton: "custom-error-confirm-button",
+    //                     title: "custom-swal-title",
+    //                 },
+    //             })
+    //             return;
+    //         }
+    //         document.cookie = `role_name=${roleName}; Path=/;`;
+    //         document.cookie = `accessToken=${accessToken}; Path=/;`;
+    //         document.cookie = `refreshToken=${refreshToken}; Path=/; `;
+
+    //         localStorage.setItem('loginSuccess', 'true');
+    //         if (roleName === 'Teacher' || roleName === "Admin") {
+    //             // console.log(user, accessToken, refreshToken, roleName);
+    //             navigate('/dialecto/admin-dashboard');
+    //         } else {
+    //             navigate('/dialecto/admin-login');
+    //         }
+    //     } catch (error) {
+    //         console.error('Login error:', error);
+    //         Swal.fire({
+    //             title: 'Invalid username or password!',
+    //             text: 'Please check your credentials',
+    //             imageUrl: close,
+    //             imageWidth: 100,
+    //             imageHeight: 100,
+    //             confirmButtonText: "OK",
+    //             confirmButtonColor: "#EC221F",
+    //             customClass: {
+    //                 confirmButton: "custom-error-confirm-button",
+    //                 title: "custom-swal-title",
+    //             },
+    //         })
+    //         return;
+    //     }
+    // };
 
     return (
         <div className='wrapper-signIn'>
