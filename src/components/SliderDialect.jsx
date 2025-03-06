@@ -62,7 +62,8 @@ const CustomSlider = () => {
         className="swiper_container"
       >
         {array.map((arrayItem, index) => (
-          <SwiperSlide key={index} style={{ backgroundColor: arrayItem.bgColor }}>
+          <SwiperSlide key={index} style={{ backgroundColor: arrayItem.bgColor }}
+          className={arrayItem.pic === NotAvail ? 'unavailable-slide' : ''}>
             <div className="slider-card">
               <div className="slider-card-img">
                 <img src={arrayItem.pic} alt="Dialect" />
