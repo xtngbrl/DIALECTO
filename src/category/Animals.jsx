@@ -3,16 +3,15 @@ import { useNavigate } from 'react-router-dom';
 
 import Header from '../components/header';
 
-import A1 from '../assets/a1.png';
-import A2 from '../assets/a2.png';
-import A3 from '../assets/a3.png';
-import A4 from '../assets/a4.png';
-import A5 from '../assets/a5.png';
-import A6 from '../assets/a6.png';
+import A1 from '../assets/snek.png';
+import A2 from '../assets/dog.png';
+import A3 from '../assets/a6.png';
+import A4 from '../assets/a2.png';
+import A5 from '../assets/bird.png';
+import A6 from '../assets/a4.png';
 
 import CtgButton from '../components/shared/CtgBtn';
 import './category.css';
-import { FaVolumeUp } from "react-icons/fa"; // Import sound icon
 
 
 const AnimalCategory = () => {

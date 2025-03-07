@@ -17,12 +17,12 @@ const FoodCategory = () => {
     const navigate = useNavigate();
 
     const array = [
-        { label: 'Start', nav: '/dialecto/game-one', pic: F1}, 
-        { label: 'Start', nav: '/dialecto/content-four', bgColor: 'crimson', pic: F2},
-        { label: 'Start', nav: '/dialecto/game-one', bgColor: '#7FBCD2', pic: F3},
-        { label: 'Start', nav: '/dialecto/content-four', bgColor: '#FFEA20', pic: F4},
-        { label: 'Start', nav: '/dialecto/game-one', bgColor: '#EDB7ED', pic: F5},
-        { label: 'Start', nav: '/dialecto/content-four', bgColor: 'lightgreen', pic: F6},
+        { label: 'Start', nav: '/dialecto/game-one', pic: F1, progress: 10}, 
+        { label: 'Start', nav: '/dialecto/content-four', bgColor: 'crimson', pic: F2, progress: 10},
+        { label: 'Start', nav: '/dialecto/game-one', bgColor: '#7FBCD2', pic: F3, progress: 10},
+        { label: 'Start', nav: '/dialecto/content-four', bgColor: '#FFEA20', pic: F4, progress: 10},
+        { label: 'Start', nav: '/dialecto/game-one', bgColor: '#EDB7ED', pic: F5, progress: 10},
+        { label: 'Start', nav: '/dialecto/content-four', bgColor: 'lightgreen', pic: F6, progress: 10},
     ]
 
     return (
@@ -35,6 +35,10 @@ const FoodCategory = () => {
                     <div className='category-card food-br' style={{backgroundColor: arrayItem.bgColor}} key={index}>
                         <div className="ctg-img">
                             <img src={arrayItem.pic} alt="" />
+                        </div>
+                        <div className="progress-container">
+                            <div className="progress-bar" style={{ width: `${arrayItem.progress}%` }}></div>
+                            <span className="progress-text">{arrayItem.progress}%</span>
                         </div>
                         <CtgButton label={arrayItem.label} navigateTo={() => navigate(arrayItem.nav)} />
                     </div>

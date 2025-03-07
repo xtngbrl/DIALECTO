@@ -99,6 +99,7 @@ function SignUp  ()  {
                         type='text'
                         defaultValue= {role_name}
                         required
+                        disabled
                     />
                 </div>
                 <div className='input-box'>  

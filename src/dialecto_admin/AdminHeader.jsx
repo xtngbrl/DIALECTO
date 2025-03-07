@@ -110,7 +110,7 @@ const Admin_Header = ({ onClick }) => {
         <div className='admin-header'>
             <div className='admin-logo'>
                 <img src={AdminLogo} alt="Image Logo" />
-                <h5>Dialecto Dashboard</h5>
+                <h5>Dialecto</h5>
             </div>
             <div className='admin-hamburger' onClick={toggleMenu}>
                 <GiHamburgerMenu />
@@ -120,7 +120,7 @@ const Admin_Header = ({ onClick }) => {
                     <ul>
                     <li onClick={() => navigate('/dialecto/admin-dashboard')}> <MdDashboard/> Dashboard</li>
                         <li onClick={() => navigate('/dialecto/admin/students')}> <FaUserGraduate/> Student List</li>
-                        <li onClick={() => navigate('/settings')}> <IoMdSettings/> Settings</li>
+                        {/* <li onClick={() => navigate('/settings')}> <IoMdSettings/> Settings</li> */}
                         <li onClick={handleLogout}> <IoLogOut/> Logout</li>
                     </ul>
                 </div>

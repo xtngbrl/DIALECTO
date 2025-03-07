@@ -6,6 +6,10 @@ import ProgressBar from 'react-bootstrap/ProgressBar';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import Papa from 'papaparse'; 
 import './admin.css';
+import { FaFilter } from "react-icons/fa";
+import { TbCsv } from "react-icons/tb";
+import { IoMdAdd } from "react-icons/io";
+
 
 const AdminUserPage = () => {
   const navigate = useNavigate();
@@ -78,9 +82,9 @@ const AdminUserPage = () => {
         <div className='d-flex justify-content-between align-items-center'>
           <h2 className="mr-auto">Student List</h2>
           <div>
-          <Button variant='secondary' className="me-2">Filters</Button>
-            <Button variant='success' className="me-2" onClick={exportToCSV}>Export to CSV</Button>
-            <Button variant='primary' onClick={handleModalShow}>Add Student</Button>
+          <Button variant='secondary' className="me-2"> <FaFilter/> </Button>
+            <Button variant='success' className="me-2" onClick={exportToCSV}> <TbCsv size={24}/> </Button>
+            <Button variant='primary' onClick={handleModalShow}> <IoMdAdd size={20}/> </Button>
           </div>
         </div>
         <Table striped bordered hover>
