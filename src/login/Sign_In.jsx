@@ -17,13 +17,46 @@ function SignIn()  {
     const navigate = useNavigate();
 
         
-        const login = (event) => {
-            event.preventDefault();
+        // const login = (event) => {
+        //     event.preventDefault();
             
-            if (username.toLowerCase() !== 'student') {
+        //     if (username.toLowerCase() !== 'student') {
+        //         Swal.fire({
+        //             title: 'Invalid username or password!',
+        //             text: 'Please check your credentials',
+        //             imageUrl: close,
+        //             imageWidth: 100,
+        //             imageHeight: 100,
+        //             confirmButtonText: "OK",
+        //             confirmButtonColor: "#EC221F",
+        //             customClass: {
+        //                 confirmButton: "custom-error-confirm-button",
+        //                 title: "custom-swal-title",
+        //             },
+        //         });
+        //         return;
+        //     }
+    
+        //     // Simulate successful login
+        //     document.cookie = `role_name=${username}; Path=/;`;
+        //     localStorage.setItem('loginSuccess', 'true');
+        //     navigate('/dialecto/home');
+        // };
+
+    const login = async (event) => {
+        event.preventDefault();
+        try {
+            const response = await axiosInstance.post('/login', {
+                username,
+                password,
+            });
+            const { user, accessToken, refreshToken, roleName } = response.data;
+            // console.log("User ID:", user.id);
+            if (roleName !== 'Student') {
+                // setError(`You cannot log in as ${selectedRole}. Your account role is ${userRole}.`);
                 Swal.fire({
-                    title: 'Invalid username or password!',
-                    text: 'Please check your credentials',
+                    title: 'Role Mismatch',
+                    text: 'Please select your assigned role.',
                     imageUrl: close,
                     imageWidth: 100,
                     imageHeight: 100,
@@ -33,72 +66,39 @@ function SignIn()  {
                         confirmButton: "custom-error-confirm-button",
                         title: "custom-swal-title",
                     },
-                });
+                })
                 return;
             }
-    
-            // Simulate successful login
-            document.cookie = `role_name=${username}; Path=/;`;
+
+            document.cookie = `role_name=${roleName}; Path=/;`;
+            document.cookie = `accessToken=${accessToken}; Path=/;`;
+            document.cookie = `refreshToken=${refreshToken}; Path=/; `;
+
             localStorage.setItem('loginSuccess', 'true');
-            navigate('/dialecto/home');
-        };
-
-    // const login = async (event) => {
-    //     event.preventDefault();
-    //     try {
-    //         const response = await axiosInstance.post('/login', {
-    //             username,
-    //             password,
-    //         });
-    //         const { user, accessToken, refreshToken, roleName } = response.data;
-    //         // console.log("User ID:", user.id);
-    //         if (roleName !== 'Student') {
-    //             // setError(`You cannot log in as ${selectedRole}. Your account role is ${userRole}.`);
-    //             Swal.fire({
-    //                 title: 'Role Mismatch',
-    //                 text: 'Please select your assigned role.',
-    //                 imageUrl: close,
-    //                 imageWidth: 100,
-    //                 imageHeight: 100,
-    //                 confirmButtonText: "OK",
-    //                 confirmButtonColor: "#EC221F",
-    //                 customClass: {
-    //                     confirmButton: "custom-error-confirm-button",
-    //                     title: "custom-swal-title",
-    //                 },
-    //             })
-    //             return;
-    //         }
-
-    //         document.cookie = `role_name=${roleName}; Path=/;`;
-    //         document.cookie = `accessToken=${accessToken}; Path=/;`;
-    //         document.cookie = `refreshToken=${refreshToken}; Path=/; `;
-
-    //         localStorage.setItem('loginSuccess', 'true');
-    //         if (roleName === 'Student') {
-    //             // console.log(user, accessToken, refreshToken, roleName);
-    //             navigate('/dialecto/home');
-    //         } else {
-    //             navigate('/sign-in');
-    //         }
-    //     } catch (error) {
-    //         console.error('Login error:', error);
-    //         Swal.fire({
-    //             title: 'Invalid username or password!',
-    //             text: 'Please check your credentials',
-    //             imageUrl: close,
-    //             imageWidth: 100,
-    //             imageHeight: 100,
-    //             confirmButtonText: "OK",
-    //             confirmButtonColor: "#EC221F",
-    //             customClass: {
-    //                 confirmButton: "custom-error-confirm-button",
-    //                 title: "custom-swal-title",
-    //             },
-    //         })
-    //         return;
-    //     }
-    // };
+            if (roleName === 'Student') {
+                // console.log(user, accessToken, refreshToken, roleName);
+                navigate('/dialecto/home');
+            } else {
+                navigate('/sign-in');
+            }
+        } catch (error) {
+            console.error('Login error:', error);
+            Swal.fire({
+                title: 'Invalid username or password!',
+                text: 'Please check your credentials',
+                imageUrl: close,
+                imageWidth: 100,
+                imageHeight: 100,
+                confirmButtonText: "OK",
+                confirmButtonColor: "#EC221F",
+                customClass: {
+                    confirmButton: "custom-error-confirm-button",
+                    title: "custom-swal-title",
+                },
+            })
+            return;
+        }
+    };
 
     return (
         <div className='wrapper-signIn'>

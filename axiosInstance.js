@@ -8,7 +8,7 @@ import {
 } from './src/dialecto_backend/getCookie';
 
 const axiosInstance = axios.create({
-    baseURL: 'https://api-test.revivepharmacyportal.com.au/api',
+    baseURL: 'http://localhost:3000/api',
 });
 
 // const axiosInstance = axios.create ({

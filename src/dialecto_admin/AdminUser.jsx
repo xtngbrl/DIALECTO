@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axiosInstance from '../../axiosInstance';
 import Admin_Header from './AdminHeader';
 import { Table, Button, Modal, Form, Row, Pagination } from 'react-bootstrap';
 import ProgressBar from 'react-bootstrap/ProgressBar';
@@ -10,23 +11,30 @@ import { FaFilter } from "react-icons/fa";
 import { TbCsv } from "react-icons/tb";
 import { IoMdAdd } from "react-icons/io";
 
-
 const AdminUserPage = () => {
   const navigate = useNavigate();
+  const [users, setUsers] = useState([]);
+  const [userProgress, setUserProgress] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
   const [showOffcanvas, setShowOffcanvas] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [newUser, setNewUser] = useState({ name: '', email: '', password: '' });
+  const [newUser, setNewUser] = useState({ first_name: '', last_name: '', email: '', username: '', password: '', role_name: 'Student' });
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 3; // Change this number to control items per page
+  const itemsPerPage = 5;
 
-  const users = [
-    { id: 1, name: "Student A", email: "john.doe@example.com", progress: 75, lastActivity: "2025-03-04" },
-    { id: 2, name: "Student B", email: "jane.smith@example.com", progress: 50, lastActivity: "2025-03-03" },
-    { id: 3, name: "Student C", email: "alice.johnson@example.com", progress: 90, lastActivity: "2025-03-02" },
-    { id: 4, name: "Student D", email: "bob.miller@example.com", progress: 65, lastActivity: "2025-03-01" },
-    { id: 5, name: "Student E", email: "emily.davis@example.com", progress: 40, lastActivity: "2025-02-28" }
-  ];
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response = await axiosInstance.get('/users');
+        setUsers(response.data);
+      } catch (error) {
+        console.error('Error fetching users:', error);
+      }
+    };
+
+    fetchUsers();
+
+  }, []);
 
   const handleRowClick = (user) => {
     setSelectedUser(user);
@@ -39,12 +47,17 @@ const AdminUserPage = () => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setNewUser({ ...newUser, [name]: value });
+    setNewUser(prevState => ({ ...prevState, [name]: value }));
   };
 
-  const handleAddUser = () => {
-    console.log("New User Added:", newUser);
-    setShowModal(false);
+  const handleAddUser = async () => {
+    try {
+      const response = await axiosInstance.post('/addUser', newUser);
+      setUsers([...users, response.data]);
+      setShowModal(false);
+    } catch (error) {
+      console.error('Error adding user:', error);
+    }
   };
 
   const exportToCSV = () => {
@@ -59,7 +72,6 @@ const AdminUserPage = () => {
     const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
-
     link.href = url;
     link.setAttribute("download", "students_data.csv");
     document.body.appendChild(link);
@@ -67,7 +79,6 @@ const AdminUserPage = () => {
     document.body.removeChild(link);
   };
 
-  // Pagination Logic
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = users.slice(indexOfFirstItem, indexOfLastItem);
@@ -82,7 +93,7 @@ const AdminUserPage = () => {
         <div className='d-flex justify-content-between align-items-center'>
           <h2 className="mr-auto">Student List</h2>
           <div>
-          <Button variant='secondary' className="me-2"> <FaFilter/> </Button>
+            <Button variant='secondary' className="me-2"> <FaFilter/> </Button>
             <Button variant='success' className="me-2" onClick={exportToCSV}> <TbCsv size={24}/> </Button>
             <Button variant='primary' onClick={handleModalShow}> <IoMdAdd size={20}/> </Button>
           </div>
@@ -99,16 +110,15 @@ const AdminUserPage = () => {
           <tbody>
             {currentItems.map((user) => (
               <tr key={user.id} onClick={() => handleRowClick(user)} style={{ cursor: 'pointer' }}>
-                <td>{user.name}</td>
+                <td>{user.first_name} {user.last_name}</td>
                 <td>{user.email}</td>
                 <td><ProgressBar now={user.progress}/></td>
-                <td>{user.lastActivity}</td>
+                <td>{user.lastActivity || "Not available"}</td>
               </tr>
             ))}
           </tbody>
         </Table>
 
-        {/* Pagination */}
         <Pagination className="justify-content-center">
           <Pagination.Prev 
             onClick={() => setCurrentPage(currentPage - 1)} 
@@ -153,8 +163,16 @@ const AdminUserPage = () => {
         <Modal.Body>
           <Form>
             <Form.Group className='mb-3'>
-              <Form.Label>Name</Form.Label>
-              <Form.Control type='text' name='name' value={newUser.name} onChange={handleInputChange} />
+              <Form.Label>First Name</Form.Label>
+              <Form.Control type='text' name='first_name' value={newUser.first_name} onChange={handleInputChange} />
+            </Form.Group>
+            <Form.Group className='mb-3'>
+              <Form.Label>Last Name</Form.Label>
+              <Form.Control type='text' name='last_name' value={newUser.last_name} onChange={handleInputChange} />
+            </Form.Group>
+            <Form.Group className='mb-3'>
+              <Form.Label>Username</Form.Label>
+              <Form.Control type='text' name='username' value={newUser.username} onChange={handleInputChange} />
             </Form.Group>
             <Form.Group className='mb-3'>
               <Form.Label>Email</Form.Label>
