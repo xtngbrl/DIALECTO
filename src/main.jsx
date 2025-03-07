@@ -20,6 +20,7 @@ import AgeSelection from './login/Age_Selection';
 import Home from './pages/DialectChoicesPage';
 import HomeStandby from './pages/ContentStandbyPage';
 import GameOne from './content/Game_One';
+import GameTwo from './content/Game_Two';
 import ContentFour from './content/Content_Four';
 import AnimalCategory from './category/Animals';
 import FoodCategory from './category/Foods';
@@ -49,6 +50,7 @@ function App() {
         <Route path="/dialecto/home" element={<Home />} />
         <Route path="/dialecto/home-standby" element={<HomeStandby />} />
         <Route path="/dialecto/game-one" element={<GameOne />} />
+        <Route path="/dialecto/game-two" element={<GameTwo />} />
         <Route path="/dialecto/content-four" element={<ContentFour />} />
         <Route path="/dialecto/animal-category" element={<AnimalCategory />} />
         <Route path="/dialecto/food-category" element={<FoodCategory />} />

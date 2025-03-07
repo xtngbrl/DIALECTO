@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { HiSpeakerWave } from "react-icons/hi2";
 import { FaMicrophone } from "react-icons/fa6";
-import yatotAudio from '../sound_assets/Animal/Ahas_Halas/halas1.mp3';
+import yatotAudio from '../sound_assets/Animal/Aso_Ayam/ASO-AYAM.mp3';
 import ContentHeader from '../components/ContentHeader';
 import ContentButton from '../components/shared/ContentBtn';
 import RecordPopup from '../components/RecPopUp';

@@ -20,7 +20,7 @@ const AnimalCategory = () => {
     
 const array = [
     { label: 'Start', nav: '/dialecto/game-one', pic: A1, progress: 25, hasVoice: true },
-    { label: 'Start', nav: '/dialecto/content-four', bgColor: 'aqua', pic: A2, progress: 50, hasVoice: false },
+    { label: 'Start', nav: '/dialecto/content-four', bgColor: 'aqua', pic: A2, progress: 0, hasVoice: false },
     { label: 'Start', nav: '/dialecto/game-one', bgColor: '#7FBCD2', pic: A3, progress: 75, hasVoice: true },
     { label: 'Start', nav: '/dialecto/content-four', bgColor: '#FFEA20', pic: A4, progress: 10, hasVoice: false },
     { label: 'Start', nav: '/dialecto/game-one', bgColor: '#EDB7ED', pic: A5, progress: 90, hasVoice: true },
