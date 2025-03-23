@@ -475,7 +475,7 @@ body {
     top: 5.5vh;
     right: 22px;
     border-radius: 10px 0 10px 10px;
-    width: 30%;
+    width: 45%;
     text-align: center;
     padding: 10px 0;
   }
@@ -560,6 +560,7 @@ body {
   }
 
   .footer {
-    height: 25vh;
+    height: 30vh;
+    padding: 10px 0;
   }
 }
