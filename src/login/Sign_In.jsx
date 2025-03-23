@@ -106,7 +106,7 @@ function SignIn()  {
                 <Logo />
                 <h1>STUDENT LOGIN</h1>
             </div>
-            <form onSubmit={login}>
+            <form onSubmit={null}>
                 <h2>Log in to your account</h2>
                 <div className='input-box'>  
                     <input type='text' placeholder='Username' value={username} onChange={(e) => setUsername(e.target.value)}  required />
@@ -116,7 +116,7 @@ function SignIn()  {
                 </div>
 
                 <div className='signUp-btn'>
-                <Button type="submit" label="LOGIN"></Button>
+                <Button type="submit" onClick={navigate("/dialecto/home")} label="LOGIN"></Button>
                 </div>
 
                 <h4>

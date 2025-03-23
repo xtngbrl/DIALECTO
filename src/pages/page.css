@@ -208,6 +208,128 @@
     margin-top: 40px;
 }
 
+/*** Leaderboard ***/
+
+.board-wrapper {
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.board-component {
+   display: flex;
+   flex-direction: row;
+}
+
+.right-board {
+    width: 50%;
+    height: 90vh;
+    background-image: url("../assets/leaderboardBG1.gif");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-around;
+}
+
+.left-board {
+    width: 50%;
+    height: 90vh;
+    padding: 10px 10px 20px 10px;
+    overflow-y: auto;
+}
+
+
+.player {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: antiquewhite;
+    padding-top: 10px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    box-shadow: 0 5px 8px  rgba(0, 0, 0, 0.2);
+}
+
+.player > img {
+    height: 120px;
+    width: 100%;
+    object-fit: contain;
+}
+
+.player h4 {
+    text-align: center;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.player1 {
+    height: 65vh;
+    width: 30%;
+}
+
+.player1 > img {
+    height: 140px   ;
+    width: 100%;
+}
+
+.player2 {
+    height: 55vh;
+    width: 25%;
+}
+
+.player2 > img {
+    height: 130px;
+    width: 100%;
+}
+
+.player3 {
+    height: 45vh;
+    width: 20%;
+}
+
+.player3 > img {
+    height: 105px;
+    width: 100%;
+}
+
+.player-list {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 20px;
+    background-color: burlywood;
+    padding: 4px;
+    padding-right: 20px;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2);
+    margin-bottom: 10px;
+}
+.player-list h4{
+    text-align: center;
+    font-size: 1.3em;
+    font-weight: 700;
+}
+
+.player-names {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: start;
+    width: 40%;
+}
+
+.player-names > img {
+    height: 60px;
+    width: 40%;
+    object-fit: contain;
+}
+
+.player-names h4 {
+    text-align: center;
+    font-size: 1em;
+    font-weight: 600;
+}
 
 /*** Media Queries ***/
 
@@ -292,5 +414,41 @@
 
     .num-two-container {
         margin-top: 20px;
+    }
+
+    .board-component {
+        flex-direction: column;
+    }
+
+    .right-board {
+        height: 35vh;
+        width: 100%;
+    }
+    .player1 {
+        height: 65%;
+    }
+    .player1 > img {
+        height: 100px;
+    }
+    .player2 {
+        height: 55%;
+    }
+    .player2 > img {
+        height: 80px;
+    }
+    .player3 {
+        height: 45%;
+    }
+    .player3 > img {
+        height: 60px;
+    }
+    .player-names {
+        width: 60%;
+    }
+    .left-board {
+        width: 100%;
+        height: 60vh;
+        margin-top: 20px;
+        padding: 20px 20px 50px 20px;
     }
 }

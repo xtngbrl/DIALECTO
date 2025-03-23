@@ -33,13 +33,14 @@ import AdminHomePage from './dialecto_admin/AdminHome';
 import AdminUserPage from './dialecto_admin/AdminUser';
 import AdminLogin from './dialecto_admin/AdminLogin';
 import AdminSignup from './dialecto_admin/AdminSignup';
-
+import LeaderBoard from './pages/LeaderBoardPage';
+import LandingPage from './landing_page/landingPage';
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<OnBoardingPage />} />
+        <Route path="/" element={<LandingPage />} />
         <Route path="/dialecto/onboarding" element={<OnBoarding />} />
         <Route path="/dialecto/signup-role-select" element={<SignupRoleSelection />} />
         <Route path="/dialecto/login-role-select" element={<LoginRoleSelection />} />
@@ -58,15 +59,17 @@ function App() {
         <Route path="/dialecto/basic-phrases-category" element={<BasicPhrases />} />
         <Route path="/dialecto/profile-page" element={<ProfilePage />} />
         <Route path="/dialecto/progress-page" element={<ProgressPage />} />
+        <Route path="/dialecto/leaderboard" element={<LeaderBoard />} />
         <Route path="/dialecto/video" element={<Video />} />
-          <Route path="/dialecto/admin-login" element={<AdminLogin />} />
-          <Route path="/dialecto/admin-signup" element={<AdminSignup />} />
-          <Route path="/dialecto/admin-dashboard" element={<AdminHomePage />} />
-          <Route path="/dialecto/admin/students" element={<AdminUserPage />} />  
+        <Route path="/dialecto/admin-login" element={<AdminLogin />} />
+        <Route path="/dialecto/admin-signup" element={<AdminSignup />} />
+        <Route path="/dialecto/admin-dashboard" element={<AdminHomePage />} />
+        <Route path="/dialecto/admin/students" element={<AdminUserPage />} />
         <Route path="*" element={<div>404 Not Found</div>} />
       </Routes>
     </BrowserRouter>
-  );}
+  );
+}
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

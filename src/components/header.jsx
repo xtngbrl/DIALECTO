@@ -11,6 +11,7 @@ import Button from './shared/Btn';
 import IconButton from './shared/IconBtn';
 import CategoriesButton from './shared/CategoriesBtn';
 import ProfileIcon from '../assets/profile.png';
+import LeaderboardIcon from '../assets/leaderboard.png'
 import ProgressIcon from '../assets/progress.png';
 import Swal from "sweetalert2";
 import check from '../assets/check.png'
@@ -150,6 +151,12 @@ function Header ({ showCategoriesButton, showSwitchButton, bgColor }) {
               label="Profile" 
               bgColor="var(--primary-color)" 
               navigateTo={() => navigate('/dialecto/profile-page')} 
+            />
+            <IconButton
+               imageUrl={LeaderboardIcon} 
+               label="Leaderboard" 
+               bgColor="var(--primary-color)" 
+               navigateTo={() => navigate('/dialecto/leaderboard')}
             />
             <IconButton 
               imageUrl={ProgressIcon} 
