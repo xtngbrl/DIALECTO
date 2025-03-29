@@ -13,8 +13,9 @@ import NotAvail from '../assets/notAvail.png';
 import SorryIcon from '../assets/sorryIcon.png';
 import './components.css';
 
+// '/dialecto/animal-category' former nav
 const array = [
-  { pic: DialectImg, btnLabel: 'Play now!', label: 'Waray', nav: '/dialecto/animal-category', bgColor: '#FFD700', desc: "The Waray language is part of the Austronesian language family and is spoken throughout Samar Island, with some variations between the dialects of Eastern, Northern, and Western Samar. They are the most culturally conservative of the Visayans.", showPopup: false },
+  { pic: DialectImg, btnLabel: 'Play now!', label: 'Waray', nav: '/dialecto/interactive-page', bgColor: '#FFD700', desc: "The Waray language is part of the Austronesian language family and is spoken throughout Samar Island, with some variations between the dialects of Eastern, Northern, and Western Samar. They are the most culturally conservative of the Visayans.", showPopup: false },
   { pic: NotAvail, btnLabel: 'Play now!', label: 'Ilocano', bgColor: 'aqua', desc: "No description yet as the Dialect is not available in the Game.", showPopup: false },
   { pic: NotAvail, btnLabel: 'Play now!', label: 'Cebuano', bgColor: '#7FBCD2', desc: "No description yet as the Dialect is not available in the Game.", showPopup: false },
   { pic: NotAvail, btnLabel: 'Play now!', label: 'Tausog', bgColor: '#A1F54D', desc: "No description yet as the Dialect is not available in the Game.", showPopup: false },

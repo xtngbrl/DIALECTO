@@ -10,21 +10,21 @@ const SwitchButton = () => {
 
   let label = "STANDBY MODE"; 
 
-  if (
-    location.pathname === "/dialecto/animal-category" ||
-    location.pathname === "/dialecto/food-category" ||
-    location.pathname === "/dialecto/household-item-category" ||
-    location.pathname === "/dialecto/basic-phrases-category"
+  if ( location.pathname === "/dialecto/interactive-page"
+    // location.pathname === "/dialecto/animal-category" ||
+    // location.pathname === "/dialecto/food-category" ||
+    // location.pathname === "/dialecto/household-item-category" ||
+    // location.pathname === "/dialecto/basic-phrases-category"
   ) {
     label = "INTERACTIVE MODE";
   }
 
   const handleClick = () => {
-    if (
-      location.pathname === "/dialecto/animal-category" ||
-      location.pathname === "/dialecto/food-category" ||
-      location.pathname === "/dialecto/household-item-category" ||
-      location.pathname === "/dialecto/basic-phrases-category"
+    if ( location.pathname === "/dialecto/interactive-page"
+      // location.pathname === "/dialecto/animal-category" ||
+      // location.pathname === "/dialecto/food-category" ||
+      // location.pathname === "/dialecto/household-item-category" ||
+      // location.pathname === "/dialecto/basic-phrases-category"
     ) {
       navigate("/dialecto/home-standby");
     } else {

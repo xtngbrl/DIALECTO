@@ -23,6 +23,15 @@
   z-index: 20;
 }
 
+.squares-canvas {
+  position: fixed; 
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 10;
+}
+
 
 /*** Sidebar ***/
 
@@ -83,7 +92,7 @@
 
 .slider-container {
   width: 100%;
-  height: 90vh;
+  height: 100vh;
   margin: 0 auto;
   /* background-image: url('../assets/wave1.svg');
   background-size: cover;
@@ -91,6 +100,7 @@
   background-repeat: no-repeat; */
   background-color: #f4e8dd;
   z-index: 10;
+  padding-top: 10vh;
   overflow: hidden;
 }
 .unavailable-slide {
@@ -297,6 +307,11 @@ transition: 250ms ease-in-out;
 }
 
 /*** Content Header ***/
+
+.header-container {
+  position: fixed;
+  z-index: 9999;
+}
 
 .content-header-container {
   display: flex;

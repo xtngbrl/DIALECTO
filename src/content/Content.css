@@ -236,6 +236,63 @@
     transition: width 0.3s;
 }
 
+
+/*** Word Shooter ***/
+
+.word-shooter-wrapper {
+    width: 100%;
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+    background-color: var(--bg-color);
+    cursor: none;
+}
+
+.word-shooter-container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.word {
+    position: absolute;
+    padding: 10px;
+    background-color: var(--secondary-color);
+    text-align: center;
+    font-weight: bold;
+    border-radius: 5px;
+    user-select: none;
+    color: whitesmoke;
+    animation: all ease-in-out 0.5s;
+}
+
+.word:hover {
+    background-color: var(--primary-color);
+}
+
+.shooter-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    padding-left: 20px;
+}
+
+.shooter-icon {
+    font-size: 25px;
+    border-radius: 2px;
+}
+
+.ammo {
+    margin-left: 15px;
+}
+
+.target-counter, .ammo-counter {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+
 /*** Video ***/
 
 .video-wrapper {

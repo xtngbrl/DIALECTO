@@ -35,6 +35,8 @@ import AdminLogin from './dialecto_admin/AdminLogin';
 import AdminSignup from './dialecto_admin/AdminSignup';
 import LeaderBoard from './pages/LeaderBoardPage';
 import LandingPage from './landing_page/landingPage';
+import ContentInteractivePage from './pages/ContentInteractivePage';
+import WordShooter from './content/WordShooter';
 
 function App() {
   return (
@@ -60,6 +62,8 @@ function App() {
         <Route path="/dialecto/profile-page" element={<ProfilePage />} />
         <Route path="/dialecto/progress-page" element={<ProgressPage />} />
         <Route path="/dialecto/leaderboard" element={<LeaderBoard />} />
+        <Route path="/dialecto/interactive-page" element={<ContentInteractivePage />} />
+        <Route path="/dialecto/word-shooter" element={<WordShooter />} />
         <Route path="/dialecto/video" element={<Video />} />
         <Route path="/dialecto/admin-login" element={<AdminLogin />} />
         <Route path="/dialecto/admin-signup" element={<AdminSignup />} />
