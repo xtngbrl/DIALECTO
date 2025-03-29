@@ -290,6 +290,112 @@
 .target-counter, .ammo-counter {
     font-size: 20px;
     font-weight: 700;
+    user-select: none;
+}
+
+/*** Falling Text ***/
+
+.text-game-wrapper {
+    background-color: var(--bg2-color);
+    height: 100vh;
+    width: 100vw;
+    padding: 1em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.text-game-wrapper h2 {
+    position: absolute;
+    top: 1%;
+    left: 1%;
+    font-family: 'Poppins';
+    font-size: 1.7em;
+    font-weight: 600;
+    padding: 10px 15px;
+    background-color: var(--secondary-color);
+    border-radius: 10px;
+    color: #ffffff;
+}
+
+.word-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+  padding: 80px 20px;
+  border-radius: 1em;
+  background-color: var(--secondary-color);
+}
+
+.draggable-word {
+  display: inline-block;
+  padding: 10px 15px;
+  background-color: var(--primary-color);
+  color: white;
+  font-size: 1.2rem;
+  cursor: grab;
+  border-radius: 5px;
+  user-select: none;
+  transition: all ease 0.3s;
+}
+
+.draggable-word:hover {
+  background-color: rgba(240, 164, 56, .6);
+  transform: scale(1.05);
+}
+
+.text-game-buttom {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    margin-top: 30px;
+    width: 100%;
+}
+
+.text-game-buttom p {
+    position: absolute;
+    left: 0;
+    font-size: 1.1em;
+    font-weight: 500;
+    background-color: var(--secondary-color);
+    padding: 8px 10px;
+    border-radius: 6px;
+    color: #ffffff;
+}
+
+.submit-btn {
+  padding: 12px 25px;
+  font-size: 1rem;
+  font-weight: 600;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: all ease 0.3s;
+}
+
+.submit-btn:hover {
+  background-color: #D28F32;
+  transform: scale(1.01);
+}
+
+.result {
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.correct {
+  color: green;
+}
+
+.incorrect {
+  color: red;
 }
 
 

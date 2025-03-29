@@ -6,6 +6,9 @@ import { ImTarget } from "react-icons/im";
 import { GiAmmoBox } from "react-icons/gi";
 import "./Content.css";
 
+import hitSoundFile from "../assets/hard-click.mp3";   
+import missSoundFile from "../assets/pong.mp3"; 
+
 const words = [
     "banana", "guitar", "volcano", "elephant", "whisper",
     "puzzle", "galaxy", "tornado", "mystery", "treasure",
@@ -16,11 +19,18 @@ const words = [
 function WordShooter() {
     const navigate = useNavigate();
     const containerRef = useRef(null);
+
     const [targetWords, setTargetWords] = useState([]);
     const [positions, setPositions] = useState([]);
     const [targetsLeft, setTargetsLeft] = useState(5);
     const [ammo, setAmmo] = useState(20);
     const [activeWords, setActiveWords] = useState(words);
+
+    const playSound = (soundFile) => {
+        const sound = new Audio(soundFile); 
+        sound.currentTime = 0;
+        sound.play().catch((error) => console.error("Audio play error:", error));
+    };
 
     useEffect(() => {
         const selectedTargets = words.sort(() => 0.5 - Math.random()).slice(0, 5);
@@ -69,16 +79,19 @@ function WordShooter() {
 
     const handleClick = (word) => {
         if (targetWords.includes(word)) {
+            playSound(hitSoundFile); 
             setTargetsLeft((prev) => prev - 1);
             setActiveWords((prevWords) => prevWords.filter((w) => w !== word));
         } else {
+            playSound(missSoundFile); 
             setAmmo((prev) => prev - 1);
         }
-
+    
         checkGameStatus();
     };
 
     const handleMiss = () => {
+        playSound(missSoundFile); 
         setAmmo((prev) => prev - 1);
         checkGameStatus();
     };
@@ -97,7 +110,7 @@ function WordShooter() {
                     window.location.reload();
                 } else {
                     navigate("/dialecto/interactive-page");
-                  }
+                }
             });
         }
 
@@ -114,7 +127,7 @@ function WordShooter() {
                     window.location.reload();
                 } else {
                     navigate("/dialecto/interactive-page");
-                  }
+                }
             });
         }
     };

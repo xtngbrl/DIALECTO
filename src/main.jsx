@@ -37,6 +37,7 @@ import LeaderBoard from './pages/LeaderBoardPage';
 import LandingPage from './landing_page/landingPage';
 import ContentInteractivePage from './pages/ContentInteractivePage';
 import WordShooter from './content/WordShooter';
+import FallingTextGame from './content/WordScramble';
 
 function App() {
   return (
@@ -64,6 +65,7 @@ function App() {
         <Route path="/dialecto/leaderboard" element={<LeaderBoard />} />
         <Route path="/dialecto/interactive-page" element={<ContentInteractivePage />} />
         <Route path="/dialecto/word-shooter" element={<WordShooter />} />
+        <Route path="/dialecto/word-scramble" element={<FallingTextGame />} />
         <Route path="/dialecto/video" element={<Video />} />
         <Route path="/dialecto/admin-login" element={<AdminLogin />} />
         <Route path="/dialecto/admin-signup" element={<AdminSignup />} />
