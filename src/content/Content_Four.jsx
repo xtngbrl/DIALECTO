@@ -2,16 +2,20 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { HiSpeakerWave } from "react-icons/hi2";
 import { FaMicrophone } from "react-icons/fa6";
+import Swal from 'sweetalert2';
 import ayamAudio from '../sound_assets/Animal/Aso_Ayam/ASO-AYAM.mp3';
-// import halasAudio from '../sound_assets/Animal/Ahas_Halas/halas1.mp3';
 import ContentHeader from '../components/ContentHeader';
 import ContentButton from '../components/shared/ContentBtn';
 import RecordPopup from '../components/RecPopUp';
 import ResultPopUp from '../components/ResultPop';
 import './Content.css';
-import { loadAudioBuffer, extractMFCC, euclideanDistance } from '../utils/voiceMatching';
 
-// --- Waveform visualization component ---
+import { 
+    loadAudioBuffer,    // Loads and decodes audio files into AudioBuffer 
+    extractMFCC,        // Extracts MFCC features from AudioBuffer
+    euclideanDistance   // Calculates similarity between feature vectors
+} from '../utils/voiceMatching';
+
 const Waveform = ({ analyser }) => {
     const canvasRef = useRef(null);
 
@@ -59,8 +63,8 @@ const Waveform = ({ analyser }) => {
     );
 };
 
-const MATCH_THRESHOLD = 120; // Tune as needed
-const MAX_DISTANCE = 250; // Maximum distance for 0% accuracy (tune as needed)
+const MATCH_THRESHOLD = 120;
+const MAX_DISTANCE = 250;
 
 const ContentFour = () => {
     const [showPopup, setShowPopup] = useState(false);
@@ -68,50 +72,35 @@ const ContentFour = () => {
     const [isRecording, setIsRecording] = useState(false);
     const [isProcessing, setIsProcessing] = useState(false);
     const [recordedAudioBuffer, setRecordedAudioBuffer] = useState(null);
-    const [recordedAudioUrl, setRecordedAudioUrl] = useState(null); // For playback
+    const [recordedAudioUrl, setRecordedAudioUrl] = useState(null);
     const [mediaStream, setMediaStream] = useState(null);
     const [mediaRecorder, setMediaRecorder] = useState(null);
     const [audioChunks, setAudioChunks] = useState([]);
     const [analyser, setAnalyser] = useState(null);
     const [accuracy, setAccuracy] = useState(null);
     const [isMatch, setIsMatch] = useState(null);
+    const [audioContext, setAudioContext] = useState(null);
 
     const navigate = useNavigate();
 
     useEffect(() => {
         const hasSeenPopup = localStorage.getItem('hasSeenPopup');
-        if (!hasSeenPopup) {
-            setShowPopup(true);
-        }
+        if (!hasSeenPopup) setShowPopup(true);
     }, []);
 
-    // Clean up media stream and audio URL on unmount
     useEffect(() => {
         return () => {
-            if (mediaStream) {
-                mediaStream.getTracks().forEach(track => track.stop());
-            }
-            if (recordedAudioUrl) {
-                URL.revokeObjectURL(recordedAudioUrl);
-            }
+            if (mediaStream) mediaStream.getTracks().forEach(track => track.stop());
+            if (recordedAudioUrl) URL.revokeObjectURL(recordedAudioUrl);
+            if (audioContext && audioContext.state !== 'closed') audioContext.close();
         };
-    }, [mediaStream, recordedAudioUrl]);
+    }, [mediaStream, recordedAudioUrl, audioContext]);
 
     const handlePlaySound = () => {
         const audio = new Audio(ayamAudio);
         audio.play();
     };
 
-    const handleAttentionIconClick = () => {
-        setShowPopup(true);
-    };
-
-    const onExit = () => {
-        setShowPopup(false);
-        localStorage.setItem('hasSeenPopup', 'true');
-    };
-
-    // --- Recording logic ---
     const handleRecordClick = async () => {
         setAccuracy(null);
         setRecordedAudioBuffer(null);
@@ -121,105 +110,148 @@ const ContentFour = () => {
             URL.revokeObjectURL(recordedAudioUrl);
             setRecordedAudioUrl(null);
         }
+
+        const result = await Swal.fire({
+            title: 'Ready to Record?',
+            text: 'Make sure you are in a quiet environment and speak clearly.',
+            icon: 'info',
+            showCancelButton: true,
+            confirmButtonText: 'Start Recording',
+            cancelButtonText: 'Cancel',
+            confirmButtonColor: '#4f8cff',
+            cancelButtonColor: '#6c757d'
+        });
+
+        if (!result.isConfirmed) return;
+
         setIsRecording(true);
 
         try {
             const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
             setMediaStream(stream);
 
-            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            let audioCtx = audioContext;
+            if (!audioCtx || audioCtx.state === 'closed') {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                setAudioContext(audioCtx);
+            }
+
+            if (audioCtx.state === 'suspended') await audioCtx.resume();
+
             const source = audioCtx.createMediaStreamSource(stream);
             const analyserNode = audioCtx.createAnalyser();
             analyserNode.fftSize = 1024;
             source.connect(analyserNode);
             setAnalyser(analyserNode);
 
-            const recorder = new window.MediaRecorder(stream);
+            const mimeType = MediaRecorder.isTypeSupported('audio/webm;codecs=opus') ? 'audio/webm;codecs=opus' : 'audio/webm';
+            const recorder = new MediaRecorder(stream, { mimeType });
             setMediaRecorder(recorder);
 
-            let chunks = [];
-            recorder.ondataavailable = (e) => {
-                if (e.data.size > 0) chunks.push(e.data);
-            };
+            const chunks = [];
+            recorder.ondataavailable = e => e.data.size > 0 && chunks.push(e.data);
+
             recorder.onstop = async () => {
-                // Convert chunks to AudioBuffer
-                const blob = new Blob(chunks, { type: "audio/webm" });
+                const blob = new Blob(chunks, { type: mimeType });
                 const arrayBuffer = await blob.arrayBuffer();
                 const audioBuffer = await audioCtx.decodeAudioData(arrayBuffer);
                 setRecordedAudioBuffer(audioBuffer);
+                setRecordedAudioUrl(URL.createObjectURL(blob));
                 setAudioChunks(chunks);
-                // For playback
-                const url = URL.createObjectURL(blob);
-                setRecordedAudioUrl(url);
                 setIsRecording(false);
                 setAnalyser(null);
-                // Stop tracks
                 stream.getTracks().forEach(track => track.stop());
             };
 
-            recorder.start();
+            recorder.start(100);
         } catch (err) {
+            console.error('Recording setup error:', err);
+            Swal.fire({
+                title: 'Recording Error!',
+                text: `Could not start recording: ${err.message}`,
+                icon: 'error',
+                confirmButtonText: 'OK',
+                confirmButtonColor: '#4f8cff'
+            });
             setIsRecording(false);
-            setAnalyser(null);
-            setMediaStream(null);
-            setMediaRecorder(null);
-            alert('Could not start recording: ' + err.message);
         }
     };
 
     const handleStopRecording = () => {
         if (mediaRecorder && mediaRecorder.state === "recording") {
             mediaRecorder.stop();
+            Swal.fire({
+                title: 'Processing Recording...',
+                text: 'Please wait while we process your audio.',
+                icon: 'info',
+                showConfirmButton: false,
+                timer: 2000,
+                timerProgressBar: true
+            });
         }
     };
 
-    // --- Voice matching logic ---
     const handleResultClick = async () => {
         if (!recordedAudioBuffer) {
-            alert("Please record your voice first!");
+            Swal.fire({
+                title: 'No Recording!',
+                text: 'Please record your voice first!',
+                icon: 'warning',
+                confirmButtonText: 'OK',
+                confirmButtonColor: '#4f8cff'
+            });
             return;
         }
+
         setIsProcessing(true);
+
         try {
-            // Debug: check buffer length
-            if (!recordedAudioBuffer.getChannelData || recordedAudioBuffer.length === 0) {
-                throw new Error("Recorded audio buffer is empty or invalid.");
-            }
-            // 1. Use the recorded audio buffer
-            const userBuffer = recordedAudioBuffer;
-            console.log(userBuffer, 'ub');
-            // 2. Load reference audio
+            // ✅ UTILS USAGE #1: Load reference audio file
+            // loadAudioBuffer() loads the MP3 file and converts it to AudioBuffer
             const refBuffer = await loadAudioBuffer(ayamAudio);
-            console.log(refBuffer, 'rb');
-            // 3. Extract MFCC features
-            const userMFCC = extractMFCC(userBuffer);
-            console.log('userMFCC:', userMFCC);
+            
+            // ✅ UTILS USAGE #2: Extract MFCC features from recorded audio
+            // extractMFCC() processes the AudioBuffer and returns feature vector
+            const userMFCC = extractMFCC(recordedAudioBuffer);
+            
+            // ✅ UTILS USAGE #3: Extract MFCC features from reference audio
+            // Same function, different input - extracts features from reference
             const refMFCC = extractMFCC(refBuffer);
-            console.log('refMFCC:', refMFCC);
 
-            // Defensive: check MFCCs
-            if (
-                !Array.isArray(userMFCC) || !Array.isArray(refMFCC) ||
-                userMFCC.length === 0 || refMFCC.length === 0 ||
-                userMFCC.some(isNaN) || refMFCC.some(isNaN)
-            ) {
-                throw new Error("MFCC extraction failed or returned invalid values.");
-            }
-
+            // ✅ UTILS USAGE #4: Calculate similarity between voices
+            // euclideanDistance() compares the two feature vectors
+            // Lower distance = more similar voices
             let distance = euclideanDistance(userMFCC, refMFCC);
-            console.log('calculated distance from recording to reference:', distance);
+            
+            // Handle edge cases
+            if (!isFinite(distance)) distance = MAX_DISTANCE;
+            
+            // Convert distance to percentage (0-100%)
+            let percent = Math.max(0, 100 - (distance / MAX_DISTANCE) * 100);
+            percent = Math.min(percent, 100);
 
-            if (!isFinite(distance) || isNaN(distance)) distance = MAX_DISTANCE;
-
-            let percent = 100 - (distance / MAX_DISTANCE) * 100;
-            if (!isFinite(percent) || isNaN(percent)) percent = 0;
-            percent = Math.max(0, Math.min(percent, 100));
-            setAccuracy(percent);
+            setAccuracy(Math.round(percent * 100) / 100);
             setIsMatch(distance < MATCH_THRESHOLD);
+
+            Swal.fire({
+                icon: 'success',
+                title: `Analysis complete! Accuracy: ${Math.round(percent)}%`,
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 1500
+            });
         } catch (err) {
+            console.error('Voice matching error:', err);
             setAccuracy(0);
             setIsMatch(false);
-            console.error('Voice matching error:', err);
+            Swal.fire({
+                title: 'Voice Matching Failed!',
+                text: err.message,
+                icon: 'error',
+                confirmButtonText: 'Try Again',
+                confirmButtonColor: '#4f8cff'
+            });
         } finally {
             setIsProcessing(false);
             setShowResultPopup(true);
@@ -231,27 +263,20 @@ const ContentFour = () => {
         setAccuracy(null);
         setRecordedAudioBuffer(null);
         setIsMatch(false);
-        if (recordedAudioUrl) {
-            URL.revokeObjectURL(recordedAudioUrl);
-            setRecordedAudioUrl(null);
-        }
-        // navigate(-1);
+        if (recordedAudioUrl) URL.revokeObjectURL(recordedAudioUrl);
+        setRecordedAudioUrl(null);
     };
 
     return (
         <div className='content-one-wrapper four-wrapper'>
-            {showPopup && <RecordPopup onExit={onExit} />}
-            {showResultPopup && (
-                <ResultPopUp
-                    onExit={handleExitResult}
-                    accuracy={accuracy}
-                    isMatch={isMatch}
-                />
-            )}
-            <ContentHeader showAttentionIcon={true} onAttentionIconClick={handleAttentionIconClick} />
-            <div></div>
-            <div className='content-title four-title'>Listen and Match your Voice</div>
+            {showPopup && <RecordPopup onExit={() => {
+                setShowPopup(false);
+                localStorage.setItem('hasSeenPopup', 'true');
+            }} />}
+            {showResultPopup && <ResultPopUp onExit={handleExitResult} accuracy={accuracy} isMatch={isMatch} />}
+            <ContentHeader showAttentionIcon onAttentionIconClick={() => setShowPopup(true)} />
 
+            <div className='content-title four-title'>Listen and Match your Voice</div>
             <div className='content-one-container'>
                 <div className='speaker-container'>
                     <HiSpeakerWave className='speaker-icon' />
@@ -263,34 +288,27 @@ const ContentFour = () => {
                 <div className='mic-container'>
                     <FaMicrophone className='mic-icon' />
                     <div className='mic-btn'>
-                        <ContentButton
-                            label={isRecording ? 'Recording...' : 'Record'}
-                            onClick={handleRecordClick}
-                            disabled={isRecording}
-                        />
-                        <ContentButton
-                            label='Stop'
-                            onClick={handleStopRecording}
-                            disabled={!isRecording}
-                        />
-                        <ContentButton
-                            label='Submit'
-                            onClick={handleResultClick}
-                            disabled={isProcessing || !recordedAudioBuffer}
-                        />
+                        <ContentButton label={isRecording ? 'Recording...' : 'Record'} onClick={handleRecordClick} disabled={isRecording || isProcessing} />
+                        <ContentButton label='Stop' onClick={handleStopRecording} disabled={!isRecording} />
+                        <ContentButton label={isProcessing ? 'Processing...' : 'Submit'} onClick={handleResultClick} disabled={isProcessing || !recordedAudioBuffer} />
                     </div>
-                    {isRecording && (
-                        <div style={{ marginTop: 12 }}>
-                            <div style={{ color: '#4f8cff', fontWeight: 600 }}>Recording...</div>
-                            <Waveform analyser={analyser} />
+
+                    {isRecording && <div style={{ marginTop: 12 }}>
+                        <div style={{ color: '#4f8cff', fontWeight: 600 }}>Recording...</div>
+                        <Waveform analyser={analyser} />
+                    </div>}
+
+                    {recordedAudioBuffer && !isRecording && (
+                        <div style={{ marginTop: 12, color: '#28a745', fontSize: 14 }}>
+                            ✓ Recording ready ({recordedAudioBuffer.duration.toFixed(1)}s)
                         </div>
                     )}
-                    {/* Playback for user recording */}
+
                     {recordedAudioUrl && !isRecording && (
-                        <div style={{ marginTop: 16, textAlign: 'center' }}>
-                            <audio controls src={recordedAudioUrl} />
-                            <div style={{ fontSize: 12, color: '#888' }}>Playback your recording</div>
-                        </div>
+                        <audio controls style={{ marginTop: 8 }}>
+                            <source src={recordedAudioUrl} type='audio/webm' />
+                            Your browser does not support the audio element.
+                        </audio>
                     )}
                 </div>
             </div>
