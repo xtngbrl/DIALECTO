@@ -10,7 +10,7 @@ function ContentInteractivePage() {
     const cardData = [
         { title: "Word Shooter", description: "Take aim and fire! Let’s go!", nav: "/dialecto/word-shooter" },
         { title: "Guess the Word", description: "Listen closely… Can you get it right?" },
-        { title: "Quiz Quest", description: "Let’s test your knowledge! Ready?" },
+        { title: "Quiz Quest", description: "Let’s test your knowledge! Ready?", nav: "/dialecto/game-one" },
         { title: "Echo Match", description: "Speak up! Can you match the sound?", nav: "/dialecto/content-four"  },
         { title: "Letter Hunt", description: "Find the missing piece! Ready?" },
         { title: "Jumble Fix", description: "Think fast! Spell faster!", nav: "/dialecto/word-scramble" },

@@ -1,11 +1,24 @@
 import axios from 'axios';
 
-const axiosInstance = axios.create({
+const api = axios.create({
   baseURL: 'http://localhost:3000/api',
   withCredentials: true, 
 });
 
-export default axiosInstance;
+api.interceptors.request.use(config => {
+  const token = document.cookie
+    .split('; ')
+    .find(row => row.startsWith('accessToken='))
+    ?.split('=')[1];
+
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+
+  return config;
+}, error => Promise.reject(error));
+
+export default api;
 
 
 // src/axiosInstance.js
