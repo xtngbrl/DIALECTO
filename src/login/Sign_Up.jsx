@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Logo from "../assets/logo";
 import Button from "../components/shared/Btn";
-import "./logIn.css";
+import TermsModals from "../components/terms/TermsModal";
 import Swal from "sweetalert2";
 import check from "../assets/check.png";
-import "bootstrap/dist/css/bootstrap.min.css";
 import { addUser } from "../services/userService";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./logIn.css";
 
 const SignUp = () => {
   const [email, setEmail] = useState("");
@@ -14,7 +15,9 @@ const SignUp = () => {
   const [username, setUsername] = useState("");
   const [first_name, setFirstName] = useState("");
   const [last_name, setLastName] = useState("");
-  const [role_name, setRoleName] = useState("Student");
+  const [role_name] = useState("Student");
+  const [agreeTerms, setAgreeTerms] = useState(false);
+  const [showModal, setShowModal] = useState(false);
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
@@ -25,29 +28,27 @@ const SignUp = () => {
     if (password.length < 8) {
       return "Password must be at least 8 characters long.";
     }
-    // Basic email validation
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailPattern.test(email)) {
       return "Invalid email format.";
+    }
+    if (!agreeTerms) {
+      return "You must agree to the Terms and Conditions.";
     }
     return "";
   };
 
   const handleAddUser = async (e) => {
     e.preventDefault();
-
     const validationError = validateForm();
     if (validationError) {
       setError(validationError);
-      setTimeout(() => {
-        setError("");
-      }, 3000);
-
+      setTimeout(() => setError(""), 3000);
       return;
     }
 
     try {
-      const response = await addUser({
+      await addUser({
         role_name,
         last_name,
         first_name,
@@ -55,12 +56,6 @@ const SignUp = () => {
         email,
         password,
       });
-
-      setLastName("");
-      setFirstName("");
-      setPassword("");
-      setEmail("");
-      setUsername("");
 
       Swal.fire({
         title: "User Added Successfully",
@@ -70,9 +65,14 @@ const SignUp = () => {
         imageHeight: 100,
         confirmButtonText: "OK",
         confirmButtonColor: "#0ABAA6",
-      }).then(() => {
-        navigate("/dialecto/home");
-      });
+      }).then(() => navigate("/dialecto/home"));
+
+      setLastName("");
+      setFirstName("");
+      setPassword("");
+      setEmail("");
+      setUsername("");
+      setAgreeTerms(false);
     } catch (error) {
       setError("Failed to add user. Please try again.");
     }
@@ -86,7 +86,7 @@ const SignUp = () => {
       </div>
       <form onSubmit={handleAddUser}>
         <div className="input-box">
-          <input type="text" defaultValue={role_name} required disabled />
+          <input type="text" defaultValue={role_name} disabled />
         </div>
         <div className="input-box">
           <input
@@ -134,6 +134,25 @@ const SignUp = () => {
           />
         </div>
 
+        <div className="checkbox-container">
+          <label>
+            <input
+              type="checkbox"
+              checked={agreeTerms}
+              onChange={(e) => setAgreeTerms(e.target.checked)}
+            />
+            &nbsp;I agree to the{" "}
+            <span
+              style={{ color: "#0ABAA6", cursor: "pointer", textDecoration: "underline" }}
+              onClick={() => setShowModal(true)}
+            >
+              Terms and Conditions
+            </span>
+          </label>
+        </div>
+
+        {error && <div className="error-message">{error}</div>}
+
         <div className="signUp-btn">
           <Button label="SIGN UP" type="submit" />
         </div>
@@ -153,6 +172,8 @@ const SignUp = () => {
           </span>
         </h5>
       </form>
+
+      <TermsModals isOpen={showModal} onClose={() => setShowModal(false)} />
     </div>
   );
 };

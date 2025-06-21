@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import { upsertProgress } from "../services/gameprogService";
 import "./Content.css";
 
 function WordScrambleGame() {
     const navigate = useNavigate();
     const originalText = `React Bits is a library of animated and interactive React components designed to streamline UI development and simplify your workflow.`;
-
-
     const shuffledWords = originalText.split(" ").sort(() => Math.random() - 0.5);
+
     const [words, setWords] = useState(shuffledWords);
     const [attempts, setAttempts] = useState(5);
 
@@ -29,9 +29,30 @@ function WordScrambleGame() {
         setWords(newWords);
     };
 
-    const checkAnswer = () => {
+    const saveProgress = async (score, isCompleted) => {
+        try {
+            await upsertProgress({
+                gameType: "jumbled",
+                score,
+                details: {
+                    currentWords: words,
+                    remainingAttempts: attempts,
+                    completed: isCompleted
+                }
+            });
+        } catch (err) {
+            console.error("Failed to upsert progress:", err);
+        }
+    };
+
+    const checkAnswer = async () => {
         const userSentence = words.join(" ");
-        if (userSentence === originalText) {
+        const isCorrect = userSentence === originalText;
+        const score = isCorrect ? 100 : 0;
+
+        await saveProgress(score, isCorrect);
+
+        if (isCorrect) {
             Swal.fire({
                 title: "🎉 You've Won!",
                 text: "Congratulations! You arranged the words correctly.",
