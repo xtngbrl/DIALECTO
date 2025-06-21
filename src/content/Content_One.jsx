@@ -1,13 +1,13 @@
 import React from 'react';
 
 import ContentButton from '../components/shared/ContentBtn';
-import Snake from '../assets/snek.png';
+import House from '../assets/house.jpg';
 import './Content.css';
 
 const ContentOne = ({ onCorrect, onIncorrect }) => {
 
   const handleAnswer = (label) => {
-    if (label === 'Halas') {
+    if (label === 'Balay') {
       onCorrect();
     } else {
       onIncorrect();
@@ -21,19 +21,19 @@ const ContentOne = ({ onCorrect, onIncorrect }) => {
         <div className='content-one-container'>
             <div className='img-wrapper'>
               <div className='img-container'>
-              <img src={Snake} alt='Snake' />
+              <img src={House} alt='Snake' />
               </div>
 
-              <h2>Ahas</h2>
+              <h2>House</h2>
             </div>
 
             <div className='choices-container'>
                 <h2>Choices</h2>
                 <div className='btn-choices-container'>
-                  <ContentButton label='Halas' onClick={() => handleAnswer('Halas')} />
+                  <ContentButton label='Balay' onClick={() => handleAnswer('Balay')} />
                   <ContentButton label='Bugnaw' onClick={() => handleAnswer('Bugnaw')} />
                   <ContentButton label='Haba' onClick={() => handleAnswer('Haba')} />
-                  <ContentButton label='Ekans' onClick={() => handleAnswer('Ekans')} />
+                  <ContentButton label='Ulod' onClick={() => handleAnswer('Ulod')} />
                 </div>
             </div>
         </div>
