@@ -3,6 +3,7 @@ import stringSimilarity from "string-similarity";
 import Meyda from "meyda";
 import Swal from "sweetalert2";
 import "./SpeechGame.css";
+import ContentHeader from '../components/ContentHeader';
 import ayamAudio from '../sound_assets/Animal/Aso_Ayam/ASO-AYAM.mp3';
 
 const correctWord = "ayam";
@@ -284,6 +285,8 @@ const SpeechGame = () => {
   }, [mediaStream, audioContext]);
 
   return (
+    <>
+    <ContentHeader />
     <div className="speechgame-wrapper">
       <h2>🎤 Speak the Word!</h2>
       <p>
@@ -344,6 +347,7 @@ const SpeechGame = () => {
         </p>
       </div>
     </div>
+    </>
   );
 };
 
