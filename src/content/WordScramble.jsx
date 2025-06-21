@@ -6,7 +6,7 @@ import "./Content.css";
 
 function WordScrambleGame() {
     const navigate = useNavigate();
-    const originalText = `An mga hayup na mayda kami sa balay, misay, ayam, at ulot`;
+    const originalText = `Maupay na aga sa iyo tanan`;
     const shuffledWords = originalText.split(" ").sort(() => Math.random() - 0.5);
 
     const [words, setWords] = useState(shuffledWords);
