@@ -1,90 +1,100 @@
-// src/axiosInstance.js
 import axios from 'axios';
-//import React, { useContext } from 'react';
-//import {AuthContext} from './src/components/Authentication/authContext';
-import {
-  getCookie,
-  setCookie,
-} from './src/dialecto_backend/getCookie';
 
 const axiosInstance = axios.create({
-    baseURL: 'http://localhost:3000/api',
+  baseURL: 'http://localhost:3000/api',
+  withCredentials: true, 
 });
 
-// const axiosInstance = axios.create ({
-//     baseURL: 'https://dialecto-api-dialecto-backend.igzlsu.easypanel.host/api'
+export default axiosInstance;
+
+
+// src/axiosInstance.js
+// import axios from 'axios';
+// //import React, { useContext } from 'react';
+// //import {AuthContext} from './src/components/Authentication/authContext';
+// import {
+//   getCookie,
+//   setCookie,
+// } from './src/dialecto_backend/getCookie';
+
+// const axiosInstance = axios.create({
+//     baseURL: 'http://localhost:3000/api',
 // });
 
+// // const axiosInstance = axios.create ({
+// //     baseURL: 'https://dialecto-api-dialecto-backend.igzlsu.easypanel.host/api'
+// // });
 
-let isRefreshing = false;
-let refreshUser = [];
 
-const onRefresh = (accessToken) => {
-  refreshUser.forEach((callback) => callback(accessToken));
-  refreshUser = [];
-};
+// let isRefreshing = false;
+// let refreshUser = [];
 
-const addUser = (callback) => {
-  refreshUser.push(callback);
-};
+// const onRefresh = (accessToken) => {
+//   refreshUser.forEach((callback) => callback(accessToken));
+//   refreshUser = [];
+// };
 
-// Request interceptor to include the token in every request
-axiosInstance.interceptors.request.use(
-  (config) => {
-    const token = getCookie('accessToken');
-    if (token) {
-      config.headers['Authorization'] = `Bearer ${token}`;
-    }
-    return config;
-  },
-  (error) => {
-    return Promise.reject(error);
-  }
-);
+// const addUser = (callback) => {
+//   refreshUser.push(callback);
+// };
 
-// Response interceptor to handle token expiration
-axiosInstance.interceptors.response.use(
-  (response) => response,
-  async (error) => {
-    const originalRequest = error.config;
+// // Request interceptor to include the token in every request
+// axiosInstance.interceptors.request.use(
+//   (config) => {
+//     const token = getCookie('accessToken');
+//     if (token) {
+//       config.headers['Authorization'] = `Bearer ${token}`;
+//     }
+//     return config;
+//   },
+//   (error) => {
+//     return Promise.reject(error);
+//   }
+// );
 
-    //const { logout, showSessionExpiredPopup } = useContext(AuthContext);
-    if (error.response?.status === 403 && !originalRequest._retry) {
-      originalRequest._retry = true;
+// // Response interceptor to handle token expiration
+// axiosInstance.interceptors.response.use(
+//   (response) => response,
+//   async (error) => {
+//     const originalRequest = error.config;
 
-      const refreshToken = getCookie('refreshToken');
+//     //const { logout, showSessionExpiredPopup } = useContext(AuthContext);
+//     if (error.response?.status === 403 && !originalRequest._retry) {
+//       originalRequest._retry = true;
 
-      if (!isRefreshing) {
-        isRefreshing = true;
+//       const refreshToken = getCookie('refreshToken');
 
-        try {
-          const response = await axiosInstance.post('/refresh', {
-            refreshToken,
-          });
-          const { accessToken } = response.data;
+//       if (!isRefreshing) {
+//         isRefreshing = true;
 
-          setCookie('accessToken', accessToken);
+//         try {
+//           const response = await axiosInstance.post('/refresh', {
+//             refreshToken,
+//           });
+//           const { accessToken } = response.data;
 
-          onRefresh(accessToken);
-          isRefreshing = false;
-          return axiosInstance(originalRequest);
-        } catch (refreshError) {
-          isRefreshing = false;
-          showSessionExpiredPopup(); // Log out on refresh token failure
-          return Promise.reject(refreshError);
-        }
-      }
-      return new Promise((resolve) => {
-        addUser((newToken) => {
-          originalRequest.headers[
-            'Authorization'
-          ] = `Bearer ${newToken}`;
-          resolve(axiosInstance(originalRequest));
-        });
-      });
-    }
-    return Promise.reject(error);
-  }
-);
+//           setCookie('accessToken', accessToken);
 
-export default axiosInstance;
+//           onRefresh(accessToken);
+//           isRefreshing = false;
+//           return axiosInstance(originalRequest);
+//         } catch (refreshError) {
+//           isRefreshing = false;
+//           showSessionExpiredPopup(); // Log out on refresh token failure
+//           return Promise.reject(refreshError);
+//         }
+//       }
+//       return new Promise((resolve) => {
+//         addUser((newToken) => {
+//           originalRequest.headers[
+//             'Authorization'
+//           ] = `Bearer ${newToken}`;
+//           resolve(axiosInstance(originalRequest));
+//         });
+//       });
+//     }
+//     return Promise.reject(error);
+//   }
+// );
+
+// export default axiosInstance;
