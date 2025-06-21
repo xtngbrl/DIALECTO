@@ -12,10 +12,10 @@ import missSoundFile from "../assets/pong.mp3";
 import { upsertProgress } from "../services/gameprogService";
 
 const words = [
-  "banana", "guitar", "volcano", "elephant", "whisper",
-  "puzzle", "galaxy", "tornado", "mystery", "treasure",
-  "ocean", "robot", "adventure", "fireworks", "lighthouse",
-  "gravity", "universe", "shadow", "compass", "journey"
+  "halas", "yatot", "ayam", "tamsi", "ulot",
+  "misay", "buwas", "balay", "purtahan", "kulop",
+  "maupay", "tawo", "sangkay", "udto", "mahusay",
+  "iya", "isog", "turog", "karuyag", "hain"
 ];
 
 const WordShooter = () => {

@@ -6,7 +6,7 @@ import "./Content.css";
 
 function WordScrambleGame() {
     const navigate = useNavigate();
-    const originalText = `React Bits is a library of animated and interactive React components designed to streamline UI development and simplify your workflow.`;
+    const originalText = `An mga hayup na mayda kami sa balay, misay, ayam, at ulot`;
     const shuffledWords = originalText.split(" ").sort(() => Math.random() - 0.5);
 
     const [words, setWords] = useState(shuffledWords);
