@@ -21,7 +21,7 @@ const GameOne = () => {
   const [score, setScore] = useState(0); 
 
   const handleCorrectAnswer = () => {
-    setScore(prev => prev + 1); // Add 1 point
+    setScore(prev => prev + 1); 
     setIsCorrect(true);
     setShowPopup(true);
   };
@@ -44,7 +44,7 @@ const GameOne = () => {
     setShowPopup(false);
     try {
       await upsertProgress({
-        gameType: 'quiz',
+        gameType: 'match',
         score,
         details: {
           totalSteps: 3,

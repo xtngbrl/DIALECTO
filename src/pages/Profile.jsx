@@ -11,27 +11,42 @@ import Swal from "sweetalert2";
 import check from '../assets/check.png';
 import close from "../assets/close.png";
 
-import { getCurrentUser, logoutUser } from '../services/userService';
+import { getCurrentUser, logoutUser, getAllUser } from '../services/userService';
 
 const ProfilePage= () => {
   const navigate = useNavigate();
   const [first_name, setFirstName] = useState("");
   const [last_name, setLastName] = useState("");
   const [email, setEmail] = useState("");
+  const [id, setId] = useState("");
 
   useEffect(() => {
     const fetchUser = async () => {
       try {
         const user = await getCurrentUser();
-        setFirstName(user.first_name);
-        setLastName(user.last_name);
-        setEmail(user.email);
+        setFirstName(user?.first_name);
+        setLastName(user?.last_name);
+        setEmail(user?.email);
+        setId(user?.id);
+        console.log("User info fetched successfully:", user);
       } catch (error) {
         console.error("Failed to fetch user info:", error);
       }
     };
 
     fetchUser();
+  }, []);
+
+  useEffect(() => {
+    const fetchAllUsers = async () => {
+      try {
+        const users = await getAllUser();
+        console.log("All users fetched successfully:", users);
+      } catch (error) {
+        console.error("Failed to fetch all users:", error);
+      }
+    };
+    fetchAllUsers();
   }, []);
 
   const handleLogout = () => {

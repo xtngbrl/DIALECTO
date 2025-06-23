@@ -353,6 +353,19 @@
     color: #ffffff;
 }
 
+.text-translation {
+    position: absolute;
+    top: 10%;
+    left: 1%;
+    font-family: 'Poppins';
+    font-size: 1.2em;
+    font-weight: 600;
+    padding: 10px 15px;
+    background-color: var(--secondary-color);
+    border-radius: 10px;
+    color: #ffffff;
+}
+
 .word-container {
   display: flex;
   flex-wrap: wrap;

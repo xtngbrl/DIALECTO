@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState}  from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import ProgressCategCard from '../components/ProgressCard.jsx';
@@ -6,8 +6,40 @@ import WordsProgress from '../components/WordProgress.jsx';
 import { FaChevronLeft } from "react-icons/fa6";
 import './page.css';
 
+import { getCurrentUser } from '../services/userService.js';
+import { getProgress } from '../services/gameprogService.js';
+
 const ProgressPage = () => {
     const navigate = useNavigate();
+    const [user, setUser] = useState(null);
+    const [progress, setProgress] = useState([]);
+
+    useEffect(() => {
+        const getUser = async () => {
+            try {
+                const user = await getCurrentUser();
+                setUser(user);
+            } catch (error) {
+                console.error("Failed to fetch user info:", error);
+            }
+        }
+        getUser();
+    }, []);
+
+    useEffect(() => {
+        const fetchProgress = async () => {
+            try {
+                const userProgress = await getProgress(user.id);
+                setProgress(userProgress);
+                console.log("Progress fetched successfully:", userProgress);
+            } catch (error) {
+                console.error("Failed to fetch progress:", error);
+            }
+        }
+        if (user?.id) {
+            fetchProgress();    
+        }
+    }, [user?.id]);
 
     const cards = [
         {progTitle: "Animal", progIcon: "paw", percentage: 75, bgColor: "#7FBCD2", numWord: "10"},

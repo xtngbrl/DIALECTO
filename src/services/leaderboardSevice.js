@@ -1,12 +1,10 @@
 import api from "../../axiosInstance";
 
-export const getLeaderboard = async (gameType, limit = 50) => {
+export const getTotalLeaderboard = async () => {
   try {
-    const response = await api.get('/leaderboard', {
-      params: { gameType, limit }
-    });
+    const response = await api.get('/leaderboards');
     return response.data;
   } catch (error) {
-    throw error?.response?.data || { error: 'Failed to fetch leaderboard.' };
+    throw error?.response?.data || { error: 'Failed to fetch total leaderboard.' };
   }
 };

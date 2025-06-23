@@ -4,9 +4,9 @@ import { useNavigate } from "react-router-dom";
 import { upsertProgress } from "../services/gameprogService";
 import "./Content.css";
 
-function WordScrambleGame() {
+function WordScrambleGamePampang() {
     const navigate = useNavigate();
-    const originalText = `Maupay na aga sa iyo tanan.`;
+    const originalText = `Nokarin ku malyaring saling ticket?`;
     const shuffledWords = originalText.split(" ").sort(() => Math.random() - 0.5);
 
     const [words, setWords] = useState(shuffledWords);
@@ -102,8 +102,9 @@ function WordScrambleGame() {
         <div className="text-game-wrapper">
             <h2>Rearrange the Words</h2>
             <p className="text-translation">
-                Tagalog Translation: "Magandang umaga sa inyong lahat."
+                Tagalog Translation: "Saan ako makakabili ng ticket?"
             </p>
+            
             <div className="word-container">
                 {words.map((word, index) => (
                     <span
@@ -126,4 +127,4 @@ function WordScrambleGame() {
     );
 }
 
-export default WordScrambleGame;
+export default WordScrambleGamePampang;

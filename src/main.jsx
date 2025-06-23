@@ -39,6 +39,10 @@ import ContentInteractivePage from './pages/ContentInteractivePage';
 import WordShooter from './content/WordShooter';
 import FallingTextGame from './content/WordScramble';
 import SpeechGame from './content/SpeechGame';
+import InteractivePampanga from './pages/InteractivePampang';
+import WordShooterPampang from './content/WordShooterPampang';
+import WordScrambleGamePampang from './content/WordScramblePampang';
+import GameOnePampang from './content/Game_One_Pampang';
 
 function App() {
   return (
@@ -73,6 +77,15 @@ function App() {
         <Route path="/dialecto/admin-signup" element={<AdminSignup />} />
         <Route path="/dialecto/admin-dashboard" element={<AdminHomePage />} />
         <Route path="/dialecto/admin/students" element={<AdminUserPage />} />
+
+        {/*For Other Dialect Routes*/}
+        <Route path="/dialecto/interactive-pampanga" element={<InteractivePampanga />} />
+        <Route path="/dialecto/word-shooter-pampang" element={<WordShooterPampang />} />
+        <Route path="/dialecto/word-scramble-pampang" element={<WordScrambleGamePampang />} />
+        <Route path="/dialecto/game-one-pampang" element={<GameOnePampang />} />
+
+        {/* For Video Content */}
+ 
         <Route path="*" element={<div>404 Not Found</div>} />
       </Routes>
     </BrowserRouter>
