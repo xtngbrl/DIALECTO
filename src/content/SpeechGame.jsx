@@ -205,6 +205,19 @@ const SpeechGame = () => {
   audioScore = Math.min(audioScore, 1);
   console.log(`[SpeechGame] Normalized audio score (min 0.1): ${audioScore}`);
   }
+//   if (!isFinite(distance) || distance === 9999 || distance < 0.01) {
+//   if (transcriptSim === 1) {
+//     // Perfect transcript, but audio failed: give random > 60%
+//     audioScore = 0.6 + Math.random() * 0.4; // 60% to 100%
+//   } else if (transcriptSim < 0.8) {
+//     // Transcript < 80%, audioScore no higher than 30%
+//     audioScore = Math.random() * 0.3; // 0% to 30%
+//   } else {
+//     // Very low transcript, audioScore 10% or lower
+//     audioScore = Math.random() * 0.1; // 0% to 10%
+//   }
+//   console.log(`[SpeechGame] Cheating logic applied, audioScore: ${audioScore}`);
+// }
   setAudioFeaturesScore(audioScore);
   // --- Transcript Analysis (string-similarity) ---
   transcriptSim = stringSimilarity.compareTwoStrings(transcriptText, correctWord);
@@ -244,6 +257,7 @@ const SpeechGame = () => {
     for (let i = 0; i < channelData.length - frameSize; i += frameSize) {
       const frame = channelData.slice(i, i + frameSize);
       const features = Meyda.extract("mfcc", frame, {
+        signal: frame,
         sampleRate: audioBuffer.sampleRate,
         bufferSize: frameSize,
         numberOfMFCCCoefficients: 13,
