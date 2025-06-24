@@ -320,10 +320,22 @@
     margin-left: 15px;
 }
 
-.target-counter, .ammo-counter {
+.target-counter, .ammo-counter, .target-words {
     font-size: 20px;
     font-weight: 700;
     user-select: none;
+}
+.target-words{
+    margin-left: 1rem;
+    padding: 5px;
+}
+.target-word {
+    transition: all 0.3s ease;
+}
+.target-word.hit {
+    text-decoration: line-through;
+    opacity: 0.6;
+    color: var(--secondary-color)
 }
 
 /*** Falling Text ***/

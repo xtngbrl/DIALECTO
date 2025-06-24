@@ -33,6 +33,7 @@ const getRandomProfile = () => {
 const LeaderBoard = () => {
   const navigate = useNavigate();
   const [leaderboard, setLeaderboard] = useState([]);
+  console.log(leaderboard);
 
   useEffect(() => {
     const fetchLeaderboard = async () => {
@@ -60,6 +61,11 @@ const LeaderBoard = () => {
       : "Waiting for player";
   };
 
+  const renderPlayerScore = (entry = {}) => {
+    // return entry.user?.total_score != null ? entry.user.total_score : '-';
+    return entry?.total_score != null ? `${entry.total_score} pts` : '-';
+  }
+
   return (
     <div className='board-wrapper'>
       <div className='progress-header'>
@@ -75,18 +81,21 @@ const LeaderBoard = () => {
             <img src={getRandomProfile()} alt="Profile 2" />
             <img src={TrophyTwo} alt="Trophy 2" />
             <h4>{renderPlayerName(completeTopThree[1])}</h4>
+            <h5>{renderPlayerScore(completeTopThree[1])}</h5>
           </div>
 
           <div className='player player1'>
             <img src={getRandomProfile()} alt="Profile 1" />
             <img src={TrophyOne} alt="Trophy 1" />
             <h4>{renderPlayerName(completeTopThree[0])}</h4>
+            <h5>{renderPlayerScore(completeTopThree[0])}</h5>
           </div>
 
           <div className='player player3'>
             <img src={getRandomProfile()} alt="Profile 3" />
             <img src={TrophyThree} alt="Trophy 3" />
             <h4>{renderPlayerName(completeTopThree[2])}</h4>
+            <h5>{renderPlayerScore(completeTopThree[2])}</h5>
           </div>
         </div>
 

@@ -23,6 +23,7 @@ const WordShooter = () => {
   const containerRef = useRef(null);
 
   const [targetWords, setTargetWords] = useState([]);
+  const [hitWords, setHitWords] = useState([]);
   const [positions, setPositions] = useState([]);
   const [targetsLeft, setTargetsLeft] = useState(5);
   const [ammo, setAmmo] = useState(20);
@@ -84,6 +85,7 @@ const WordShooter = () => {
       playSound(hitSoundFile); 
       setTargetsLeft((prev) => prev - 1);
       setActiveWords((prevWords) => prevWords.filter((w) => w !== word));
+      setHitWords((prevHitWords) => [...prevHitWords, word]);
     } else {
       playSound(missSoundFile); 
       setAmmo((prev) => prev - 1);
@@ -150,6 +152,17 @@ const WordShooter = () => {
         <div className="target-counter">{targetsLeft}</div>
         <GiAmmoBox className="shooter-icon ammo" />
         <div className="ammo-counter">{ammo}</div>
+        <div className="target-words">
+          {targetWords.map((word, index) => (
+            <span 
+              key={index}
+              className={hitWords.includes(word) ? "target-word hit" : "target-word"}
+            >
+              {word}
+              {index < targetWords.length - 1 && ", "}
+            </span>
+          ))}
+        </div>
       </div>
       <div className="word-shooter-container">
         {activeWords.map((word, index) => (
