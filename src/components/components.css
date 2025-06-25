@@ -407,16 +407,10 @@
   justify-content: center;
 }
 
-.progress-title ion-icon {
-  font-size: 2.2rem;
-  margin-right: 15px;
-  color: var(--secondary-color);
-}
-
 .progress-title h4 {
   color: var(--primary-color);
   font-weight: 800;
-  font-size: 1.1rem;
+  font-size: 1.5rem;
 }
 
 .progress-card-footer {

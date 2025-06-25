@@ -1,12 +1,11 @@
 import React from 'react';
 import './components.css';
 
-const ProgressCategCard = ({ percentage, bgColor, progIcon, progTitle, numWord, textColor }) => {
+const ProgressCategCard = ({ percentage, bgColor, progTitle, numWord, textColor }) => {
   return (
     <div className='progress-card'>
         <div className="progress-card-header">
             <div className="progress-title">
-                <ion-icon name={progIcon}></ion-icon>
                 <h4>{progTitle}</h4>
             </div>
 
@@ -20,7 +19,7 @@ const ProgressCategCard = ({ percentage, bgColor, progIcon, progTitle, numWord, 
         </div>
         
         <div className="progress-card-footer">
-            <h2 style={{color: textColor}}>total words</h2>
+            <h2 style={{color: textColor}}>total games</h2>
             <h4>{numWord}</h4>
         </div>
 

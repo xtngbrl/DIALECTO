@@ -186,20 +186,71 @@
   padding: 15px;
 }
 
-.progress-categ-container {
+.progress-game-container {
   width: 100%;
   padding: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(40%, 2fr));
+  gap: 20px;
 }
 
-.num-one-container,
-.num-two-container {
+.progress-game-card {
+  background-color: #f4e8dd;
+  padding: 30px;
+  border-radius: 1rem;
+  box-shadow: 0px 1px 5px 2px rgba(0, 0, 0, 0.1);
+  transition: background 0.4s, box-shadow 0.4s;
+}
+
+.progress-content-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-bottom: 20px;
 }
 
-.num-two-container {
-  margin-top: 40px;
+.progress-content-header h3 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: var(--primary-color);
+}
+
+.progress-content-header h5 {
+  font-size: 1.1rem;
+}
+
+.progress-content-circular {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.progress-content-card {
+  position: relative;
+  height: 200px;
+  width: 200px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.progress-content-card::before {
+  content: "";
+  position: absolute;
+  height: 160px;
+  width: 160px;
+  border-radius: 50%;
+  background-color: #f4e8dd;
+}
+
+.progress-value-card {
+  position: relative;
+  font-size: 2em;
+  font-weight: bold;
+  color: var(--secondary-color);
 }
 
 /*** Leaderboard ***/
