@@ -65,7 +65,7 @@ const SignUp = () => {
         imageHeight: 100,
         confirmButtonText: "OK",
         confirmButtonColor: "#0ABAA6",
-      }).then(() => navigate("/dialecto/home"));
+      }).then(() => navigate("/dialecto/sign-in"));
 
       setLastName("");
       setFirstName("");
