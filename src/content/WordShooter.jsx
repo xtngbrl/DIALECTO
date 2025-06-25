@@ -6,17 +6,36 @@ import { ImTarget } from "react-icons/im";
 import { GiAmmoBox } from "react-icons/gi";
 import "./Content.css";
 
-import hitSoundFile from "../assets/hard-click.mp3";   
-import missSoundFile from "../assets/pong.mp3"; 
+import hitSoundFile from "../assets/hard-click.mp3";
+import missSoundFile from "../assets/pong.mp3";
 
 import { upsertProgress } from "../services/gameprogService";
 
-const words = [
-  "halas", "yatot", "ayam", "tamsi", "ulot",
-  "misay", "buwas", "balay", "purtahan", "kulop",
-  "maupay", "tawo", "sangkay", "udto", "mahusay",
-  "iya", "isog", "turog", "karuyag", "hain"
-];
+// ✅ Correct word-translation mapping
+const wordMap = {
+  halas: "ahas",
+  yatot: "daga",
+  ayam: "aso",
+  tamsi: "ibon",
+  ulot: "unggoy",
+  misay: "pusa",
+  buwas: "bukas",
+  balay: "bahay",
+  purtahan: "pinto",
+  kulop: "hapon",
+  maupay: "mabuti",
+  tawo: "tao",
+  sangkay: "kaibigan",
+  udto: "tanghali",
+  mahusay: "maganda",
+  iya: "siya",
+  isog: "matapang",
+  turog: "tulog",
+  karuyag: "gusto",
+  hain: "saan",
+};
+
+const words = Object.keys(wordMap);
 
 const WordShooter = () => {
   const navigate = useNavigate();
@@ -29,8 +48,11 @@ const WordShooter = () => {
   const [ammo, setAmmo] = useState(20);
   const [activeWords, setActiveWords] = useState(words);
 
+  const [showTranslationModal, setShowTranslationModal] = useState(false);
+  const [translationsToShow, setTranslationsToShow] = useState([]);
+
   const playSound = (soundFile) => {
-    const sound = new Audio(soundFile); 
+    const sound = new Audio(soundFile);
     sound.currentTime = 0;
     sound.play().catch((error) => console.error("Audio play error:", error));
   };
@@ -65,7 +87,6 @@ const WordShooter = () => {
 
           if (containerRef.current) {
             const { clientWidth, clientHeight } = containerRef.current;
-
             if (newTop <= 0 || newTop >= clientHeight - 50) pos.speedY *= -1;
             if (newLeft <= 0 || newLeft >= clientWidth - 100) pos.speedX *= -1;
           }
@@ -82,12 +103,12 @@ const WordShooter = () => {
 
   const handleClick = (word) => {
     if (targetWords.includes(word)) {
-      playSound(hitSoundFile); 
+      playSound(hitSoundFile);
       setTargetsLeft((prev) => prev - 1);
       setActiveWords((prevWords) => prevWords.filter((w) => w !== word));
       setHitWords((prevHitWords) => [...prevHitWords, word]);
     } else {
-      playSound(missSoundFile); 
+      playSound(missSoundFile);
       setAmmo((prev) => prev - 1);
     }
 
@@ -95,7 +116,7 @@ const WordShooter = () => {
   };
 
   const handleMiss = () => {
-    playSound(missSoundFile); 
+    playSound(missSoundFile);
     setAmmo((prev) => prev - 1);
     checkGameStatus();
   };
@@ -109,16 +130,26 @@ const WordShooter = () => {
       targets: targetWords,
       wordsHit: score,
       remainingAmmo,
-      result: remainingTargets === 0 ? "win" : (remainingAmmo === 0 ? "lose" : "playing")
+      result: remainingTargets === 0 ? "win" : remainingAmmo === 0 ? "lose" : "playing",
     };
 
-    if (remainingTargets === 0 || remainingAmmo === 0) {
+    if (remainingTargets === 0) {
+      await saveProgress(score, details);
+
+      const hitTranslations = hitWords.map((word) => ({
+        word,
+        translation: wordMap[word] || "—",
+      }));
+
+      setTranslationsToShow(hitTranslations);
+      setShowTranslationModal(true);
+    } else if (remainingAmmo === 0) {
       await saveProgress(score, details);
 
       Swal.fire({
-        title: remainingTargets === 0 ? "You Win!" : "Game Over!",
-        text: remainingTargets === 0 ? "All target words hit!" : "Ammo ran out!",
-        icon: remainingTargets === 0 ? "success" : "error",
+        title: "Game Over!",
+        text: "Ammo ran out!",
+        icon: "error",
         showCancelButton: true,
         confirmButtonText: "Play Again",
         cancelButtonText: "Exit",
@@ -130,6 +161,25 @@ const WordShooter = () => {
         }
       });
     }
+  };
+
+  const handleAfterModal = () => {
+    setShowTranslationModal(false);
+
+    Swal.fire({
+      title: "You Win!",
+      text: "All target words hit!",
+      icon: "success",
+      showCancelButton: true,
+      confirmButtonText: "Play Again",
+      cancelButtonText: "Exit",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        window.location.reload();
+      } else {
+        navigate("/dialecto/interactive-page");
+      }
+    });
   };
 
   const saveProgress = async (score, details) => {
@@ -154,7 +204,7 @@ const WordShooter = () => {
         <div className="ammo-counter">{ammo}</div>
         <div className="target-words">
           {targetWords.map((word, index) => (
-            <span 
+            <span
               key={index}
               className={hitWords.includes(word) ? "target-word hit" : "target-word"}
             >
@@ -164,6 +214,7 @@ const WordShooter = () => {
           ))}
         </div>
       </div>
+
       <div className="word-shooter-container">
         {activeWords.map((word, index) => (
           <div
@@ -182,6 +233,23 @@ const WordShooter = () => {
           </div>
         ))}
       </div>
+
+      {/* ✅ Translations Modal (only on win) */}
+      {showTranslationModal && (
+        <div className="translation-modal-overlay">
+          <div className="translation-modal">
+            <h2>Translations of Hit Words</h2>
+            <ul>
+              {translationsToShow.map((pair, index) => (
+                <li key={index}>
+                  <strong>{pair.word}</strong> → {pair.translation}
+                </li>
+              ))}
+            </ul>
+            <button onClick={handleAfterModal}>Continue</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
