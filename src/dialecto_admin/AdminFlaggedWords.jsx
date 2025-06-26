@@ -1,6 +1,7 @@
 import React from 'react';
 import AdminHeader from './AdminHeader.jsx';
 import DataTable from 'react-data-table-component';
+import { Card } from 'react-bootstrap';
 import './admin.css';
 
 const flaggedWordsData = [
@@ -25,16 +26,21 @@ const FlaggedWords = () => (
   <>
     <AdminHeader />
     <div className="admin-content">
-      <h4>Flagged Words / Reported Content</h4>
-      <DataTable
-        columns={columns}
-        data={flaggedWordsData}
-        highlightOnHover
-        pointerOnHover
-        onRowClicked={handleRowClicked}
-        pagination
-        striped
-      />
+        <Card className="shadow-sm">
+          <Card.Body>
+            <Card.Title>Flagged Words / Reported Content</Card.Title>
+              <DataTable
+                columns={columns}
+                data={flaggedWordsData}
+                highlightOnHover
+                pointerOnHover
+                onRowClicked={handleRowClicked}
+                pagination
+                striped
+              />
+          </Card.Body>
+        </Card>
+    
     </div>
   </>
 );

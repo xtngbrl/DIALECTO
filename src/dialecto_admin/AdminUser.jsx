@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axiosInstance from '../../axiosInstance';
 import AdminHeader from './AdminHeader.jsx';
-import { Button, Modal, Form, Pagination } from 'react-bootstrap';
+import { Button, Modal, Form, Pagination, Card } from 'react-bootstrap';
 import DataTable from 'react-data-table-component';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import Offcanvas from 'react-bootstrap/Offcanvas';
@@ -89,7 +89,9 @@ const AdminUserPage = () => {
     <>
       <AdminHeader />
       <div className="admin-content">
-        <div className='admin-table-container pt-5'>
+        <Card className="shadow-sm">
+        <Card.Body>
+        <div className='admin-table-container'>
           <div className='d-flex justify-content-between align-items-center'>
             <h2 className="mr-auto">Student List</h2>
             <div>
@@ -98,6 +100,7 @@ const AdminUserPage = () => {
               <Button variant='primary' onClick={handleModalShow}> <IoMdAdd size={20}/> </Button>
             </div>
           </div>
+
           <DataTable
             columns={[
               { name: 'Name', selector: row => `${row.first_name} ${row.last_name}`, sortable: true },
@@ -111,8 +114,10 @@ const AdminUserPage = () => {
             onRowClicked={handleRowClick}
             pagination
             striped
-          />
+            />
         </div>
+          </Card.Body>
+        </Card>
 
         <Offcanvas show={showOffcanvas} onHide={handleClose} placement='end'>
           <Offcanvas.Header closeButton>

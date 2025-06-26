@@ -35,8 +35,8 @@ const AdminDialects = () => {
     <>
       <AdminHeader />
       <div className="admin-content">
-        <h4>Dialects</h4>
-        <Row className="mb-4">
+        {/* <h4>Dialects</h4> */}
+        {/* <Row className="mb-4">
           <Col md={4}>
             <Card className="admin-cards">
               <Card.Body>
@@ -47,7 +47,7 @@ const AdminDialects = () => {
               </Card.Body>
             </Card>
           </Col>
-        </Row>
+        </Row> */}
         <Card className="shadow-sm">
           <Card.Body>
             <Card.Title>Dialect List</Card.Title>
