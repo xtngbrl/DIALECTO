@@ -95,16 +95,7 @@ const AdminLogin = () => {
           <Button type="submit" label="LOGIN" />
         </div>
 
-        <h4>
-          <Link to='/dialecto/forgot-pass' className='forgot-pass-link'>Forgot Password</Link>
-        </h4>
-
-        <h5>
-          Don&apos;t have an account?{' '}
-          <span>
-            <Link to='/dialecto/admin-signup' className='signUp-link'>Sign Up</Link>
-          </span>
-        </h5>
+     
 
         <div className='acct-btn-container'>
           {/* Add social logins here if needed */}

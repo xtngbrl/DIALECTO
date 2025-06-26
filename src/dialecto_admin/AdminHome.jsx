@@ -45,124 +45,124 @@ const AdminHomePage = () => {
   ];
   
   const renderDashboard = () => (
-    <Container fluid>
-      <Row className="mb-5">
-        <AdminHeader/>
-      </Row>
-      <Row className="mb-4 pt-5">
-        <Col md={4}>
-          <Card className="shadow-sm">
-            <Card.Body>
-              <Card.Title>Total Users</Card.Title>
-              <h3 className="text-primary">{statsData.totalUsers}</h3>
-              <Users size={32} className="text-primary" />
-            </Card.Body>
-          </Card>
-        </Col>
-        <Col md={4}>
-          <Card className="shadow-sm">
-            <Card.Body>
-              <Card.Title>Active Users</Card.Title>
-              <h3 className="text-success">{statsData.activeUsers}</h3>
-              <UserCheck size={32} className="text-success" />
-            </Card.Body>
-          </Card>
-        </Col>
-        <Col md={4}>
-          <Card className="shadow-sm">
-            <Card.Body>
-              <Card.Title>Top Contributors</Card.Title>
-              <h3 className="text-warning">{statsData.topContributors.length}</h3>
-              <Trophy size={32} className="text-warning" />
-            </Card.Body>
-          </Card>
-        </Col>
-      </Row>
+    <div className="admin-content">
+      <Container fluid>
+        <Row className="mb-4 pt-5">
+          <Col md={4}>
+            <Card className="shadow-sm">
+              <Card.Body>
+                <Card.Title>Total Users</Card.Title>
+                <h3 className="text-primary">{statsData.totalUsers}</h3>
+                <Users size={32} className="text-primary" />
+              </Card.Body>
+            </Card>
+          </Col>
+          <Col md={4}>
+            <Card className="shadow-sm">
+              <Card.Body>
+                <Card.Title>Active Users</Card.Title>
+                <h3 className="text-success">{statsData.activeUsers}</h3>
+                <UserCheck size={32} className="text-success" />
+              </Card.Body>
+            </Card>
+          </Col>
+          <Col md={4}>
+            <Card className="shadow-sm">
+              <Card.Body>
+                <Card.Title>Top Contributors</Card.Title>
+                <h3 className="text-warning">{statsData.topContributors.length}</h3>
+                <Trophy size={32} className="text-warning" />
+              </Card.Body>
+            </Card>
+          </Col>
+        </Row>
 
-      <Row>
-        <Col>
-          <Card className="shadow-sm">
-            <Card.Body>
-              <Card.Title>Students Overview</Card.Title>
-              {/* <Form.Select 
-                value={selectedStudent} 
-                onChange={(e) => setSelectedStudent(e.target.value)}
-              >
-                <option value="all">All Students</option>
-                {students.map(student => (
-                  <option key={student.id} value={student.name}>{student.name}</option>
-                ))}
-              </Form.Select> */}
-              <Table striped bordered hover className="mt-3">
-                <thead>
-                  <tr>
-                    <th>Name</th>
-                    <th>Progress</th>
-                    <th>Status</th>
-                    <th>Last Active</th>
-                  </tr>
-                </thead>
-                <tbody>
+        <Row>
+          <Col>
+            <Card className="shadow-sm">
+              <Card.Body>
+                <Card.Title>Students Overview</Card.Title>
+                {/* <Form.Select 
+                  value={selectedStudent} 
+                  onChange={(e) => setSelectedStudent(e.target.value)}
+                >
+                  <option value="all">All Students</option>
                   {students.map(student => (
-                    <tr key={student.id}>
-                      <td>{student.name}</td>
-                      <td>{student.progress}%</td>
-                      <td>
-                        <span className={`badge ${student.status === 'Active' ? 'bg-success' : 'bg-secondary'}`}>{student.status}</span>
-                      </td>
-                      <td>{student.lastActive}</td>
-                    </tr>
+                    <option key={student.id} value={student.name}>{student.name}</option>
                   ))}
-                </tbody>
-              </Table>
-            </Card.Body>
-          </Card>
-        </Col>
-      </Row>
+                </Form.Select> */}
+                <Table striped bordered hover className="mt-3">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Progress</th>
+                      <th>Status</th>
+                      <th>Last Active</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {students.map(student => (
+                      <tr key={student.id}>
+                        <td>{student.name}</td>
+                        <td>{student.progress}%</td>
+                        <td>
+                          <span className={`badge ${student.status === 'Active' ? 'bg-success' : 'bg-secondary'}`}>{student.status}</span>
+                        </td>
+                        <td>{student.lastActive}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </Table>
+              </Card.Body>
+            </Card>
+          </Col>
+        </Row>
 
-      <Row>
-        <Col>
-          <Card className="shadow-sm mt-4 mb-4 pb-5">
-            <Card.Body>
-              <Card.Title>Progress Over Time</Card.Title>
-              <ResponsiveContainer width="100%" height={300}>
-                <LineChart data={progressData}>
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="name" />
-                  <YAxis />
-                  <Tooltip />
-                  <Legend />
-                  {selectedStudent === 'all' ? (
-                    students.map((student, index) => (
+        <Row>
+          <Col>
+            <Card className="shadow-sm mt-4 mb-4 pb-5">
+              <Card.Body>
+                <Card.Title>Progress Over Time</Card.Title>
+                <ResponsiveContainer width="100%" height={300}>
+                  <LineChart data={progressData}>
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis dataKey="name" />
+                    <YAxis />
+                    <Tooltip />
+                    <Legend />
+                    {selectedStudent === 'all' ? (
+                      students.map((student, index) => (
+                        <Line
+                          key={student.id}
+                          type="monotone"
+                          dataKey={`Student${student.name.split(' ')[1]}`} // Correct dataKey mapping
+                          stroke={`hsl(${index * 60}, 70%, 50%)`}
+                          strokeWidth={2}
+                        />
+                      ))
+                    ) : (
                       <Line
-                        key={student.id}
                         type="monotone"
-                        dataKey={`Student${student.name.split(' ')[1]}`} // Correct dataKey mapping
-                        stroke={`hsl(${index * 60}, 70%, 50%)`}
+                        dataKey={`Student${selectedStudent.split(' ')[1]}`} // Ensure the name format matches progressData
+                        stroke="#f97316"
                         strokeWidth={2}
                       />
-                    ))
-                  ) : (
-                    <Line
-                      type="monotone"
-                      dataKey={`Student${selectedStudent.split(' ')[1]}`} // Ensure the name format matches progressData
-                      stroke="#f97316"
-                      strokeWidth={2}
-                    />
-                  )}
-                </LineChart>
-              </ResponsiveContainer>
-            </Card.Body>
-          </Card>
-        </Col>
-      </Row>
-    </Container>
+                    )}
+                  </LineChart>
+                </ResponsiveContainer>
+              </Card.Body>
+            </Card>
+          </Col>
+        </Row>
+      </Container>
+    </div>
   );
 
   return (
-    <Container fluid className="p-0">
-      {activeItem === 'Dashboard' ? renderDashboard() : <h2>{activeItem}</h2>}
-    </Container>
+    <>
+      <AdminHeader />
+      {activeItem === 'Dashboard' ? renderDashboard() : <div className="admin-content"><h2>{activeItem}</h2></div>}
+    </>
   );
 };
 
