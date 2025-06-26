@@ -6,37 +6,34 @@ import { ImTarget } from "react-icons/im";
 import { GiAmmoBox } from "react-icons/gi";
 import "./Content.css";
 
-import hitSoundFile from "../assets/hard-click.mp3";
-import missSoundFile from "../assets/pong.mp3";
+import hitSoundFile from "../assets/hard-click.mp3";   
+import missSoundFile from "../assets/pong.mp3"; 
 
 import { upsertProgress } from "../services/gameprogService";
-
+  
 const wordMap = {
-  halas: "ahas",
-  yatot: "daga",
-  ayam: "aso",
-  tamsi: "ibon",
-  ulot: "unggoy",
-  misay: "pusa",
-  buwas: "bukas",
-  balay: "bahay",
-  purtahan: "pinto",
-  kulop: "hapon",
-  maupay: "mabuti",
-  tawo: "tao",
-  sangkay: "kaibigan",
-  udto: "tanghali",
-  mahusay: "maganda",
-  iya: "siya",
-  isog: "matapang",
-  turog: "tulog",
-  karuyag: "gusto",
-  hain: "saan",
+  Gugma: "Pag-ibig",
+  Mapait: "Pait",
+  Dagan: "Takbo",
+  Udto: "Tanghali",
+  Buntag: "Umaga",
+  Gabii: "Gabi",
+  Lamia: "Masarap",
+  Parat: "Maalat",
+  Tagpila: "Magkano",
+  Pabalyo: "Pabili",
+  Pila: "Ilan",
+  Tabang: "Tulong",
+  Unya: "Mamaya",
+  Asa: "Saan",
+  Nindot: "Maganda",
+  Kanusa: "Kailan",
+  Kinahanglan: "Kailangan",
+  Maaram: "Marunong",
+  Masubo: "Malungkot",
 };
 
-const words = Object.keys(wordMap);
-
-const WordShooter = () => {
+const WordShooterCebu = () => {
   const navigate = useNavigate();
   const containerRef = useRef(null);
 
@@ -185,7 +182,6 @@ const WordShooter = () => {
     try {
       await upsertProgress({
         gameType: "shoot",
-        dialect_id: 1,
         score,
         details,
       });
@@ -254,4 +250,4 @@ const WordShooter = () => {
   );
 };
 
-export default WordShooter;
+export default WordShooterCebu;

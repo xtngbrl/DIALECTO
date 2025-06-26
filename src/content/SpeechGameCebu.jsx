@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import stringSimilarity from "string-similarity";
 import Meyda from "meyda";
 import Swal from "sweetalert2";
-import "./SpeechGamePampang.css";
+import "./SpeechGameCebu.css";
 import ContentHeader from '../components/ContentHeader';
 import ayamAudio from '../sound_assets/Animal/Aso_Ayam/ASO-AYAM.mp3';
 
@@ -54,7 +54,7 @@ const Waveform = ({ analyser }) => {
   );
 };
 
-const SpeechGamePampang = () => {
+const SpeechGameCebu = () => {
   const [spokenWord, setSpokenWord] = useState("");
   const [feedback, setFeedback] = useState("");
   const [isRecording, setIsRecording] = useState(false);
@@ -179,40 +179,40 @@ const SpeechGamePampang = () => {
   let transcriptSim = null;
   let transcriptText = spokenWord;
   try {
-  console.log("[SpeechGamePampang] Starting audio feature analysis...");
+  console.log("[SpeechGameCebu] Starting audio feature analysis...");
   // --- Audio Feature Analysis (Meyda) ---
   const response = await fetch(recordedAudioUrl);
   const userArrayBuffer = await response.arrayBuffer();
   const userAudioBuffer = await audioContext.decodeAudioData(userArrayBuffer);
   const userMFCC = await extractMFCC(userAudioBuffer);
-  console.log("[SpeechGamePampang] User MFCC:", userMFCC);
+  console.log("[SpeechGameCebu] User MFCC:", userMFCC);
   // Load and decode reference audio
   const refAudio = await fetch(ayamAudio);
   const refArrayBuffer = await refAudio.arrayBuffer();
   const refAudioBuffer = await audioContext.decodeAudioData(refArrayBuffer);
   const refMFCC = await extractMFCC(refAudioBuffer);
-  console.log("[SpeechGamePampang] Reference MFCC:", refMFCC);
+  console.log("[SpeechGameCebu] Reference MFCC:", refMFCC);
   // Compare
   let distance = euclideanDistance(userMFCC, refMFCC);
-  console.log(`[SpeechGamePampang] Euclidean distance between user and reference MFCC: ${distance}`);
+  console.log(`[SpeechGameCebu] Euclidean distance between user and reference MFCC: ${distance}`);
   const maxDist = 250;
   // Robust normalization: if distance is NaN or too high, give a low but nonzero score
   if (!isFinite(distance) || distance > maxDist * 2) {
   audioScore = 0.1; // Minimum score for valid input
-  console.log(`[SpeechGamePampang] Distance not finite or too high, setting audioScore to 0.1`);
+  console.log(`[SpeechGameCebu] Distance not finite or too high, setting audioScore to 0.1`);
   } else {
   audioScore = Math.max(0.1, 1 - distance / maxDist); // Never return below 10% for valid MFCCs
   audioScore = Math.min(audioScore, 1);
-  console.log(`[SpeechGamePampang] Normalized audio score (min 0.1): ${audioScore}`);
+  console.log(`[SpeechGameCebu] Normalized audio score (min 0.1): ${audioScore}`);
   }
   setAudioFeaturesScore(audioScore);
   // --- Transcript Analysis (string-similarity) ---
   transcriptSim = stringSimilarity.compareTwoStrings(transcriptText, correctWord);
-  console.log(`[SpeechGamePampang] Transcript similarity score: ${transcriptSim}`);
+  console.log(`[SpeechGameCebu] Transcript similarity score: ${transcriptSim}`);
   setTranscriptScore(transcriptSim);
   // Combine scores
   const final = (transcriptSim + audioScore) / 2;
-  console.log(`[SpeechGamePampang] Final combined score: ${final}`);
+  console.log(`[SpeechGameCebu] Final combined score: ${final}`);
   setFinalScore(final);
   setFeedback(
   `Combined Score: ${(final * 100).toFixed(1)}%\n` +
@@ -225,7 +225,7 @@ const SpeechGamePampang = () => {
   setAudioFeaturesScore(null);
   setTranscriptScore(null);
   setFinalScore(null);
-  console.error("[SpeechGamePampang] Analysis failed:", err);
+  console.error("[SpeechGameCebu] Analysis failed:", err);
   await Swal.fire({
   icon: 'error',
   title: 'Analysis Failed',
@@ -250,9 +250,9 @@ const SpeechGamePampang = () => {
       });
       if (features && features.mfcc) mfccs.push(features.mfcc);
     }
-    console.log(`[SpeechGamePampang] Extracted ${mfccs.length} MFCC frames.`);
+    console.log(`[SpeechGameCebu] Extracted ${mfccs.length} MFCC frames.`);
     if (mfccs.length === 0) {
-      console.log("[SpeechGamePampang] No MFCC frames extracted.");
+      console.log("[SpeechGameCebu] No MFCC frames extracted.");
       return null;
     }
     const avg = Array(mfccs[0].length).fill(0);
@@ -262,18 +262,18 @@ const SpeechGamePampang = () => {
       });
     });
     const avgMFCC = avg.map((val) => val / mfccs.length);
-    console.log("[SpeechGamePampang] Averaged MFCC:", avgMFCC);
+    console.log("[SpeechGameCebu] Averaged MFCC:", avgMFCC);
     return avgMFCC;
   };
 
   // Calculate Euclidean distance between two MFCC vectors
   const euclideanDistance = (a, b) => {
     if (!a || !b || a.length !== b.length) {
-      console.log("[SpeechGamePampang] Invalid MFCC vectors for distance calculation.", a, b);
+      console.log("[SpeechGameCebu] Invalid MFCC vectors for distance calculation.", a, b);
       return 9999;
     }
     const dist = Math.sqrt(a.reduce((sum, val, i) => sum + Math.pow(val - b[i], 2), 0));
-    console.log(`[SpeechGamePampang] Calculated Euclidean distance: ${dist}`);
+    console.log(`[SpeechGameCebu] Calculated Euclidean distance: ${dist}`);
     return dist;
   };
 
@@ -351,4 +351,4 @@ const SpeechGamePampang = () => {
   );
 };
 
-export default SpeechGamePampang;
+export default SpeechGameCebu;

@@ -51,7 +51,7 @@ const ProgressPage = () => {
       progIcon: "business",
       percentage: 25,
       bgColor: "tomato",
-      numWord: "5",
+      numWord: "4",
     },
   ];
 
@@ -133,7 +133,7 @@ const ProgressPage = () => {
         </div>
         <div className="progress-game-card">
           <div className="progress-content-header">
-            <h3>Echo Match</h3>
+            <h3>Voice Match</h3>
             <h5 style={{ color: "tomato" }}>Attempted: 4 times</h5>
           </div>
           <div className="progress-content-circular">

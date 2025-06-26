@@ -44,7 +44,8 @@ const GameOne = () => {
     setShowPopup(false);
     try {
       await upsertProgress({
-        gameType: 'match',
+        gameType: 'quiz',
+        dialect_id: 1,
         score,
         details: {
           totalSteps: 3,

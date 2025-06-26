@@ -49,6 +49,11 @@ import WordShooterPampang from './content/WordShooterPampang';
 import WordScrambleGamePampang from './content/WordScramblePampang';
 import GameOnePampang from './content/Game_One_Pampang';
 
+import InteractiveCebu from './pages/InteractiveCebu';
+import WordShooterCebu from './content/WordShooterCebu';
+import WordScrambleGameCebu from './content/WordScrambleCebu';
+import GameOneCebu from './content/Game_One_Cebu';
+
 function App() {
   return (
     <BrowserRouter>
@@ -93,7 +98,10 @@ function App() {
         <Route path="/dialecto/word-scramble-pampang" element={<WordScrambleGamePampang />} />
         <Route path="/dialecto/game-one-pampang" element={<GameOnePampang />} />
 
-        {/* For Video Content */}
+        <Route path="/dialecto/interactive-cebu" element={<InteractiveCebu />} />
+        <Route path="/dialecto/word-shooter-cebu" element={<WordShooterCebu />} />
+        <Route path="/dialecto/word-scramble-cebu" element={<WordScrambleGameCebu />} />
+        <Route path="/dialecto/game-one-cebu" element={<GameOneCebu />} />
  
         <Route path="*" element={<div>404 Not Found</div>} />
       </Routes>

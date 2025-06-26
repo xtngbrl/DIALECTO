@@ -1,8 +1,9 @@
 import api from "../../axiosInstance";
 
-export const upsertProgress = async ({ gameType, score, details }) => {
+export const upsertProgress = async ({ dialect_id, gameType, score, details }) => {
   try {
     const res = await api.post('/game-progress', {
+      dialect_id,
       gameType,
       score,
       details

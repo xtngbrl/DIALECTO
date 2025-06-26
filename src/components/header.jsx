@@ -16,6 +16,7 @@ import Swal from "sweetalert2";
 import { logoutUser } from "../services/userService";
 import check from "../assets/check.png";
 import report from "../assets/reportIcon.png";
+import { flagWord } from "../services/flagwordService";
 
 import "./components.css";
 
@@ -101,6 +102,45 @@ function Header({ showCategoriesButton, showSwitchButton, bgColor }) {
         }
       }
     });
+  };
+
+  const handleReportWord = async () => {
+    const dialectMap = {
+      Waray: 1,
+      Kapampangan: 2,
+      Cebuano: 3,
+      Ilocano: 4,
+    };
+
+    const { dialect, word, reason } = reportData;
+    const dialect_id = dialectMap[dialect];
+
+    if (!dialect_id || !word || !reason) {
+      Swal.fire({
+        icon: "warning",
+        title: "Incomplete",
+        text: "Please fill out all fields.",
+      });
+      return;
+    }
+
+    try {
+      await flagWord({ dialect_id, word, reason });
+      Swal.fire({
+        icon: "success",
+        title: "Reported",
+        text: "Thank you for reporting.",
+      });
+      setShowReportModal(false);
+      setReportData({ dialect: "", word: "", reason: "" });
+    } catch (err) {
+      setShowReportModal(false);
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: err?.error || "Failed to report.",
+      });
+    }
   };
 
   return (
@@ -200,10 +240,7 @@ function Header({ showCategoriesButton, showSwitchButton, bgColor }) {
               </button>
               <button
                 className="report-btn"
-                onClick={() => {
-                  console.log("Reported:", reportData);
-                  setShowReportModal(false);
-                }}
+                onClick={handleReportWord}
               >
                 Report
               </button>
