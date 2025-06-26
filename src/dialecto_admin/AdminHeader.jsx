@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import './admin.css';
 import { MdDashboard } from "react-icons/md";
 import { FaUserGraduate } from "react-icons/fa";
-import { IoLogOut } from "react-icons/io5";
+import { IoLogOut, IoWarning } from "react-icons/io5";
 import { GiEarthAfricaEurope } from "react-icons/gi";
 import { FaGamepad } from "react-icons/fa";
 
@@ -61,6 +61,7 @@ const Admin_Header = () => {
                 <li onClick={() => navigate('/dialecto/admin/students')}><FaUserGraduate className="admin-sidebar-icon"/> Student List</li>
                 <li onClick={() => navigate('/dialecto/admin/dialects')}><GiEarthAfricaEurope className="admin-sidebar-icon"/> Dialects</li>
                 <li onClick={() => navigate('/dialecto/admin/games')}><FaGamepad className="admin-sidebar-icon"/> Games</li>
+                <li onClick={() => navigate('/dialecto/admin/flagged-words')}><IoWarning className="admin-sidebar-icon"/> Flagged Words</li>
                 <li onClick={handleLogout}><IoLogOut className="admin-sidebar-icon"/> Logout</li>
             </ul>
         </div>

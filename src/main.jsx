@@ -29,10 +29,15 @@ import BasicPhrases from './category/BasicPhrases';
 import ProfilePage from './pages/Profile';
 import ProgressPage from './pages/Progress';
 import Video from './content/BasicVid';
+
 import AdminHomePage from './dialecto_admin/AdminHome';
 import AdminUserPage from './dialecto_admin/AdminUser';
 import AdminLogin from './dialecto_admin/AdminLogin';
 import AdminSignup from './dialecto_admin/AdminSignup';
+import AdminDialects from './dialecto_admin/AdminDialects';
+import AdminGames from './dialecto_admin/AdminGames';
+import AdminFlaggedWords from './dialecto_admin/AdminFlaggedWords';
+
 import LeaderBoard from './pages/LeaderBoardPage';
 import LandingPage from './landing_page/landingPage';
 import ContentInteractivePage from './pages/ContentInteractivePage';
@@ -73,10 +78,14 @@ function App() {
         <Route path="/dialecto/word-scramble" element={<FallingTextGame />} />
         <Route path="/dialecto/speech-game" element={<SpeechGame />} />
         <Route path="/dialecto/video" element={<Video />} />
+
         <Route path="/dialecto/admin-login" element={<AdminLogin />} />
         <Route path="/dialecto/admin-signup" element={<AdminSignup />} />
         <Route path="/dialecto/admin-dashboard" element={<AdminHomePage />} />
         <Route path="/dialecto/admin/students" element={<AdminUserPage />} />
+        <Route path="/dialecto/admin/dialects" element={<AdminDialects />} />
+        <Route path="/dialecto/admin/games" element={<AdminGames />} />
+        <Route path="/dialecto/admin/flagged-words" element={<AdminFlaggedWords />} />
 
         {/*For Other Dialect Routes*/}
         <Route path="/dialecto/interactive-pampanga" element={<InteractivePampanga />} />

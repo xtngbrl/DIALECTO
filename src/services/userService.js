@@ -3,7 +3,7 @@ import api from "../../axiosInstance";
 export const login = async (username, password) => {
   try {
     const response = await api.post('/login', { username, password });
-    console.log("Login successful:", response.data);
+    // console.log("Login successful:", response.data);
     return response.data;
   } catch (error) {
     throw error?.response?.data || { error: 'Login failed. Please try again.' };
@@ -13,7 +13,7 @@ export const login = async (username, password) => {
 export const getCurrentUser = async () => {
   try {
     const response = await api.get('/user');
-    console.log("Current user data:", response.data);
+    // console.log("Current user data:", response.data);
     return response.data;
   } catch (error) {
     console.error("Get current user error:", error);
@@ -35,7 +35,7 @@ export const addUser = async (userData) => {
     const response = await api.post('/addUser', userData);
     return response.data;
   } catch (error) {
-    console.log("Add user error:", error);
+    // console.log("Add user error:", error);
     throw error?.response?.data || { error: 'Failed to add user.' };
   }
 };
