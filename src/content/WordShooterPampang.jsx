@@ -33,6 +33,8 @@ const wordMap = {
   Nokarin: "Saan",
 };
 
+const words = Object.keys(wordMap);
+
 const WordShooterPampang = () => {
   const navigate = useNavigate();
   const containerRef = useRef(null);
@@ -153,7 +155,7 @@ const WordShooterPampang = () => {
         if (result.isConfirmed) {
           window.location.reload();
         } else {
-          navigate("/dialecto/interactive-page");
+          navigate("/dialecto/interactive-pampanga");
         }
       });
     }
@@ -173,7 +175,7 @@ const WordShooterPampang = () => {
       if (result.isConfirmed) {
         window.location.reload();
       } else {
-        navigate("/dialecto/interactive-page");
+        navigate("/dialecto/interactive-pampanga");
       }
     });
   };
@@ -182,7 +184,8 @@ const WordShooterPampang = () => {
     try {
       await upsertProgress({
         gameType: "shoot",
-        score,
+        dialect_id: 2,
+        score: score * 10,
         details,
       });
     } catch (err) {

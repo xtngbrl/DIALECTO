@@ -16,7 +16,7 @@ import './page.css';
 const Home = () => {
     return (
         <div className='home-wrapper'>
-            <Header showCategoriesButton={false} showSwitchButton={false} bgColor={"#f4e8dd"} />
+            <Header showCategoriesButton={false} showSwitchButton={false} showHomeButton={false} showSearch={false} bgColor={"#f4e8dd"} />
 
             <div className='interactive-slider-container'>
                 <Slider />

@@ -6,37 +6,47 @@ import { ImTarget } from "react-icons/im";
 import { GiAmmoBox } from "react-icons/gi";
 import "./Content.css";
 
-import hitSoundFile from "../assets/hard-click.mp3";
-import missSoundFile from "../assets/pong.mp3";
+import hitSoundFile from "../assets/hard-click.mp3";   
+import missSoundFile from "../assets/pong.mp3"; 
 
 import { upsertProgress } from "../services/gameprogService";
-
+  
 const wordMap = {
-  halas: "ahas",
-  yatot: "daga",
-  ayam: "aso",
-  tamsi: "ibon",
-  ulot: "unggoy",
-  misay: "pusa",
-  buwas: "bukas",
-  balay: "bahay",
-  purtahan: "pinto",
-  kulop: "hapon",
-  maupay: "mabuti",
-  tawo: "tao",
-  sangkay: "kaibigan",
-  udto: "tanghali",
-  mahusay: "maganda",
-  iya: "siya",
-  isog: "matapang",
-  turog: "tulog",
-  karuyag: "gusto",
-  hain: "saan",
+  Kaapa: "Kaaway",
+  Naragsak: "Masaya",
+  Kaapa: "Malungkot",
+  Taray: "Takbo",
+  Agsapa: "Umaga",
+  Malem: "Hapon",
+  Rabii: "Gabi",
+  Aldaw: "Tanghali",
+  Naimas: "Masarap",
+  Napait: "Mapait",
+  Naalsem: "Maasim",
+  Nasamit: "Matamis",
+  Naapgad: "Maalat",
+  Mano: "Magkano",
+  Pagatang: "Pabili",
+  Naliday: "Malungkot",
+  Unget: "Galit",
+  Same: "Tulong",
+  Damdama: "Mamaya",
+  Napintas: "Maganda",
+  Sika: "Ikaw",
+  Datayo: "Tayo",
+  Isuda: "Sila",
+  Idi: "Noon",
+  Idyay: "Doon",
+  Kaano: "Kailan",
+  Ayna: "Saan",
+  Haan: "Hindi",
+  Kayat: "Gusto",
+  Amo: "Marunong",
 };
 
 const words = Object.keys(wordMap);
 
-const WordShooter = () => {
+const WordShooterIlocano = () => {
   const navigate = useNavigate();
   const containerRef = useRef(null);
 
@@ -156,7 +166,7 @@ const WordShooter = () => {
         if (result.isConfirmed) {
           window.location.reload();
         } else {
-          navigate("/dialecto/interactive-page");
+          navigate("/dialecto/interactive-ilocano");
         }
       });
     }
@@ -176,7 +186,7 @@ const WordShooter = () => {
       if (result.isConfirmed) {
         window.location.reload();
       } else {
-        navigate("/dialecto/interactive-page");
+        navigate("/dialecto/interactive-ilocano");
       }
     });
   };
@@ -185,7 +195,7 @@ const WordShooter = () => {
     try {
       await upsertProgress({
         gameType: "shoot",
-        dialect_id: 1,
+        dialect_id: 4,
         score: score * 10,
         details,
       });
@@ -254,4 +264,4 @@ const WordShooter = () => {
   );
 };
 
-export default WordShooter;
+export default WordShooterIlocano;

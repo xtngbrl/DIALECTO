@@ -4,49 +4,43 @@ import ContentButton from '../components/shared/ContentBtn';
 import RetryPopup from '../components/RetryPop';
 import NextPopup from '../components/NextPopUp';
 import FinalPopup from '../components/FinalPopUp';
-import Misay from '../sound_assets/Animal/Pusa_Misay/PUSA-MISAY.mp3';
-import { HiSpeakerWave } from "react-icons/hi2";
+import Smile from '../assets/smile.png';
+import Pretty from '../assets/pretty.jpg';
+import Buying from '../assets/buying.jpg';
+
 import './Content.css';
 import { upsertProgress } from '../services/gameprogService';
-import Aga from '../sound_assets/CommonPhrases/Umaga_Aga/UMAGA-AGA.MP3';
-import Hain from '../sound_assets/CommonPhrases/Saan_Hain/SAAN-HAIN.MP3';
 
 const ContentOne = ({ onCorrect, onIncorrect }) => {
 
   const handleAnswer = (label) => {
-    if (label === 'Misay') {
+    if (label === 'Naragsak') {
       onCorrect();
     } else {
       onIncorrect();
     }
   };
 
-  const handlePlaySound = () => {
-    const audio = new Audio(Misay);
-    audio.play();
-  };
-
-  
   return (
     <div className='content-one-wrapper'>
-        <div className='content-title title-three'>Tap what you hear</div>
+        <div className='content-title'>Translate this word</div>
 
         <div className='content-one-container'>
-            <div className='speaker-container'>
-                <h4 className='text-white'>Translated as: Pusa</h4>
-                <HiSpeakerWave className='speaker-icon' />
-                <div className='speaker-btn'>
-                    <ContentButton label='Play' onClick={handlePlaySound} />
-                </div>
+            <div className='img-wrapper'>
+              <div className='img-container'>
+              <img src={Smile} alt='Snake' />
+              </div>
+
+              <h2>Masaya</h2>
             </div>
 
             <div className='choices-container'>
                 <h2>Choices</h2>
                 <div className='btn-choices-container'>
-                    <ContentButton label='Yatot' onClick={() => handleAnswer('Choice 1')} />
-                    <ContentButton label='Ayam' onClick={() => handleAnswer('Choice 2')} />
-                    <ContentButton label='Halas' onClick={() => handleAnswer('Halas')} />
-                    <ContentButton label='Misay' onClick={() => handleAnswer('Misay')} />
+                  <ContentButton label='Kaapa' onClick={() => handleAnswer('Kaapa')} />
+                  <ContentButton label='Naragsak' onClick={() => handleAnswer('Naragsak')} />
+                  <ContentButton label='Kaapa' onClick={() => handleAnswer('Kaapa')} />
+                  <ContentButton label='Agsapa' onClick={() => handleAnswer('Agsapa')} />
                 </div>
             </div>
         </div>
@@ -57,39 +51,33 @@ const ContentOne = ({ onCorrect, onIncorrect }) => {
 const ContentTwo = ({ onCorrect, onIncorrect }) => {
 
   const handleAnswer = (label) => {
-    if (label === 'Aga') {
+    if (label === 'Napintas') {
       onCorrect();
     } else {
       onIncorrect();
     }
   };
 
-  const handlePlaySound = () => {
-    const audio = new Audio(Aga);
-    audio.play();
-  };
-
-  
   return (
     <div className='content-one-wrapper'>
-        <div className='content-title title-three'>Tap what you hear</div>
+        <div className='content-title'>Translate this word</div>
 
         <div className='content-one-container'>
-            <div className='speaker-container'>
-                <h4 className='text-white'>Translated as: Umaga</h4>
-                <HiSpeakerWave className='speaker-icon' />
-                <div className='speaker-btn'>
-                    <ContentButton label='Play' onClick={handlePlaySound} />
-                </div>
+            <div className='img-wrapper'>
+              <div className='img-container'>
+              <img src={Pretty} alt='Morning' />
+              </div>
+
+              <h2>Maganda</h2>
             </div>
 
             <div className='choices-container'>
                 <h2>Choices</h2>
                 <div className='btn-choices-container'>
-                    <ContentButton label='Udto' onClick={() => handleAnswer('Choice 1')} />
-                    <ContentButton label='Aga' onClick={() => handleAnswer('Aga')} />
-                    <ContentButton label='Gabe' onClick={() => handleAnswer('Halas')} />
-                    <ContentButton label='Kulop' onClick={() => handleAnswer('Choice 4')} />
+                  <ContentButton label='Naapgad' onClick={() => handleAnswer('Naapgad')} />
+                  <ContentButton label='Sika' onClick={() => handleAnswer('Sika')} />
+                  <ContentButton label='Isuda' onClick={() => handleAnswer('Isuda')} />
+                  <ContentButton label='Napintas' onClick={() => handleAnswer('Napintas')} />
                 </div>
             </div>
         </div>
@@ -100,39 +88,33 @@ const ContentTwo = ({ onCorrect, onIncorrect }) => {
 const ContentThree = ({ onCorrect, onIncorrect }) => {
 
   const handleAnswer = (label) => {
-    if (label === 'Hain') {
+    if (label === 'Pagatang') {
       onCorrect();
     } else {
       onIncorrect();
     }
   };
 
-  const handlePlaySound = () => {
-    const audio = new Audio(Hain);
-    audio.play();
-  };
-
-  
   return (
     <div className='content-one-wrapper'>
-        <div className='content-title title-three'>Tap what you hear</div>
+        <div className='content-title'>Translate this word</div>
 
         <div className='content-one-container'>
-            <div className='speaker-container'>
-                <h4 className='text-white'>Translated as: Saan</h4>
-                <HiSpeakerWave className='speaker-icon' />
-                <div className='speaker-btn'>
-                    <ContentButton label='Play' onClick={handlePlaySound} />
-                </div>
+            <div className='img-wrapper'>
+              <div className='img-container'>
+              <img src={Buying} alt='Buying' />
+              </div>
+
+              <h2>Pabili</h2>
             </div>
 
             <div className='choices-container'>
                 <h2>Choices</h2>
                 <div className='btn-choices-container'>
-                    <ContentButton label='Hain' onClick={() => handleAnswer('Hain')} />
-                    <ContentButton label='Buwas' onClick={() => handleAnswer('Aso')} />
-                    <ContentButton label='Karuyag' onClick={() => handleAnswer('Halas')} />
-                    <ContentButton label='Tawo' onClick={() => handleAnswer('Choice 4')} />
+                  <ContentButton label='Kaapa' onClick={() => handleAnswer('Kaapa')} />
+                  <ContentButton label='Unget' onClick={() => handleAnswer('Unget')} />
+                  <ContentButton label='Pagatang' onClick={() => handleAnswer('Pagatang')} />
+                  <ContentButton label='Mano' onClick={() => handleAnswer('Mano')} />
                 </div>
             </div>
         </div>
@@ -140,7 +122,7 @@ const ContentThree = ({ onCorrect, onIncorrect }) => {
   );
 }
 
-const GameOnePampang = () => {
+const GameOneIlocano = () => {
   const navigate = useNavigate();
 
   const [currentStep, setCurrentStep] = useState(1);
@@ -173,7 +155,7 @@ const GameOnePampang = () => {
     try {
       await upsertProgress({
         gameType: 'quiz',
-        dialect_id: 1,
+        dialect_id: 4,
         score: score * 10,
         details: {
           totalSteps: 3,
@@ -221,4 +203,4 @@ const GameOnePampang = () => {
   );
 };
 
-export default GameOnePampang;
+export default GameOneIlocano;

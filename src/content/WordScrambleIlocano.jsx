@@ -4,9 +4,9 @@ import { useNavigate } from "react-router-dom";
 import { upsertProgress } from "../services/gameprogService";
 import "./Content.css";
 
-function WordScrambleGamePampang() {
+function WordScrambleGameIlocano() {
     const navigate = useNavigate();
-    const originalText = `Nokarin ku malyaring saling ticket?`;
+    const originalText = `Sadino ti ayan ti restawran?`;
     const shuffledWords = originalText.split(" ").sort(() => Math.random() - 0.5);
 
     const [words, setWords] = useState(shuffledWords);
@@ -33,7 +33,7 @@ function WordScrambleGamePampang() {
         try {
             await upsertProgress({
                 gameType: "jumbled",
-                dialect_id: 2,
+                dialect_id: 4,
                 score,
                 details: {
                     currentWords: words,
@@ -65,7 +65,7 @@ function WordScrambleGamePampang() {
                 if (result.isConfirmed) {
                     resetGame();
                 } else {
-                    navigate("/dialecto/interactive-pampanga");
+                    navigate("/dialecto/interactive-ilocano");
                 }
             });
         } else {
@@ -80,7 +80,7 @@ function WordScrambleGamePampang() {
                     cancelButtonText: "Exit"
                 }).then((result) => {
                     if (!result.isConfirmed) {
-                        navigate("/dialecto/interactive-pampanga");
+                        navigate("/dialecto/interactive-ilocano");
                     }
                 });
             } else {
@@ -89,7 +89,7 @@ function WordScrambleGamePampang() {
                     text: "You have used all your attempts. Try again in the future!",
                     icon: "error",
                     confirmButtonText: "Exit"
-                }).then(() => navigate("/dialecto/interactive-pampanga"));
+                }).then(() => navigate("/dialecto/interactive-ilocano"));
             }
         }
     };
@@ -103,7 +103,7 @@ function WordScrambleGamePampang() {
         <div className="text-game-wrapper">
             <h2>Rearrange the Words</h2>
             <p className="text-translation">
-                Tagalog Translation: "Saan ako makakabili ng ticket?"
+                Tagalog Translation: "Saan ang restaurant?"
             </p>
             
             <div className="word-container">
@@ -128,4 +128,4 @@ function WordScrambleGamePampang() {
     );
 }
 
-export default WordScrambleGamePampang;
+export default WordScrambleGameIlocano;

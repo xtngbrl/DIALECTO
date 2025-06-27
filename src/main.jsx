@@ -54,6 +54,11 @@ import WordShooterCebu from './content/WordShooterCebu';
 import WordScrambleGameCebu from './content/WordScrambleCebu';
 import GameOneCebu from './content/Game_One_Cebu';
 
+import InteractiveIlocano from './pages/InteractiveIlocano';
+import WordShooterIlocano from './content/WordShooterIlocano';
+import WordScrambleGameIlocano from './content/WordScrambleIlocano';
+import GameOneIlocano from './content/Game_One_Ilocano';
+
 function App() {
   return (
     <BrowserRouter>
@@ -102,7 +107,12 @@ function App() {
         <Route path="/dialecto/word-shooter-cebu" element={<WordShooterCebu />} />
         <Route path="/dialecto/word-scramble-cebu" element={<WordScrambleGameCebu />} />
         <Route path="/dialecto/game-one-cebu" element={<GameOneCebu />} />
- 
+
+        <Route path="/dialecto/interactive-ilocano" element={<InteractiveIlocano />} />
+        <Route path="/dialecto/word-shooter-ilocano" element={<WordShooterIlocano />} />
+        <Route path="/dialecto/word-scramble-ilocano" element={<WordScrambleGameIlocano />} />
+        <Route path="/dialecto/game-one-ilocano" element={<GameOneIlocano />} />
+
         <Route path="*" element={<div>404 Not Found</div>} />
       </Routes>
     </BrowserRouter>

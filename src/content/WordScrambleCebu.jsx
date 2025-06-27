@@ -33,6 +33,7 @@ function WordScrambleGameCebu() {
         try {
             await upsertProgress({
                 gameType: "jumbled",
+                dialect_id: 3,
                 score,
                 details: {
                     currentWords: words,
@@ -64,7 +65,7 @@ function WordScrambleGameCebu() {
                 if (result.isConfirmed) {
                     resetGame();
                 } else {
-                    navigate("/dialecto/interactive-page");
+                    navigate("/dialecto/interactive-cebu");
                 }
             });
         } else {
@@ -79,7 +80,7 @@ function WordScrambleGameCebu() {
                     cancelButtonText: "Exit"
                 }).then((result) => {
                     if (!result.isConfirmed) {
-                        navigate("/dialecto/interactive-page");
+                        navigate("/dialecto/interactive-cebu");
                     }
                 });
             } else {
@@ -88,7 +89,7 @@ function WordScrambleGameCebu() {
                     text: "You have used all your attempts. Try again in the future!",
                     icon: "error",
                     confirmButtonText: "Exit"
-                }).then(() => navigate("/dialecto/interactive-page"));
+                }).then(() => navigate("/dialecto/interactive-cebu"));
             }
         }
     };

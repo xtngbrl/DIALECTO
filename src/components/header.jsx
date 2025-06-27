@@ -4,7 +4,7 @@ import { IoClose } from "react-icons/io5";
 
 import HamburgerMenu from "./shared/Hamburger";
 import SwitchButton from "./shared/SwitchBtn";
-import FilterIcon from "./shared/Filter";
+import HomeIcon from "./shared/Filter";
 import SearchIcon from "./shared/Search";
 import Button from "./shared/Btn";
 import IconButton from "./shared/IconBtn";
@@ -20,7 +20,7 @@ import { flagWord } from "../services/flagwordService";
 
 import "./components.css";
 
-function Header({ showCategoriesButton, showSwitchButton, bgColor }) {
+function Header({ showCategoriesButton, showSwitchButton, showHomeButton = true, showSearch = true, bgColor }) {
   const navigate = useNavigate();
 
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -194,8 +194,8 @@ function Header({ showCategoriesButton, showSwitchButton, bgColor }) {
       <div className="right-container">
         {showCategoriesButton && <CategoriesButton />}
         {showSwitchButton && <SwitchButton />}
-        <FilterIcon />
-        <SearchIcon />
+        {showHomeButton && <HomeIcon />}
+        {showSearch && <SearchIcon />}
       </div>
 
       {showReportModal && (

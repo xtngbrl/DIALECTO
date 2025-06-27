@@ -1,7 +1,7 @@
 import React from 'react';
 import { HiSpeakerWave } from "react-icons/hi2";
 
-import HalasAudio from '../sound_assets/Animal/Ahas_Halas/halas1.mp3';
+import Nano from '../sound_assets/CommonPhrases/Ano_Nano/ANO-NANO.MP3';
 import ContentButton from '../components/shared/ContentBtn';
 
 import './Content.css';
@@ -9,7 +9,7 @@ import './Content.css';
 const ContentThree = ({ onCorrect, onIncorrect }) => {
 
   const handleAnswer = (label) => {
-    if (label === 'Halas') {
+    if (label === 'Nano') {
       onCorrect();
     } else {
       onIncorrect();
@@ -17,7 +17,7 @@ const ContentThree = ({ onCorrect, onIncorrect }) => {
   };
 
   const handlePlaySound = () => {
-    const audio = new Audio(HalasAudio);
+    const audio = new Audio(Nano);
     audio.play();
   };
 
@@ -28,6 +28,7 @@ const ContentThree = ({ onCorrect, onIncorrect }) => {
 
         <div className='content-one-container'>
             <div className='speaker-container'>
+                <h4 className='text-white'>Translated as: Ano</h4>
                 <HiSpeakerWave className='speaker-icon' />
                 <div className='speaker-btn'>
                     <ContentButton label='Play' onClick={handlePlaySound} />
@@ -37,9 +38,9 @@ const ContentThree = ({ onCorrect, onIncorrect }) => {
             <div className='choices-container'>
                 <h2>Choices</h2>
                 <div className='btn-choices-container'>
-                    <ContentButton label='Usa' onClick={() => handleAnswer('Choice 1')} />
-                    <ContentButton label='Aso' onClick={() => handleAnswer('Choice 2')} />
-                    <ContentButton label='Halas' onClick={() => handleAnswer('Halas')} />
+                    <ContentButton label='Buwas' onClick={() => handleAnswer('Choice 1')} />
+                    <ContentButton label='Aga' onClick={() => handleAnswer('Choice 2')} />
+                    <ContentButton label='Nano' onClick={() => handleAnswer('Nano')} />
                     <ContentButton label='Pusa' onClick={() => handleAnswer('Choice 4')} />
                 </div>
             </div>

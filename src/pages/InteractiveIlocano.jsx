@@ -8,10 +8,10 @@ function InteractivePampanga() {
     const navigate = useNavigate();
 
     const cardData = [
-        { title: "Jumble Fix", description: "Think fast! Spell faster!", nav: "/dialecto/word-scramble-cebu" },
-        { title: "Voice Match", description: "Speak up! Can you match the sound?", nav: "/dialecto/speech-game"  },
-        { title: "Quiz Quest", description: "Let’s test your knowledge! Ready?", nav: "/dialecto/game-one-cebu" },
-        { title: "Word Shooter", description: "Take aim and fire! Let’s go!", nav: "/dialecto/word-shooter-cebu" },
+        { title: "Word Shooter", description: "Take aim and fire! Let’s go!", nav: "/dialecto/word-shooter-ilocano" },
+        { title: "Jumble Fix", description: "Think fast! Spell faster!", nav: "/dialecto/word-scramble-ilocano" },
+        { title: "Voice Match", description: "Speak up! Can you match the sound?", nav: "/dialecto/speech-game-ilocano"  },
+        { title: "Quiz Quest", description: "Let’s test your knowledge! Ready?", nav: "/dialecto/game-one-ilocano" },
         { title: "Letter Hunt", description: "Find the missing piece! Ready?" },
         { title: "Guess the Word", description: "Listen closely… Can you get it right?" },
     ];

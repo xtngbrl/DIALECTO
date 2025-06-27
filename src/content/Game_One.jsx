@@ -46,7 +46,7 @@ const GameOne = () => {
       await upsertProgress({
         gameType: 'quiz',
         dialect_id: 1,
-        score,
+        score: score * 10,
         details: {
           totalSteps: 3,
           correctAnswers: score,

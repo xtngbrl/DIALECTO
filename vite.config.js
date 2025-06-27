@@ -52,5 +52,6 @@ const manifestForPlugin = {
 // https://vitejs.dev/config/
 export default defineConfig({
   base: "/",
+  assetsInclude: ['**/*.mp3', '**/*.MP3'],
   plugins: [react(), VitePWA({manifestForPlugin, registerType: 'autoUpdate'})]
 })

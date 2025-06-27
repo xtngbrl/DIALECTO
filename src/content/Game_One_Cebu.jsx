@@ -1,14 +1,12 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ContentButton from '../components/shared/ContentBtn';
-import ContentHeader from '../components/ContentHeader';
 import RetryPopup from '../components/RetryPop';
 import NextPopup from '../components/NextPopUp';
 import FinalPopup from '../components/FinalPopUp';
-import HalasAudio from '../sound_assets/Animal/Ahas_Halas/halas1.mp3';
-import { HiSpeakerWave } from "react-icons/hi2";
-import Handsome from '../assets/handsome.png'
-import Morning from '../assets/morning.jpg';
+import Help from '../assets/help.png';
+import Love from '../assets/love.png';
+import Night from '../assets/night.jpg';
 
 import './Content.css';
 import { upsertProgress } from '../services/gameprogService';
@@ -16,7 +14,7 @@ import { upsertProgress } from '../services/gameprogService';
 const ContentOne = ({ onCorrect, onIncorrect }) => {
 
   const handleAnswer = (label) => {
-    if (label === 'Masanting') {
+    if (label === 'Tabang') {
       onCorrect();
     } else {
       onIncorrect();
@@ -30,19 +28,19 @@ const ContentOne = ({ onCorrect, onIncorrect }) => {
         <div className='content-one-container'>
             <div className='img-wrapper'>
               <div className='img-container'>
-              <img src={Handsome} alt='Snake' />
+              <img src={Help} alt='Snake' />
               </div>
 
-              <h2>Guwapo</h2>
+              <h2>Tulong</h2>
             </div>
 
             <div className='choices-container'>
                 <h2>Choices</h2>
                 <div className='btn-choices-container'>
-                  <ContentButton label='Kapilan' onClick={() => handleAnswer('Kapilan')} />
-                  <ContentButton label='Masanting' onClick={() => handleAnswer('Masanting')} />
-                  <ContentButton label='Bengi' onClick={() => handleAnswer('Bengi')} />
-                  <ContentButton label='Karela' onClick={() => handleAnswer('Karela')} />
+                  <ContentButton label='Tabang' onClick={() => handleAnswer('Tabang')} />
+                  <ContentButton label='Masubo' onClick={() => handleAnswer('Masubo')} />
+                  <ContentButton label='Asa' onClick={() => handleAnswer('Asa')} />
+                  <ContentButton label='Gabii' onClick={() => handleAnswer('Gabii')} />
                 </div>
             </div>
         </div>
@@ -53,7 +51,7 @@ const ContentOne = ({ onCorrect, onIncorrect }) => {
 const ContentTwo = ({ onCorrect, onIncorrect }) => {
 
   const handleAnswer = (label) => {
-    if (label === 'Abak') {
+    if (label === 'Gugma') {
       onCorrect();
     } else {
       onIncorrect();
@@ -67,19 +65,19 @@ const ContentTwo = ({ onCorrect, onIncorrect }) => {
         <div className='content-one-container'>
             <div className='img-wrapper'>
               <div className='img-container'>
-              <img src={Morning} alt='Morning' />
+              <img src={Love} alt='Morning' />
               </div>
 
-              <h2>Umaga</h2>
+              <h2>Pag-ibig</h2>
             </div>
 
             <div className='choices-container'>
                 <h2>Choices</h2>
                 <div className='btn-choices-container'>
-                  <ContentButton label='Mayap' onClick={() => handleAnswer('Mayap')} />
-                  <ContentButton label='Masalese' onClick={() => handleAnswer('Masalese')} />
-                  <ContentButton label='ika' onClick={() => handleAnswer('ika')} />
-                  <ContentButton label='Abak' onClick={() => handleAnswer('Abak')} />
+                  <ContentButton label='Gugma' onClick={() => handleAnswer('Gugma')} />
+                  <ContentButton label='Lamia' onClick={() => handleAnswer('Lamia')} />
+                  <ContentButton label='Kanusa' onClick={() => handleAnswer('Kanusa')} />
+                  <ContentButton label='Maaram' onClick={() => handleAnswer('Maaram')} />
                 </div>
             </div>
         </div>
@@ -90,38 +88,33 @@ const ContentTwo = ({ onCorrect, onIncorrect }) => {
 const ContentThree = ({ onCorrect, onIncorrect }) => {
 
   const handleAnswer = (label) => {
-    if (label === 'Halas') {
+    if (label === 'Gabii') {
       onCorrect();
     } else {
       onIncorrect();
     }
   };
 
-  const handlePlaySound = () => {
-    const audio = new Audio(HalasAudio);
-    audio.play();
-  };
-
-  
   return (
     <div className='content-one-wrapper'>
-        <div className='content-title title-three'>Tap what you hear</div>
+        <div className='content-title'>Translate this word</div>
 
         <div className='content-one-container'>
-            <div className='speaker-container'>
-                <HiSpeakerWave className='speaker-icon' />
-                <div className='speaker-btn'>
-                    <ContentButton label='Play' onClick={handlePlaySound} />
-                </div>
+            <div className='img-wrapper'>
+              <div className='img-container'>
+              <img src={Night} alt='Morning' />
+              </div>
+
+              <h2>Gabe</h2>
             </div>
 
             <div className='choices-container'>
                 <h2>Choices</h2>
                 <div className='btn-choices-container'>
-                    <ContentButton label='Usa' onClick={() => handleAnswer('Choice 1')} />
-                    <ContentButton label='Aso' onClick={() => handleAnswer('Choice 2')} />
-                    <ContentButton label='Halas' onClick={() => handleAnswer('Halas')} />
-                    <ContentButton label='Pusa' onClick={() => handleAnswer('Choice 4')} />
+                  <ContentButton label='Udto' onClick={() => handleAnswer('Udto')} />
+                  <ContentButton label='Nindot' onClick={() => handleAnswer('Nindot')} />
+                  <ContentButton label='Gabii' onClick={() => handleAnswer('Gabii')} />
+                  <ContentButton label='Pila' onClick={() => handleAnswer('Pila')} />
                 </div>
             </div>
         </div>
@@ -161,8 +154,9 @@ const GameOneCebu = () => {
     setShowPopup(false);
     try {
       await upsertProgress({
-        gameType: 'match',
-        score,
+        gameType: 'quiz',
+        dialect_id: 3,
+        score: score * 10,
         details: {
           totalSteps: 3,
           correctAnswers: score,

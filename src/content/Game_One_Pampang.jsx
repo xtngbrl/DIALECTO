@@ -109,6 +109,7 @@ const ContentThree = ({ onCorrect, onIncorrect }) => {
 
         <div className='content-one-container'>
             <div className='speaker-container'>
+              <h4 className='text-white'>Translated as: Ahas</h4>
                 <HiSpeakerWave className='speaker-icon' />
                 <div className='speaker-btn'>
                     <ContentButton label='Play' onClick={handlePlaySound} />
@@ -161,8 +162,9 @@ const GameOnePampang = () => {
     setShowPopup(false);
     try {
       await upsertProgress({
-        gameType: 'match',
-        score,
+        gameType: 'quiz',
+        dialect_id: 2,
+        score: score * 10,
         details: {
           totalSteps: 3,
           correctAnswers: score,

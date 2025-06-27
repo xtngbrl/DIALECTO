@@ -1,16 +1,19 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
-import { FaFilter } from "react-icons/fa6";
+import { AiFillHome } from "react-icons/ai";
 
 import './shared.css';
 
-const FilterIcon = () => {
+const HomeIcon = () => {
+    const navigate = useNavigate();
+
     return (
-        <div className='filter-container'>
-            <FaFilter />
+        <div onClick={() => navigate('/dialecto/home')} className='filter-container'>
+            <AiFillHome />
         </div>
     )
 
 }
 
-export default FilterIcon;
+export default HomeIcon;

@@ -33,6 +33,8 @@ const wordMap = {
   Masubo: "Malungkot",
 };
 
+const words = Object.keys(wordMap);
+
 const WordShooterCebu = () => {
   const navigate = useNavigate();
   const containerRef = useRef(null);
@@ -153,7 +155,7 @@ const WordShooterCebu = () => {
         if (result.isConfirmed) {
           window.location.reload();
         } else {
-          navigate("/dialecto/interactive-page");
+          navigate("/dialecto/interactive-cebu");
         }
       });
     }
@@ -173,7 +175,7 @@ const WordShooterCebu = () => {
       if (result.isConfirmed) {
         window.location.reload();
       } else {
-        navigate("/dialecto/interactive-page");
+        navigate("/dialecto/interactive-cebu");
       }
     });
   };
@@ -182,7 +184,8 @@ const WordShooterCebu = () => {
     try {
       await upsertProgress({
         gameType: "shoot",
-        score,
+        dialect_id: 3,
+        score: score * 10,
         details,
       });
     } catch (err) {
