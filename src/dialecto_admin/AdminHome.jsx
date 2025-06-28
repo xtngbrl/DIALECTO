@@ -126,7 +126,7 @@ const AdminHomePage = () => {
                   <thead>
                     <tr>
                       <th>Name</th>
-                      <th>Progress</th>
+                      {/* <th>Progress</th> */}
                       <th>Status</th>
                       <th>Last Active</th>
                     </tr>
@@ -136,10 +136,9 @@ const AdminHomePage = () => {
                       <tr><td colSpan="4">Loading...</td></tr>
                     ) : students.length === 0 ? (
                       <tr><td colSpan="4">No data</td></tr>
-                    ) : students.map((student, idx) => {
-                      // Get progress from first user_progresses entry (or 0 if not present)
-                      const progresses = student.user.user_progresses || [];
-                      const progress = progresses.length > 0 ? progresses[0].dialect_progress : 0;
+                    ) : students.filter(student => student.user).map((student, idx) => {
+                      // Progress: If available, otherwise 0
+                      // const progress = typeof student.progress === 'number' ? student.progress : 0;
                       // Status: Active if last_login within 24h, else Inactive
                       let status = 'Inactive';
                       if (student.last_login) {
@@ -161,8 +160,8 @@ const AdminHomePage = () => {
                         : 'N/A';
                       return (
                         <tr key={student.id || idx}>
-                          <td>{student.user.first_name} {student.user.last_name}</td>
-                          <td>{progress}%</td>
+                          <td>{`${student.user.first_name} ${student.user.last_name}`}</td>
+                          {/* <td>{progress}%</td> */}
                           <td>
                             <span className={`badge ${status === 'Active' ? 'bg-success' : 'bg-secondary'}`}>{status}</span>
                           </td>
