@@ -8,10 +8,10 @@ function InteractivePampanga() {
     const navigate = useNavigate();
 
     const cardData = [
-        { title: "Voice Match", description: "Speak up! Can you match the sound?", nav: "/dialecto/speech-game"  },
-        { title: "Jumble Fix", description: "Think fast! Spell faster!", nav: "/dialecto/word-scramble-pampang" },
-        { title: "Quiz Quest", description: "Let’s test your knowledge! Ready?", nav: "/dialecto/game-one-pampang" },
-        { title: "Word Shooter", description: "Take aim and fire! Let’s go!", nav: "/dialecto/word-shooter-pampang" },
+        { title: "Voice Match", description: "Speak up! Can you match the sound?", nav: "/dialecto/speech-game-pampanga"  },
+        { title: "Jumble Fix", description: "Think fast! Spell faster!", nav: "/dialecto/word-scramble-pampanga" },
+        { title: "Quiz Quest", description: "Let’s test your knowledge! Ready?", nav: "/dialecto/game-one-pampanga" },
+        { title: "Word Shooter", description: "Take aim and fire! Let’s go!", nav: "/dialecto/word-shooter-pampanga" },
         { title: "Guess the Word", description: "Listen closely… Can you get it right?" },
         { title: "Letter Hunt", description: "Find the missing piece! Ready?" },
     ];

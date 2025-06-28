@@ -5,7 +5,7 @@ import ContentHeader from '../components/ContentHeader';
 import RetryPopup from '../components/RetryPop';
 import NextPopup from '../components/NextPopUp';
 import FinalPopup from '../components/FinalPopUp';
-import HalasAudio from '../sound_assets/Animal/Ahas_Halas/halas1.mp3';
+import Masanting from '../sound_assets/masanting.mp3';
 import { HiSpeakerWave } from "react-icons/hi2";
 import Handsome from '../assets/handsome.png'
 import Morning from '../assets/morning.jpg';
@@ -90,7 +90,7 @@ const ContentTwo = ({ onCorrect, onIncorrect }) => {
 const ContentThree = ({ onCorrect, onIncorrect }) => {
 
   const handleAnswer = (label) => {
-    if (label === 'Halas') {
+    if (label === 'Masanting') {
       onCorrect();
     } else {
       onIncorrect();
@@ -98,7 +98,7 @@ const ContentThree = ({ onCorrect, onIncorrect }) => {
   };
 
   const handlePlaySound = () => {
-    const audio = new Audio(HalasAudio);
+    const audio = new Audio(Masanting);
     audio.play();
   };
 
@@ -109,7 +109,7 @@ const ContentThree = ({ onCorrect, onIncorrect }) => {
 
         <div className='content-one-container'>
             <div className='speaker-container'>
-              <h4 className='text-white'>Translated as: Ahas</h4>
+              <h4 className='text-white'>Translated as: Guwapo</h4>
                 <HiSpeakerWave className='speaker-icon' />
                 <div className='speaker-btn'>
                     <ContentButton label='Play' onClick={handlePlaySound} />
@@ -119,10 +119,10 @@ const ContentThree = ({ onCorrect, onIncorrect }) => {
             <div className='choices-container'>
                 <h2>Choices</h2>
                 <div className='btn-choices-container'>
-                    <ContentButton label='Usa' onClick={() => handleAnswer('Choice 1')} />
-                    <ContentButton label='Aso' onClick={() => handleAnswer('Choice 2')} />
-                    <ContentButton label='Halas' onClick={() => handleAnswer('Halas')} />
-                    <ContentButton label='Pusa' onClick={() => handleAnswer('Choice 4')} />
+                    <ContentButton label='Nokarin' onClick={() => handleAnswer('Nokarin')} />
+                    <ContentButton label='Kapilan' onClick={() => handleAnswer('Kapilan')} />
+                    <ContentButton label='Abak' onClick={() => handleAnswer('Abak')} />
+                    <ContentButton label='Masanting' onClick={() => handleAnswer('Masanting')} />
                 </div>
             </div>
         </div>

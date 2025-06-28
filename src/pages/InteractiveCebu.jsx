@@ -9,7 +9,7 @@ function InteractivePampanga() {
 
     const cardData = [
         { title: "Jumble Fix", description: "Think fast! Spell faster!", nav: "/dialecto/word-scramble-cebu" },
-        { title: "Voice Match", description: "Speak up! Can you match the sound?", nav: "/dialecto/speech-game"  },
+        { title: "Voice Match", description: "Speak up! Can you match the sound?", nav: "/dialecto/speech-game-cebu"  },
         { title: "Quiz Quest", description: "Let’s test your knowledge! Ready?", nav: "/dialecto/game-one-cebu" },
         { title: "Word Shooter", description: "Take aim and fire! Let’s go!", nav: "/dialecto/word-shooter-cebu" },
         { title: "Letter Hunt", description: "Find the missing piece! Ready?" },

@@ -48,11 +48,13 @@ import InteractivePampanga from './pages/InteractivePampang';
 import WordShooterPampang from './content/WordShooterPampang';
 import WordScrambleGamePampang from './content/WordScramblePampang';
 import GameOnePampang from './content/Game_One_Pampang';
+import SpeechGamePampang from './content/SpeechGamePampang';
 
 import InteractiveCebu from './pages/InteractiveCebu';
 import WordShooterCebu from './content/WordShooterCebu';
 import WordScrambleGameCebu from './content/WordScrambleCebu';
 import GameOneCebu from './content/Game_One_Cebu';
+import SpeechGameCebu from './content/SpeechGameCebu';
 
 import InteractiveIlocano from './pages/InteractiveIlocano';
 import WordShooterIlocano from './content/WordShooterIlocano';
@@ -99,14 +101,16 @@ function App() {
 
         {/*For Other Dialect Routes*/}
         <Route path="/dialecto/interactive-pampanga" element={<InteractivePampanga />} />
-        <Route path="/dialecto/word-shooter-pampang" element={<WordShooterPampang />} />
-        <Route path="/dialecto/word-scramble-pampang" element={<WordScrambleGamePampang />} />
-        <Route path="/dialecto/game-one-pampang" element={<GameOnePampang />} />
+        <Route path="/dialecto/word-shooter-pampanga" element={<WordShooterPampang />} />
+        <Route path="/dialecto/word-scramble-pampanga" element={<WordScrambleGamePampang />} />
+        <Route path="/dialecto/game-one-pampanga" element={<GameOnePampang />} />
+        <Route path="/dialecto/speech-game-pampanga" element={<SpeechGamePampang />} />
 
         <Route path="/dialecto/interactive-cebu" element={<InteractiveCebu />} />
         <Route path="/dialecto/word-shooter-cebu" element={<WordShooterCebu />} />
         <Route path="/dialecto/word-scramble-cebu" element={<WordScrambleGameCebu />} />
         <Route path="/dialecto/game-one-cebu" element={<GameOneCebu />} />
+        <Route path="/dialecto/speech-game-cebu" element={<SpeechGameCebu />} />
 
         <Route path="/dialecto/interactive-ilocano" element={<InteractiveIlocano />} />
         <Route path="/dialecto/word-shooter-ilocano" element={<WordShooterIlocano />} />

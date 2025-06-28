@@ -9,16 +9,20 @@ import { useNavigate } from 'react-router-dom';
 
 import SliderBtn from './shared/SliderBtn';
 import DialectImg from '../assets/dialect.jpg';
+import Waraynon from '../assets/waraynon.jpg';
+import Kapampangan from '../assets/kapampangan.jpg';
+import Cebuano from '../assets/cebuano.jpg';
+import Ilocano from '../assets/ilocano.jpg';
 import NotAvail from '../assets/notAvail.png';
 import SorryIcon from '../assets/sorryIcon.png';
 import './components.css';
 
 // '/dialecto/animal-category' former nav
 const array = [
-  { pic: DialectImg, btnLabel: 'Play now!', label: 'Waray', nav: '/dialecto/interactive-page', bgColor: '#FFD700', desc: "The Waray language is part of the Austronesian language family and is spoken throughout Samar Island, with some variations between the dialects of Eastern, Northern, and Western Samar. They are the most culturally conservative of the Visayans.", showPopup: false },
-  { pic: DialectImg, btnLabel: 'Play now!', label: 'Kapampangan', nav: '/dialecto/interactive-pampanga', bgColor: 'aqua', desc: "Kapampangan is derived from the root word pampáng ('riverbank'). The language was historically spoken in the Kingdom of Tondo, ruled by the Lakans. A number of Kapampangan dictionaries and grammar books were written during the Spanish colonial period.", showPopup: false },
-  { pic: DialectImg, btnLabel: 'Play now!', label: 'Cebuano', nav: '/dialecto/interactive-cebu' ,bgColor: '#7FBCD2', desc: "The Cebuano language is a descendant of the hypothesized reconstructed Proto-Philippine language, which in turn descended from Proto-Malayo-Polynesian, making it distantly related to many languages in Maritime Southeast Asia, including Indonesian and Malay.", showPopup: false },
-  { pic: DialectImg, btnLabel: 'Play now!', label: 'Ilocano', nav: '/dialecto/interactive-ilocano', bgColor: '#A1F54D', desc: "The Ilocano language, also known as Iloco, belongs to the Austronesian language family, specifically within the Malayo-Polynesian branch. It is widely believed to have originated in Taiwan through the Out of Taiwan migration theory.", showPopup: false },
+  { pic: Waraynon, btnLabel: 'Play now!', label: 'Waray', nav: '/dialecto/interactive-page', bgColor: '#FFD700', desc: "The Waray language is part of the Austronesian language family and is spoken throughout Samar Island, with some variations between the dialects of Eastern, Northern, and Western Samar. They are the most culturally conservative of the Visayans.", showPopup: false },
+  { pic: Kapampangan, btnLabel: 'Play now!', label: 'Kapampangan', nav: '/dialecto/interactive-pampanga', bgColor: 'aqua', desc: "Kapampangan is derived from the root word pampáng ('riverbank'). The language was historically spoken in the Kingdom of Tondo, ruled by the Lakans. A number of Kapampangan dictionaries and grammar books were written during the Spanish colonial period.", showPopup: false },
+  { pic: Cebuano, btnLabel: 'Play now!', label: 'Cebuano', nav: '/dialecto/interactive-cebu' ,bgColor: '#7FBCD2', desc: "The Cebuano language is a descendant of the hypothesized reconstructed Proto-Philippine language, which in turn descended from Proto-Malayo-Polynesian, making it distantly related to many languages in Maritime Southeast Asia, including Indonesian and Malay.", showPopup: false },
+  { pic: Ilocano, btnLabel: 'Play now!', label: 'Ilocano', nav: '/dialecto/interactive-ilocano', bgColor: '#A1F54D', desc: "The Ilocano language, also known as Iloco, belongs to the Austronesian language family, specifically within the Malayo-Polynesian branch. It is widely believed to have originated in Taiwan through the Out of Taiwan migration theory.", showPopup: false },
   { pic: NotAvail, btnLabel: 'Play now!', label: 'Bicolano', bgColor: '#EDB7ED', desc: "Description unavailable — this dialect has not been added to the game yet.", showPopup: false },
   { pic: NotAvail, btnLabel: 'Play now!', label: 'Maranao', bgColor: '#FBD78A', desc: "Description unavailable — this dialect has not been added to the game yet", showPopup: false },
 ];

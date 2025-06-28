@@ -8,7 +8,7 @@ const sampleGames = [
   { id: 1, name: 'Word Shooter', type: 'Vocabulary', status: 'Active' },
   { id: 2, name: 'Guess the Word', type: 'Quiz', status: 'Inactive' },
   { id: 3, name: 'Quiz Quest', type: 'Quiz', status: 'Active' },
-  { id: 4, name: 'Echo Match', type: 'Audio', status: 'Active' },
+  { id: 4, name: 'Voice Match', type: 'Audio', status: 'Active' },
   { id: 5, name: 'Letter Hunt', type: 'Vocabulary', status: 'Inactive' },
   { id: 6, name: 'Jumble Fix', type: 'Vocabulary', status: 'Active' },
 ];

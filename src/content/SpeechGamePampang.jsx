@@ -2,11 +2,12 @@ import React, { useState, useRef, useEffect } from "react";
 import stringSimilarity from "string-similarity";
 import Meyda from "meyda";
 import Swal from "sweetalert2";
-import "./SpeechGamePampang.css";
+import "./SpeechGame.css";
 import ContentHeader from '../components/ContentHeader';
-import ayamAudio from '../sound_assets/Animal/Aso_Ayam/ASO-AYAM.mp3';
+import kapilanAudio from '../sound_assets/kapilan.mp3';
+import { upsertProgress } from '../services/gameprogService';
 
-const correctWord = "ayam";
+const correctWord = "kapilan";
 
 // Waveform visualizer (from Content_Four)
 const Waveform = ({ analyser }) => {
@@ -80,7 +81,7 @@ const SpeechGamePampang = () => {
 
   // Play the reference audio file
   const playReferenceAudio = () => {
-    const audio = new Audio(ayamAudio);
+    const audio = new Audio(kapilanAudio);
     audio.play();
   };
 
@@ -187,7 +188,7 @@ const SpeechGamePampang = () => {
   const userMFCC = await extractMFCC(userAudioBuffer);
   console.log("[SpeechGamePampang] User MFCC:", userMFCC);
   // Load and decode reference audio
-  const refAudio = await fetch(ayamAudio);
+  const refAudio = await fetch(kapilanAudio);
   const refArrayBuffer = await refAudio.arrayBuffer();
   const refAudioBuffer = await audioContext.decodeAudioData(refArrayBuffer);
   const refMFCC = await extractMFCC(refAudioBuffer);
@@ -220,6 +221,23 @@ const SpeechGamePampang = () => {
   `Audio: ${(audioScore * 100).toFixed(1)}%\n` +
   `You said: ${transcriptText}`
   );
+  
+    const numericScore = Math.round(final * 100);
+    const roundedTranscriptScore = Math.round(transcriptSim * 100);
+    const finalScoreToSubmit = transcriptSim === 0 ? 0 : numericScore;
+  
+    await upsertProgress({
+      gameType: 'match',
+      dialect_id: 2,
+      score: finalScoreToSubmit,
+        details: {
+          word: correctWord,
+          transcript: transcriptText,
+          transcriptScore: roundedTranscriptScore,
+          audioScore: Math.round(audioScore * 100)
+        }
+    });
+  
   } catch (err) {
   setFeedback("❌ Analysis failed: " + err.message);
   setAudioFeaturesScore(null);
@@ -290,7 +308,7 @@ const SpeechGamePampang = () => {
     <div className="speechgame-wrapper">
       <h2>🎤 Speak the Word!</h2>
       <p>
-        Say this word: <strong>{correctWord}</strong>
+        Say this word: <strong>{correctWord}</strong> Translated as: <strong>Kailan</strong>
       </p>
       <div className="speechgame-btns">
         {/* <button onClick={() => speakWord(correctWord)} disabled={isRecording}>

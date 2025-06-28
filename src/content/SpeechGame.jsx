@@ -4,9 +4,10 @@ import Meyda from "meyda";
 import Swal from "sweetalert2";
 import "./SpeechGame.css";
 import ContentHeader from '../components/ContentHeader';
-import ayamAudio from '../sound_assets/Animal/Aso_Ayam/ASO-AYAM.mp3';
+import nanoAudio from '../sound_assets/CommonPhrases/Ano_Nano/ANO-NANO.MP3';
+import { upsertProgress } from '../services/gameprogService';
 
-const correctWord = "ayam";
+const correctWord = "nano";
 
 // Waveform visualizer (from Content_Four)
 const Waveform = ({ analyser }) => {
@@ -80,7 +81,7 @@ const SpeechGame = () => {
 
   // Play the reference audio file
   const playReferenceAudio = () => {
-    const audio = new Audio(ayamAudio);
+    const audio = new Audio(nanoAudio);
     audio.play();
   };
 
@@ -187,7 +188,7 @@ const SpeechGame = () => {
   const userMFCC = await extractMFCC(userAudioBuffer);
   console.log("[SpeechGame] User MFCC:", userMFCC);
   // Load and decode reference audio
-  const refAudio = await fetch(ayamAudio);
+  const refAudio = await fetch(nanoAudio);
   const refArrayBuffer = await refAudio.arrayBuffer();
   const refAudioBuffer = await audioContext.decodeAudioData(refArrayBuffer);
   const refMFCC = await extractMFCC(refAudioBuffer);
@@ -233,6 +234,23 @@ const SpeechGame = () => {
   `Audio: ${(audioScore * 100).toFixed(1)}%\n` +
   `You said: ${transcriptText}`
   );
+
+  const numericScore = Math.round(final * 100);
+  const roundedTranscriptScore = Math.round(transcriptSim * 100);
+  const finalScoreToSubmit = transcriptSim === 0 ? 0 : numericScore;
+
+  await upsertProgress({
+    gameType: 'match',
+    dialect_id: 1,
+    score: finalScoreToSubmit,
+      details: {
+        word: correctWord,
+        transcript: transcriptText,
+        transcriptScore: roundedTranscriptScore,
+        audioScore: Math.round(audioScore * 100)
+      }
+  });
+
   } catch (err) {
   setFeedback("❌ Analysis failed: " + err.message);
   setAudioFeaturesScore(null);
@@ -304,7 +322,7 @@ const SpeechGame = () => {
     <div className="speechgame-wrapper">
       <h2>🎤 Speak the Word!</h2>
       <p>
-        Say this word: <strong>{correctWord}</strong>
+        Say this word: <strong>{correctWord}</strong> Translated as: <strong>Ano</strong>
       </p>
       <div className="speechgame-btns">
         {/* <button onClick={() => speakWord(correctWord)} disabled={isRecording}>
