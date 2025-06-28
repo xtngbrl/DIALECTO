@@ -111,7 +111,7 @@ const ProgressPage = () => {
             <div className="progress-game-card" key={game.key}>
               <div className="progress-content-header">
                 <h3>{game.title}</h3>
-                <h5 style={{ color: game.color }}>{label}</h5>
+                <h5 style={{ color: game.color }}>{" "}</h5>
               </div>
               <div className="progress-content-circular">
                 <div
