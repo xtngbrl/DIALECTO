@@ -1,48 +1,114 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import AdminHeader from './AdminHeader.jsx';
 import DataTable from 'react-data-table-component';
-import { Card } from 'react-bootstrap';
+import { Card, Spinner } from 'react-bootstrap';
+import { FaTrash } from 'react-icons/fa';
 import './admin.css';
+import { getFlaggedWords, deleteFlaggedWord, getDialects } from './services/dashboardService';
 
-const flaggedWordsData = [
-  { id: 1, word: 'slur1', context: 'Lesson 2', reportedBy: 'UserA', date: '2024-06-01', status: 'Pending' },
-  { id: 2, word: 'offensive2', context: 'Game 1', reportedBy: 'UserB', date: '2024-06-02', status: 'Reviewed' },
-  { id: 3, word: 'inappropriate3', context: 'Lesson 5', reportedBy: 'UserC', date: '2024-06-03', status: 'Pending' },
+function formatDate(dateString) {
+  if (!dateString) return '-';
+  const d = new Date(dateString);
+  return d.toLocaleString(undefined, {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+  });
+}
+
+const columns = (onDelete, dialectMap) => [
+  { name: 'Word', selector: row => row.word || '-', sortable: true },
+  { name: 'Reason', selector: row => row.reason || '-', sortable: true },
+  { name: 'Dialect', selector: row => dialectMap[row.dialect_id] || row.dialect_id || '-', sortable: true },
+  { name: 'Date', selector: row => formatDate(row.createdAt), sortable: true },
+  {
+    name: 'Actions',
+    cell: row => (
+      <FaTrash
+        size={18}
+        style={{ color: '#dc3545', cursor: 'pointer' }}
+        title="Delete"
+        onClick={e => { e.stopPropagation(); onDelete(row); }}
+      />
+    ),
+    ignoreRowClick: true,
+    allowOverflow: true,
+    button: true
+  },
 ];
 
-const columns = [
-  { name: 'Word', selector: row => row.word, sortable: true },
-  { name: 'Context', selector: row => row.context, sortable: true },
-  { name: 'Reported By', selector: row => row.reportedBy, sortable: true },
-  { name: 'Date', selector: row => row.date, sortable: true },
-  { name: 'Status', selector: row => row.status, sortable: true },
-];
+const AdminFlaggedWords = () => {
+  const [flaggedWords, setFlaggedWords] = useState([]);
+  const [dialectMap, setDialectMap] = useState({});
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+  const [deleting, setDeleting] = useState(false);
 
-const handleRowClicked = row => {
-  alert(`Flagged Word: ${row.word}\nContext: ${row.context}\nStatus: ${row.status}`);
-};
+  const fetchFlaggedWords = async () => {
+    setLoading(true);
+    try {
+      const response = await getFlaggedWords();
+      setFlaggedWords(Array.isArray(response.data) ? response.data : []);
+    } catch (err) {
+      setError(err?.error || 'Failed to fetch flagged words');
+    }
+    setLoading(false);
+  };
 
-const FlaggedWords = () => (
-  <>
-    <AdminHeader />
-    <div className="admin-content">
+  const fetchDialects = async () => {
+    try {
+      const data = await getDialects();
+      const dialectsArr = Array.isArray(data.data) ? data.data : [];
+      const map = {};
+      dialectsArr.forEach(d => { map[d.id] = d.dialect_name; });
+      setDialectMap(map);
+    } catch (err) {
+      // Optionally handle error
+    }
+  };
+
+  useEffect(() => {
+    fetchDialects();
+    fetchFlaggedWords();
+  }, []);
+
+  const handleDelete = async (row) => {
+    if (!window.confirm(`Delete flagged word "${row.word}"?`)) return;
+    setDeleting(true);
+    try {
+      await deleteFlaggedWord(row.id);
+      fetchFlaggedWords();
+    } catch (err) {
+      setError(err?.error || 'Failed to delete flagged word');
+    }
+    setDeleting(false);
+  };
+
+  return (
+    <>
+      <AdminHeader />
+      <div className="admin-content">
         <Card className="shadow-sm">
           <Card.Body>
             <Card.Title>Flagged Words / Reported Content</Card.Title>
-              <DataTable
-                columns={columns}
-                data={flaggedWordsData}
-                highlightOnHover
-                pointerOnHover
-                onRowClicked={handleRowClicked}
-                pagination
-                striped
-              />
+            {error && <div className="alert alert-danger">{error}</div>}
+            <DataTable
+              columns={columns(handleDelete, dialectMap)}
+              data={flaggedWords}
+              highlightOnHover
+              pointerOnHover
+              pagination
+              striped
+              progressPending={loading || deleting}
+              noDataComponent={loading ? <Spinner animation="border" /> : 'No flagged words found.'}
+            />
           </Card.Body>
         </Card>
-    
-    </div>
-  </>
-);
+      </div>
+    </>
+  );
+};
 
-export default FlaggedWords;
+export default AdminFlaggedWords;

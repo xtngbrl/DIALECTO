@@ -112,7 +112,7 @@ const AdminHomePage = () => {
           <Col>
             <Card className="shadow-sm">
               <Card.Body>
-                <Card.Title>Students Overview</Card.Title>
+                <Card.Title>Recently Active Students</Card.Title>
                 {/* <Form.Select 
                   value={selectedStudent} 
                   onChange={(e) => setSelectedStudent(e.target.value)}
