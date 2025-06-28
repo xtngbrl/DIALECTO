@@ -20,22 +20,39 @@ const AdminUserPage = () => {
   const [showOffcanvas, setShowOffcanvas] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [newUser, setNewUser] = useState({ first_name: '', last_name: '', email: '', username: '', password: '', role_name: 'Student' });
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 5;
+  // Removed manual pagination state, let DataTable handle pagination
 
-  useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        const response = await axiosInstance.get('/users');
-        setUsers(response.data);
-      } catch (error) {
-        console.error('Error fetching users:', error);
-      }
-    };
+useEffect(() => {
+  const fetchUsers = async () => {
+    try {
+      const response = await axiosInstance.get('/users');
+      // Filter users where at least one role has role_name "Student"
+      const filteredUsers = response.data.filter(user =>
+        user.roles && user.roles.some(role => role.role_name === "Student")
+      ).map(student => ({
+        ...student,
+        lastActive: student.user_activities && student.user_activities[0]?.last_login
+          ? new Date(student.user_activities[0].last_login).toLocaleString('en-US', {
+              month: 'long',
+              day: 'numeric',
+              year: 'numeric',
+              hour: 'numeric',
+              minute: '2-digit',
+              hour12: true
+            })
+          : 'N/A',
+           progress: student.user_progresses && student.user_progresses[0]?.dialect_progress !== undefined
+          ? student.user_progresses[0].dialect_progress
+          : 0
+      }));
+      setUsers(filteredUsers);
+    } catch (error) {
+      console.error('Error fetching users:', error);
+    }
+  };
 
-    fetchUsers();
-
-  }, []);
+  fetchUsers();
+}, []);
 
   const handleRowClick = (user) => {
     setSelectedUser(user);
@@ -66,7 +83,7 @@ const AdminUserPage = () => {
       Name: user.name,
       Email: user.email,
       Progress: `${user.progress}%`,
-      "Last Activity": user.lastActivity
+      "Last Activity": user.lastActive
     }));
 
     const csv = Papa.unparse(csvData);
@@ -80,10 +97,7 @@ const AdminUserPage = () => {
     document.body.removeChild(link);
   };
 
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = users.slice(indexOfFirstItem, indexOfLastItem);
-  const totalPages = Math.ceil(users.length / itemsPerPage);
+  // Removed manual pagination logic    
 
   return (
     <>
@@ -106,9 +120,9 @@ const AdminUserPage = () => {
               { name: 'Name', selector: row => `${row.first_name} ${row.last_name}`, sortable: true },
               { name: 'Email', selector: row => row.email, sortable: true },
               { name: 'Progress', cell: row => <ProgressBar now={row.progress} />, sortable: true },
-              { name: 'Last Activity', selector: row => row.lastActivity || 'Not available', sortable: true },
+              { name: 'Last Activity', selector: row => row.lastActive || 'Not available', sortable: true },
             ]}
-            data={currentItems}
+            data={users}
             highlightOnHover
             pointerOnHover
             onRowClicked={handleRowClick}
@@ -126,10 +140,10 @@ const AdminUserPage = () => {
           <Offcanvas.Body>
             {selectedUser && (
               <div>
-                <p><strong>Name:</strong> {selectedUser.name}</p>
+                <p><strong>Name:</strong> {selectedUser.first_name} {selectedUser.last_name}</p>
                 <p><strong>Email:</strong> {selectedUser.email}</p>
                 <p><strong>Progress:</strong> <ProgressBar now={selectedUser.progress} /></p>
-                <p><strong>Last Activity:</strong> {selectedUser.lastActivity}</p>
+                <p><strong>Last Activity:</strong> {selectedUser.lastActive}</p>
               </div>
             )}
           </Offcanvas.Body>

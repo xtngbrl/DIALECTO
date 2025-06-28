@@ -4,7 +4,7 @@ import ContentButton from '../components/shared/ContentBtn';
 import RetryPopup from '../components/RetryPop';
 import NextPopup from '../components/NextPopUp';
 import FinalPopup from '../components/FinalPopUp';
-import Misay from '../sound_assets/Animal/Pusa_Misay/PUSA-MISAY.mp3';
+import Misay from '../sound_assets/Animal/Pusa_Misay/PUSA-MISAY.MP3';
 import { HiSpeakerWave } from "react-icons/hi2";
 import './Content.css';
 import { upsertProgress } from '../services/gameprogService';
